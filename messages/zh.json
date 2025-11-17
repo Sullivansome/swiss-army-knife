@@ -17,6 +17,26 @@
     "base64": {
       "name": "Base64 转换器",
       "description": "在浏览器本地完成文本的 Base64 编码/解码。"
+    },
+    "wordCounter": {
+      "name": "字数统计",
+      "description": "快速统计字数、字符数与行数。"
+    },
+    "caseConverter": {
+      "name": "大小写转换",
+      "description": "在大写、小写、驼峰、蛇形命名间转换。"
+    },
+    "diffChecker": {
+      "name": "文本对比",
+      "description": "对比两段文本差异并高亮显示。"
+    },
+    "loremIpsum": {
+      "name": "Lorem Ipsum 生成器",
+      "description": "即时生成占位文本。"
+    },
+    "markdownPreview": {
+      "name": "Markdown 预览",
+      "description": "支持 GitHub 风格的 Markdown 预览。"
     }
   },
   "categories": {
@@ -29,7 +49,13 @@
   },
   "tags": {
     "encode": "编码",
-    "decode": "解码"
+    "decode": "解码",
+    "count": "统计",
+    "format": "格式化",
+    "compare": "对比",
+    "generate": "生成",
+    "markdown": "Markdown",
+    "preview": "预览"
   },
   "toolShell": {
     "input": "输入",
@@ -44,5 +70,49 @@
     "encode": "编码",
     "decode": "解码",
     "placeholder": "在此粘贴文本..."
+  },
+  "wordCounter": {
+    "input": "文本",
+    "characters": "字符",
+    "words": "单词",
+    "lines": "行数",
+    "reset": "重置",
+    "placeholder": "粘贴或输入需要统计的文本..."
+  },
+  "caseConverter": {
+    "input": "文本",
+    "output": "转换结果",
+    "upper": "大写",
+    "lower": "小写",
+    "camel": "驼峰",
+    "snake": "蛇形",
+    "kebab": "短横线",
+    "title": "标题格式",
+    "copy": "复制",
+    "reset": "重置",
+    "placeholder": "输入需要转换的文本..."
+  },
+  "diffChecker": {
+    "left": "原文本",
+    "right": "新文本",
+    "summary": "摘要",
+    "added": "新增",
+    "removed": "删除",
+    "button": "对比",
+    "noDiff": "未发现差异",
+    "placeholderLeft": "粘贴原文本...",
+    "placeholderRight": "粘贴修改后的文本..."
+  },
+  "loremIpsum": {
+    "paragraphs": "段落数",
+    "words": "每段字数",
+    "generate": "生成",
+    "copy": "复制",
+    "placeholder": "生成的文本将显示在此..."
+  },
+  "markdown": {
+    "input": "Markdown",
+    "preview": "预览",
+    "placeholder": "在此编写 Markdown..."
   }
 }

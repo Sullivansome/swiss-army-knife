@@ -17,6 +17,26 @@
     "base64": {
       "name": "Base64 Converter",
       "description": "Encode and decode text locally in your browser."
+    },
+    "wordCounter": {
+      "name": "Word Counter",
+      "description": "Count words, characters, and lines instantly."
+    },
+    "caseConverter": {
+      "name": "Case Converter",
+      "description": "Convert text between upper, lower, camelCase, and snake_case."
+    },
+    "diffChecker": {
+      "name": "Diff Checker",
+      "description": "Compare two texts and highlight differences."
+    },
+    "loremIpsum": {
+      "name": "Lorem Ipsum Generator",
+      "description": "Generate placeholder text on the fly."
+    },
+    "markdownPreview": {
+      "name": "Markdown Preview",
+      "description": "Preview Markdown with GitHub-flavored markdown support."
     }
   },
   "categories": {
@@ -29,7 +49,13 @@
   },
   "tags": {
     "encode": "encode",
-    "decode": "decode"
+    "decode": "decode",
+    "count": "count",
+    "format": "format",
+    "compare": "compare",
+    "generate": "generate",
+    "markdown": "markdown",
+    "preview": "preview"
   },
   "toolShell": {
     "input": "Input",
@@ -44,5 +70,49 @@
     "encode": "Encode",
     "decode": "Decode",
     "placeholder": "Paste text here..."
+  },
+  "wordCounter": {
+    "input": "Text",
+    "characters": "Characters",
+    "words": "Words",
+    "lines": "Lines",
+    "reset": "Reset",
+    "placeholder": "Paste or type text to count..."
+  },
+  "caseConverter": {
+    "input": "Text",
+    "output": "Converted",
+    "upper": "UPPERCASE",
+    "lower": "lowercase",
+    "camel": "camelCase",
+    "snake": "snake_case",
+    "kebab": "kebab-case",
+    "title": "Title Case",
+    "copy": "Copy",
+    "reset": "Reset",
+    "placeholder": "Enter text to convert..."
+  },
+  "diffChecker": {
+    "left": "Original",
+    "right": "Changed",
+    "summary": "Summary",
+    "added": "Added",
+    "removed": "Removed",
+    "button": "Compare",
+    "noDiff": "No differences found",
+    "placeholderLeft": "Paste original text...",
+    "placeholderRight": "Paste changed text..."
+  },
+  "loremIpsum": {
+    "paragraphs": "Paragraphs",
+    "words": "Words per paragraph",
+    "generate": "Generate",
+    "copy": "Copy",
+    "placeholder": "Generated text will appear here..."
+  },
+  "markdown": {
+    "input": "Markdown",
+    "preview": "Preview",
+    "placeholder": "Write Markdown here..."
   }
 }

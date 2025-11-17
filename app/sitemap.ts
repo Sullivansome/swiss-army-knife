@@ -1,17 +1,17 @@
-import { tools } from "@/lib/tools";
 import { clientEnv } from "@/lib/env";
-import { routing } from "@/i18n/routing";
+import { locales } from "@/lib/i18n-config";
+import { tools } from "@/lib/tools";
 
 export default function sitemap() {
   const base = clientEnv.NEXT_PUBLIC_BASE_URL.replace(/\/$/, "");
 
   const entries = [
-    ...routing.locales.map((locale) => ({
+    ...locales.map((locale: string) => ({
       url: `${base}/${locale}`,
       changefreq: "weekly" as const,
       priority: 0.8,
     })),
-    ...routing.locales.map((locale) => ({
+    ...locales.map((locale: string) => ({
       url: `${base}/${locale}/tools`,
       changefreq: "weekly" as const,
       priority: 0.7,
@@ -19,7 +19,7 @@ export default function sitemap() {
   ];
 
   const toolEntries = tools.flatMap((tool) =>
-    routing.locales.map((locale) => ({
+    locales.map((locale: string) => ({
       url: `${base}/${locale}/tools/${tool.slug}`,
       changefreq: "weekly" as const,
       priority: 0.7,

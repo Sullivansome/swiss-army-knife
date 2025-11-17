@@ -19,9 +19,6 @@ export default async function HomePage({ params }: Props) {
     <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-10">
       <section className="rounded-2xl border bg-card p-8 shadow-sm lg:p-12">
         <div className="flex flex-col gap-6 lg:max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-            {home.featured}
-          </div>
           <div className="space-y-3">
             <h1 className="text-3xl font-semibold leading-tight tracking-tight text-foreground lg:text-4xl">
               {home.title}

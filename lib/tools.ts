@@ -17,6 +17,41 @@ export const tools: ToolDefinition[] = [
     category: "text",
     tags: ["encode", "decode"],
   },
+  {
+    slug: "word-counter",
+    nameKey: "tools.wordCounter.name",
+    descriptionKey: "tools.wordCounter.description",
+    category: "text",
+    tags: ["count"],
+  },
+  {
+    slug: "case-converter",
+    nameKey: "tools.caseConverter.name",
+    descriptionKey: "tools.caseConverter.description",
+    category: "text",
+    tags: ["format"],
+  },
+  {
+    slug: "diff-checker",
+    nameKey: "tools.diffChecker.name",
+    descriptionKey: "tools.diffChecker.description",
+    category: "text",
+    tags: ["compare"],
+  },
+  {
+    slug: "lorem-ipsum",
+    nameKey: "tools.loremIpsum.name",
+    descriptionKey: "tools.loremIpsum.description",
+    category: "text",
+    tags: ["generate"],
+  },
+  {
+    slug: "markdown-preview",
+    nameKey: "tools.markdownPreview.name",
+    descriptionKey: "tools.markdownPreview.description",
+    category: "text",
+    tags: ["markdown", "preview"],
+  },
 ];
 
 export const toolSlugs = tools.map((tool) => tool.slug);

@@ -37,9 +37,9 @@ export default async function LocaleLayout({ children, params }: Props) {
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen bg-background text-foreground">
+          <div className="flex min-h-screen flex-col bg-background text-foreground">
             <SiteHeader locale={locale} dict={dict.layout} />
-            <main className="pb-16">{children}</main>
+            <main className="flex-1 pb-16">{children}</main>
             <SiteFooter dict={dict.layout} />
           </div>
         </ThemeProvider>
