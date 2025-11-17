@@ -1,0 +1,36 @@
+{
+  "layout": {
+    "brand": "Tool Center",
+    "navTools": "Tools",
+    "navHome": "Home",
+    "themeToggle": "Theme",
+    "language": "Language"
+  },
+  "home": {
+    "title": "Browser-first utilities for developers and creators",
+    "subtitle": "Fast, privacy-friendly tools that run in your browser. No uploads required.",
+    "cta": "Browse tools",
+    "featured": "Featured tools",
+    "localOnly": "All processing happens locally in your browser."
+  },
+  "tools": {
+    "base64": {
+      "name": "Base64 Converter",
+      "description": "Encode and decode text locally in your browser."
+    }
+  },
+  "toolShell": {
+    "input": "Input",
+    "output": "Output",
+    "clear": "Clear",
+    "copy": "Copy",
+    "encoded": "Encoded",
+    "decoded": "Decoded",
+    "error": "Something went wrong. Please check your input."
+  },
+  "base64": {
+    "encode": "Encode",
+    "decode": "Decode",
+    "placeholder": "Paste text here..."
+  }
+}

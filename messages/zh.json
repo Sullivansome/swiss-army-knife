@@ -1,0 +1,36 @@
+{
+  "layout": {
+    "brand": "工具中心",
+    "navTools": "工具",
+    "navHome": "首页",
+    "themeToggle": "主题",
+    "language": "语言"
+  },
+  "home": {
+    "title": "面向浏览器的开发者工具集",
+    "subtitle": "快速、隐私友好的工具，所有操作均在浏览器本地完成，无需上传。",
+    "cta": "浏览工具",
+    "featured": "精选工具",
+    "localOnly": "所有处理均在浏览器本地完成。"
+  },
+  "tools": {
+    "base64": {
+      "name": "Base64 转换器",
+      "description": "在浏览器本地完成文本的 Base64 编码/解码。"
+    }
+  },
+  "toolShell": {
+    "input": "输入",
+    "output": "输出",
+    "clear": "清空",
+    "copy": "复制",
+    "encoded": "编码结果",
+    "decoded": "解码结果",
+    "error": "出现错误，请检查输入内容。"
+  },
+  "base64": {
+    "encode": "编码",
+    "decode": "解码",
+    "placeholder": "在此粘贴文本..."
+  }
+}
