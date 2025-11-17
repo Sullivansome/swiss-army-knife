@@ -1,13 +1,10 @@
-import createMiddleware from "next-intl/middleware";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { routing } from "./i18n/routing";
 import { serverEnv } from "./lib/env";
+import { defaultLocale, locales } from "./lib/i18n-config";
 import { resolveToolSubdomain } from "./lib/subdomain";
 import { toolSlugs } from "./lib/tools";
-
-const intlMiddleware = createMiddleware(routing);
 
 export function proxy(request: NextRequest) {
   const toolSlug = resolveToolSubdomain(request.headers.get("host"), {
@@ -18,13 +15,11 @@ export function proxy(request: NextRequest) {
 
   if (toolSlug) {
     const url = request.nextUrl.clone();
-    const hasLocalePrefix = routing.locales.some((locale) =>
-      url.pathname.startsWith(`/${locale}/`),
-    );
+    const hasLocalePrefix = locales.some((locale) => url.pathname.startsWith(`/${locale}/`));
 
     // Preserve query strings while rewriting to the tool path.
     if (!hasLocalePrefix) {
-      url.pathname = `/${routing.defaultLocale}/tools/${toolSlug}`;
+      url.pathname = `/${defaultLocale}/tools/${toolSlug}`;
     } else if (!url.pathname.includes(`/tools/`)) {
       url.pathname = `/tools/${toolSlug}`;
     }
@@ -32,10 +27,10 @@ export function proxy(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  return intlMiddleware(request);
+  return NextResponse.next();
 }
 
 export const config = {
   // Skip internal and asset routes.
-  matcher: ["/((?!_next|.*\\..*|api).*)"],
+  matcher: ["/((?!api|trpc|_next|_vercel|.*\\..*).*)"],
 };

@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 
 import { Base64Tool } from "@/components/tools/base64-tool";
 import { ToolShell } from "@/components/tool-shell";
+import { getDictionary } from "@/lib/dictionaries";
+import { assertLocale } from "@/lib/i18n-config";
 import { getTool, tools } from "@/lib/tools";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
 
 export async function generateStaticParams() {
-  return tools.map((tool) => ({ slug: tool.slug }));
+  const locales = ["en", "zh"];
+  return tools.flatMap((tool) => locales.map((locale) => ({ slug: tool.slug, locale })));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -22,36 +24,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {};
   }
 
-  const t = await getTranslations();
-  const title = t(tool.nameKey);
-  const description = t(tool.descriptionKey);
-
   return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-    },
+    title: tool.slug,
+    description: tool.slug,
   };
 }
 
 export default async function ToolPage({ params }: Props) {
-  const { slug } = await params;
+  const { slug, locale: raw } = await params;
+  const locale = assertLocale(raw);
   const tool = getTool(slug);
-  const t = await getTranslations();
-
   if (!tool) {
     notFound();
   }
 
-  const title = t(tool.nameKey);
-  const description = t(tool.descriptionKey);
+  const dict = await getDictionary(locale);
+  const toolDict = dict.tools[tool.slug as keyof typeof dict.tools];
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
-      <ToolShell title={title} description={description}>
-        {tool.slug === "base64" ? <Base64Tool /> : null}
+      <ToolShell title={toolDict?.name ?? tool.slug} description={toolDict?.description}>
+        {tool.slug === "base64" ? (
+          <Base64Tool
+            labels={{
+              input: dict.toolShell.input,
+              output: dict.toolShell.output,
+              clear: dict.toolShell.clear,
+              copy: dict.toolShell.copy,
+              error: dict.toolShell.error,
+              encode: dict.base64.encode,
+              decode: dict.base64.decode,
+              placeholder: dict.base64.placeholder,
+            }}
+          />
+        ) : null}
       </ToolShell>
     </div>
   );

@@ -1,33 +1,42 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import { useLocale } from "next-intl";
-import { useTranslations } from "next-intl";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
-import { routing } from "@/i18n/routing";
-import { usePathname, useRouter } from "@/navigation";
+import { locales } from "@/lib/i18n-config";
 
-export function LocaleSwitcher() {
-  const locale = useLocale();
-  const t = useTranslations("layout");
+type Props = {
+  label: string;
+};
+
+export function LocaleSwitcher({ label }: Props) {
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
+  const currentLocale = (params?.locale as string) || "en";
+
+  const localeLabels: Record<string, string> = {
+    en: "English",
+    zh: "简体中文",
+  };
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = event.target.value;
-    router.replace(pathname, { locale: nextLocale });
+    const stripped = pathname.replace(/^\/[a-zA-Z-]+(?=\/|$)/, "");
+    const target = `/${nextLocale}${stripped || ""}`;
+    router.replace(target);
   };
 
   return (
     <select
       className="rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm"
-      value={locale}
+      value={currentLocale}
       onChange={handleChange}
-      aria-label={t("language")}
+      aria-label={label}
     >
-      {routing.locales.map((value) => (
+      {locales.map((value) => (
         <option key={value} value={value}>
-          {value.toUpperCase()}
+          {localeLabels[value] ?? value.toUpperCase()}
         </option>
       ))}
     </select>

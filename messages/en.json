@@ -19,6 +19,18 @@
       "description": "Encode and decode text locally in your browser."
     }
   },
+  "categories": {
+    "dev": "Developer",
+    "text": "Text",
+    "security": "Security",
+    "media": "Media",
+    "time": "Time",
+    "math": "Math"
+  },
+  "tags": {
+    "encode": "encode",
+    "decode": "decode"
+  },
   "toolShell": {
     "input": "Input",
     "output": "Output",

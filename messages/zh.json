@@ -7,17 +7,29 @@
     "language": "语言"
   },
   "home": {
-    "title": "面向浏览器的开发者工具集",
-    "subtitle": "快速、隐私友好的工具，所有操作均在浏览器本地完成，无需上传。",
-    "cta": "浏览工具",
+    "title": "面向浏览器的开发者与创作者工具集",
+    "subtitle": "快速且重视隐私的工具，一切计算都在浏览器本地完成，无需上传。",
+    "cta": "浏览全部工具",
     "featured": "精选工具",
-    "localOnly": "所有处理均在浏览器本地完成。"
+    "localOnly": "所有处理均在浏览器本地完成，不会上传到服务器。"
   },
   "tools": {
     "base64": {
       "name": "Base64 转换器",
       "description": "在浏览器本地完成文本的 Base64 编码/解码。"
     }
+  },
+  "categories": {
+    "dev": "开发",
+    "text": "文本",
+    "security": "安全",
+    "media": "多媒体",
+    "time": "时间",
+    "math": "数学"
+  },
+  "tags": {
+    "encode": "编码",
+    "decode": "解码"
   },
   "toolShell": {
     "input": "输入",
