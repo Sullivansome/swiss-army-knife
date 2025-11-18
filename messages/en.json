@@ -18,25 +18,45 @@
       "name": "Base64 Converter",
       "description": "Encode and decode text locally in your browser."
     },
-    "wordCounter": {
+    "word-counter": {
       "name": "Word Counter",
       "description": "Count words, characters, and lines instantly."
     },
-    "caseConverter": {
+    "case-converter": {
       "name": "Case Converter",
       "description": "Convert text between upper, lower, camelCase, and snake_case."
     },
-    "diffChecker": {
+    "diff-checker": {
       "name": "Diff Checker",
       "description": "Compare two texts and highlight differences."
     },
-    "loremIpsum": {
+    "lorem-ipsum": {
       "name": "Lorem Ipsum Generator",
       "description": "Generate placeholder text on the fly."
     },
-    "markdownPreview": {
+    "markdown-preview": {
       "name": "Markdown Preview",
       "description": "Preview Markdown with GitHub-flavored markdown support."
+    },
+    "password-generator": {
+      "name": "Password Generator",
+      "description": "Generate strong local passwords with custom length and symbols."
+    },
+    "hash-generator": {
+      "name": "Hash Generator",
+      "description": "Compute MD5, SHA-256, and SHA-512 locally in your browser."
+    },
+    "qr-generator": {
+      "name": "QR Code Generator",
+      "description": "Create QR codes locally from text or URLs."
+    },
+    "exif-viewer": {
+      "name": "EXIF Viewer",
+      "description": "Inspect photo metadata (camera, time) in your browser."
+    },
+    "color-converter": {
+      "name": "Color Converter",
+      "description": "Convert between HEX and RGB on the fly."
     }
   },
   "categories": {
@@ -55,7 +75,17 @@
     "compare": "compare",
     "generate": "generate",
     "markdown": "markdown",
-    "preview": "preview"
+    "preview": "preview",
+    "random": "random",
+    "password": "password",
+    "hash": "hash",
+    "md5": "md5",
+    "sha": "sha",
+    "qr": "qr",
+    "exif": "exif",
+    "metadata": "metadata",
+    "color": "color",
+    "convert": "convert"
   },
   "toolShell": {
     "input": "Input",
@@ -114,5 +144,50 @@
     "input": "Markdown",
     "preview": "Preview",
     "placeholder": "Write Markdown here..."
+  },
+  "passwordGenerator": {
+    "length": "Length",
+    "uppercase": "Uppercase",
+    "lowercase": "Lowercase",
+    "numbers": "Numbers",
+    "symbols": "Symbols",
+    "generate": "Generate",
+    "copy": "Copy",
+    "password": "Password",
+    "placeholder": "Generated password will appear here..."
+  },
+  "hashGenerator": {
+    "input": "Text",
+    "algo": "Algorithm",
+    "md5": "MD5",
+    "sha256": "SHA-256",
+    "sha512": "SHA-512",
+    "hash": "Hash",
+    "compute": "Compute",
+    "copy": "Copy",
+    "placeholder": "Output will appear here..."
+  },
+  "qrGenerator": {
+    "input": "Text or URL",
+    "size": "Size",
+    "download": "Download PNG",
+    "placeholder": "Enter text to encode..."
+  },
+  "exifViewer": {
+    "upload": "Upload image",
+    "camera": "Camera",
+    "model": "Model",
+    "datetime": "Captured at",
+    "noData": "No EXIF data found.",
+    "error": "Failed to read EXIF data.",
+    "instruction": "Upload a photo to inspect its metadata."
+  },
+  "colorConverter": {
+    "hex": "Hex",
+    "rgb": "RGB",
+    "copy": "Copy",
+    "placeholderHex": "#3366ff",
+    "placeholderRgb": "51, 102, 255",
+    "invalid": "Invalid color value."
   }
 }

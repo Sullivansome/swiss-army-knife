@@ -4,8 +4,13 @@ import { notFound } from "next/navigation";
 import { Base64Tool } from "@/components/tools/base64-tool";
 import { CaseConverterTool } from "@/components/tools/case-converter";
 import { DiffCheckerTool } from "@/components/tools/diff-checker";
+import { ColorConverterTool } from "@/components/tools/color-converter";
+import { ExifViewerTool } from "@/components/tools/exif-viewer";
+import { HashGeneratorTool } from "@/components/tools/hash-generator";
 import { LoremIpsumTool } from "@/components/tools/lorem-ipsum";
 import { MarkdownPreviewTool } from "@/components/tools/markdown-preview";
+import { PasswordGeneratorTool } from "@/components/tools/password-generator";
+import { QrGeneratorTool } from "@/components/tools/qr-generator";
 import { WordCounterTool } from "@/components/tools/word-counter";
 import { ToolShell } from "@/components/tool-shell";
 import { getDictionary } from "@/lib/dictionaries";
@@ -119,6 +124,66 @@ export default async function ToolPage({ params }: Props) {
               input: dict.markdown.input,
               preview: dict.markdown.preview,
               placeholder: dict.markdown.placeholder,
+            }}
+          />
+        ) : tool.slug === "password-generator" ? (
+          <PasswordGeneratorTool
+            labels={{
+              length: dict.passwordGenerator.length,
+              uppercase: dict.passwordGenerator.uppercase,
+              lowercase: dict.passwordGenerator.lowercase,
+              numbers: dict.passwordGenerator.numbers,
+              symbols: dict.passwordGenerator.symbols,
+              generate: dict.passwordGenerator.generate,
+              copy: dict.passwordGenerator.copy,
+              password: dict.passwordGenerator.password,
+              placeholder: dict.passwordGenerator.placeholder,
+            }}
+          />
+        ) : tool.slug === "hash-generator" ? (
+          <HashGeneratorTool
+            labels={{
+              input: dict.hashGenerator.input,
+              algo: dict.hashGenerator.algo,
+              md5: dict.hashGenerator.md5,
+              sha256: dict.hashGenerator.sha256,
+              sha512: dict.hashGenerator.sha512,
+              hash: dict.hashGenerator.hash,
+              compute: dict.hashGenerator.compute,
+              copy: dict.hashGenerator.copy,
+              placeholder: dict.hashGenerator.placeholder,
+            }}
+          />
+        ) : tool.slug === "qr-generator" ? (
+          <QrGeneratorTool
+            labels={{
+              input: dict.qrGenerator.input,
+              size: dict.qrGenerator.size,
+              download: dict.qrGenerator.download,
+              placeholder: dict.qrGenerator.placeholder,
+            }}
+          />
+        ) : tool.slug === "exif-viewer" ? (
+          <ExifViewerTool
+            labels={{
+              upload: dict.exifViewer.upload,
+              camera: dict.exifViewer.camera,
+              model: dict.exifViewer.model,
+              datetime: dict.exifViewer.datetime,
+              noData: dict.exifViewer.noData,
+              error: dict.exifViewer.error,
+              instruction: dict.exifViewer.instruction,
+            }}
+          />
+        ) : tool.slug === "color-converter" ? (
+          <ColorConverterTool
+            labels={{
+              hex: dict.colorConverter.hex,
+              rgb: dict.colorConverter.rgb,
+              copy: dict.colorConverter.copy,
+              placeholderHex: dict.colorConverter.placeholderHex,
+              placeholderRgb: dict.colorConverter.placeholderRgb,
+              invalid: dict.colorConverter.invalid,
             }}
           />
         ) : null}

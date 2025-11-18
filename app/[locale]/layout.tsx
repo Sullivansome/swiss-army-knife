@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { assertLocale, locales } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/dictionaries";
 
@@ -41,6 +42,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <SiteHeader locale={locale} dict={dict.layout} />
             <main className="flex-1 pb-16">{children}</main>
             <SiteFooter dict={dict.layout} />
+            <Toaster richColors position="top-center" closeButton />
           </div>
         </ThemeProvider>
       </body>

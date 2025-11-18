@@ -52,6 +52,41 @@ export const tools: ToolDefinition[] = [
     category: "text",
     tags: ["markdown", "preview"],
   },
+  {
+    slug: "password-generator",
+    nameKey: "tools.passwordGenerator.name",
+    descriptionKey: "tools.passwordGenerator.description",
+    category: "security",
+    tags: ["random", "password"],
+  },
+  {
+    slug: "hash-generator",
+    nameKey: "tools.hashGenerator.name",
+    descriptionKey: "tools.hashGenerator.description",
+    category: "security",
+    tags: ["hash", "md5", "sha"],
+  },
+  {
+    slug: "qr-generator",
+    nameKey: "tools.qrGenerator.name",
+    descriptionKey: "tools.qrGenerator.description",
+    category: "media",
+    tags: ["qr", "encode"],
+  },
+  {
+    slug: "exif-viewer",
+    nameKey: "tools.exifViewer.name",
+    descriptionKey: "tools.exifViewer.description",
+    category: "media",
+    tags: ["exif", "metadata"],
+  },
+  {
+    slug: "color-converter",
+    nameKey: "tools.colorConverter.name",
+    descriptionKey: "tools.colorConverter.description",
+    category: "media",
+    tags: ["color", "convert"],
+  },
 ];
 
 export const toolSlugs = tools.map((tool) => tool.slug);

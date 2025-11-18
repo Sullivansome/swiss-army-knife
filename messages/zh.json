@@ -18,25 +18,45 @@
       "name": "Base64 转换器",
       "description": "在浏览器本地完成文本的 Base64 编码/解码。"
     },
-    "wordCounter": {
+    "word-counter": {
       "name": "字数统计",
       "description": "快速统计字数、字符数与行数。"
     },
-    "caseConverter": {
+    "case-converter": {
       "name": "大小写转换",
       "description": "在大写、小写、驼峰、蛇形命名间转换。"
     },
-    "diffChecker": {
+    "diff-checker": {
       "name": "文本对比",
       "description": "对比两段文本差异并高亮显示。"
     },
-    "loremIpsum": {
+    "lorem-ipsum": {
       "name": "Lorem Ipsum 生成器",
       "description": "即时生成占位文本。"
     },
-    "markdownPreview": {
+    "markdown-preview": {
       "name": "Markdown 预览",
       "description": "支持 GitHub 风格的 Markdown 预览。"
+    },
+    "password-generator": {
+      "name": "随机密码生成器",
+      "description": "本地生成自定义长度和符号的强密码。"
+    },
+    "hash-generator": {
+      "name": "哈希生成器",
+      "description": "在浏览器本地计算 MD5、SHA-256、SHA-512。"
+    },
+    "qr-generator": {
+      "name": "二维码生成器",
+      "description": "在本地生成文本或链接的二维码。"
+    },
+    "exif-viewer": {
+      "name": "EXIF 查看器",
+      "description": "查看照片的元数据（拍摄时间、相机型号）。"
+    },
+    "color-converter": {
+      "name": "颜色转换",
+      "description": "在 HEX 与 RGB 之间快速转换。"
     }
   },
   "categories": {
@@ -55,7 +75,17 @@
     "compare": "对比",
     "generate": "生成",
     "markdown": "Markdown",
-    "preview": "预览"
+    "preview": "预览",
+    "random": "随机",
+    "password": "密码",
+    "hash": "哈希",
+    "md5": "md5",
+    "sha": "sha",
+    "qr": "二维码",
+    "exif": "EXIF",
+    "metadata": "元数据",
+    "color": "颜色",
+    "convert": "转换"
   },
   "toolShell": {
     "input": "输入",
@@ -114,5 +144,50 @@
     "input": "Markdown",
     "preview": "预览",
     "placeholder": "在此编写 Markdown..."
+  },
+  "passwordGenerator": {
+    "length": "长度",
+    "uppercase": "大写字母",
+    "lowercase": "小写字母",
+    "numbers": "数字",
+    "symbols": "符号",
+    "generate": "生成",
+    "copy": "复制",
+    "password": "密码",
+    "placeholder": "生成的密码将显示在此..."
+  },
+  "hashGenerator": {
+    "input": "文本",
+    "algo": "算法",
+    "md5": "MD5",
+    "sha256": "SHA-256",
+    "sha512": "SHA-512",
+    "hash": "哈希值",
+    "compute": "计算",
+    "copy": "复制",
+    "placeholder": "结果将在此显示..."
+  },
+  "qrGenerator": {
+    "input": "文本或链接",
+    "size": "尺寸",
+    "download": "下载 PNG",
+    "placeholder": "输入需要生成二维码的内容..."
+  },
+  "exifViewer": {
+    "upload": "上传图片",
+    "camera": "相机",
+    "model": "型号",
+    "datetime": "拍摄时间",
+    "noData": "未找到 EXIF 数据。",
+    "error": "读取 EXIF 数据失败。",
+    "instruction": "上传照片查看其元数据。"
+  },
+  "colorConverter": {
+    "hex": "Hex",
+    "rgb": "RGB",
+    "copy": "复制",
+    "placeholderHex": "#3366ff",
+    "placeholderRgb": "51, 102, 255",
+    "invalid": "颜色值无效。"
   }
 }
