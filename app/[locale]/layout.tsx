@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/react";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -43,6 +44,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <main className="flex-1 pb-16">{children}</main>
             <SiteFooter dict={dict.layout} />
             <Toaster richColors position="top-center" closeButton />
+            <Analytics />
           </div>
         </ThemeProvider>
       </body>
