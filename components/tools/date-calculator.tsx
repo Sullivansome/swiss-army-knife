@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { differenceInDays, differenceInMonths, differenceInWeeks } from "date-fns";
+import { getDateDiffStats } from "@/lib/date-calculator";
 
 export type DateCalculatorLabels = {
   start: string;
@@ -22,17 +22,7 @@ export function DateCalculatorTool({ labels }: Props) {
   const [start, setStart] = useState(today);
   const [end, setEnd] = useState(today);
 
-  const stats = useMemo(() => {
-    if (!start || !end) return null;
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const diffDays = differenceInDays(endDate, startDate);
-    const isFuture = diffDays >= 0;
-    const days = Math.abs(diffDays);
-    const weeks = Math.abs(differenceInWeeks(endDate, startDate));
-    const months = Math.abs(differenceInMonths(endDate, startDate));
-    return { days, weeks, months, isFuture };
-  }, [start, end]);
+  const stats = useMemo(() => getDateDiffStats(start, end), [start, end]);
 
   return (
     <div className="space-y-4">

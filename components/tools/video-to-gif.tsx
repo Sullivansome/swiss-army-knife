@@ -83,7 +83,8 @@ export function VideoToGifTool({ labels }: Props) {
         "output.gif",
       ]);
       const data = (await ffmpeg.readFile("output.gif")) as Uint8Array;
-      const url = URL.createObjectURL(new Blob([data.buffer], { type: "image/gif" }));
+      const typed = new Uint8Array(data);
+      const url = URL.createObjectURL(new Blob([typed.buffer], { type: "image/gif" }));
       setOutput(url);
       await Promise.all([ffmpeg.deleteFile("input.mp4"), ffmpeg.deleteFile("output.gif")]);
       setStatus("");

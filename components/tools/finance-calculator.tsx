@@ -13,6 +13,8 @@ import {
   Legend,
 } from "chart.js";
 
+import { calculateFinanceSummary } from "@/lib/finance";
+
 let chartRegistered = false;
 if (!chartRegistered) {
   Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -39,7 +41,10 @@ export function FinanceCalculatorTool({ labels }: Props) {
   const [rate, setRate] = useState(5);
   const [years, setYears] = useState(10);
 
-  const summary = useMemo(() => calculate(principal, monthly, rate, years), [principal, monthly, rate, years]);
+  const summary = useMemo(
+    () => calculateFinanceSummary(principal, monthly, rate, years),
+    [principal, monthly, rate, years],
+  );
 
   const data = useMemo(() => {
     return {
@@ -131,28 +136,4 @@ function Stat({ label, value, prefix }: StatProps) {
       </p>
     </div>
   );
-}
-
-type Summary = {
-  points: Array<{ year: number; balance: number; contributed: number }>;
-  totalContributions: number;
-  totalInterest: number;
-};
-
-function calculate(principal: number, monthly: number, rate: number, years: number): Summary {
-  const monthlyRate = rate / 100 / 12;
-  let balance = principal;
-  const points: Summary["points"] = [];
-  const months = Math.max(1, years) * 12;
-  for (let month = 1; month <= months; month += 1) {
-    balance = balance * (1 + monthlyRate) + monthly;
-    if (month % 12 === 0 || month === months) {
-      const year = Math.ceil(month / 12);
-      const contributed = principal + monthly * month;
-      points.push({ year, balance: Math.round(balance), contributed: Math.round(contributed) });
-    }
-  }
-  const totalContributions = Math.round(principal + monthly * months);
-  const totalInterest = Math.max(0, Math.round(balance - totalContributions));
-  return { points, totalContributions, totalInterest };
 }

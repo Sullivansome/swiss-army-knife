@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { processList, type SortMode } from "@/lib/list-utils";
 
 export type ListToolLabels = {
   input: string;
@@ -17,8 +18,6 @@ export type ListToolLabels = {
   clear: string;
 };
 
-type SortMode = "none" | "asc" | "desc";
-
 type Props = {
   labels: ListToolLabels;
 };
@@ -28,27 +27,11 @@ export function ListDedupSortTool({ labels }: Props) {
   const [caseSensitive, setCaseSensitive] = useState(false);
   const [sortMode, setSortMode] = useState<SortMode>("none");
 
-  const processed = useMemo(() => {
-    const lines = input
-      .split(/\r?\n/)
-      .map((line) => line.trim())
-      .filter((line) => line.length > 0);
-    const seen = new Set<string>();
-    const result: string[] = [];
-    for (const line of lines) {
-      const key = caseSensitive ? line : line.toLowerCase();
-      if (!seen.has(key)) {
-        seen.add(key);
-        result.push(line);
-      }
-    }
-    if (sortMode === "asc") {
-      result.sort((a, b) => a.localeCompare(b));
-    } else if (sortMode === "desc") {
-      result.sort((a, b) => b.localeCompare(a));
-    }
-    return result.join("\n");
-  }, [input, caseSensitive, sortMode]);
+  const processed = useMemo(() => processList(input, caseSensitive, sortMode).join("\n"), [
+    input,
+    caseSensitive,
+    sortMode,
+  ]);
 
   const handleCopy = async () => {
     if (!processed) return;

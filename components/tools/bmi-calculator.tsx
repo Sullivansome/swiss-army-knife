@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 
+import { calculateBmi } from "@/lib/bmi";
+
 export type BmiLabels = {
   height: string;
   weight: string;
@@ -23,19 +25,8 @@ export function BmiCalculatorTool({ labels }: Props) {
   const [height, setHeight] = useState(170);
   const [weight, setWeight] = useState(65);
 
-  const bmi = useMemo(() => {
-    if (!height || !weight) return 0;
-    const meters = height / 100;
-    return weight / (meters * meters);
-  }, [height, weight]);
-
-  const category = useMemo(() => {
-    if (!bmi) return labels.tips.normal;
-    if (bmi < 18.5) return labels.tips.underweight;
-    if (bmi < 25) return labels.tips.normal;
-    if (bmi < 30) return labels.tips.overweight;
-    return labels.tips.obese;
-  }, [bmi, labels.tips]);
+  const { bmi, category } = useMemo(() => calculateBmi(height, weight), [height, weight]);
+  const categoryLabel = labels.tips[category];
 
   return (
     <div className="space-y-4">
@@ -48,7 +39,7 @@ export function BmiCalculatorTool({ labels }: Props) {
         <p className="text-sm text-muted-foreground">{labels.result}</p>
         <p className="mt-3 text-4xl font-semibold text-foreground">{bmi ? bmi.toFixed(1) : "—"}</p>
         <p className="mt-2 text-sm text-muted-foreground">{labels.category}</p>
-        <p className="mt-1 text-base font-medium text-foreground">{category}</p>
+        <p className="mt-1 text-base font-medium text-foreground">{categoryLabel}</p>
       </div>
     </div>
   );
