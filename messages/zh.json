@@ -132,6 +132,34 @@
       "name": "单位/尺码换算",
       "description": "长度、重量以及鞋码、衣服尺码对照表。"
     },
+    "international-temperature-converter": {
+      "name": "国际温度单位转换",
+      "description": "支持摄氏、华氏、开尔文、兰金等国际温标互换。"
+    },
+    "family-relation-calculator": {
+      "name": "亲戚关系计算器",
+      "description": "选择自己的身份与称呼，一键推导亲戚关系。"
+    },
+    "lunar-new-year-essentials": {
+      "name": "过年必备神器",
+      "description": "集合倒计时、吉祥话、采买清单等春节小工具。"
+    },
+    "finance-number-case-converter": {
+      "name": "财务数字大小写转换",
+      "description": "将金额数字转换为中文大写金额，适配票据合同。"
+    },
+    "finance-essentials": {
+      "name": "财务必备工具",
+      "description": "常用报销、分摊、理财计算一站式集合。"
+    },
+    "base-converter": {
+      "name": "进制转换",
+      "description": "在二、八、十、十六进制之间自由互换。"
+    },
+    "computer-base-converter": {
+      "name": "计算机进制转换",
+      "description": "面向开发者的进制工具，附带位数与补零提示。"
+    },
     "video-to-gif": {
       "name": "视频转 GIF（WASM）",
       "description": "使用 ffmpeg.wasm 在浏览器内裁剪并导出 GIF。"
@@ -152,7 +180,8 @@
     "design": "设计/自媒体",
     "social": "社交内容",
     "life": "生活/计算",
-    "wasm": "WebAssembly"
+    "wasm": "WebAssembly",
+    "数据换算": "数据换算"
   },
   "tags": {
     "encode": "编码",
@@ -206,6 +235,148 @@
     "encoded": "编码结果",
     "decoded": "解码结果",
     "error": "出现错误，请检查输入内容。"
+  },
+  "temperatureConverter": {
+    "valueLabel": "数值",
+    "fromLabel": "原单位",
+    "toLabel": "目标单位",
+    "swapLabel": "互换单位",
+    "resetLabel": "重置",
+    "invalid": "请输入需要换算的数字。",
+    "allConversions": "全部结果",
+    "units": {
+      "celsius": "摄氏度 (°C)",
+      "fahrenheit": "华氏度 (°F)",
+      "kelvin": "开尔文 (K)",
+      "rankine": "兰金度 (°R)"
+    }
+  },
+  "familyRelation": {
+    "stepPlaceholder": "选择下一步关系",
+    "addStep": "添加",
+    "undo": "撤销",
+    "clear": "清空",
+    "stepsLabel": "当前路径",
+    "empty": "先添加一条关系路径。",
+    "resultLabel": "称呼",
+    "unknown": "暂未收录该组合。",
+    "selfLabel": "我",
+    "resultHint": "依据以上路径推断",
+    "steps": {
+      "father": "爸爸",
+      "mother": "妈妈",
+      "olderBrother": "哥哥",
+      "youngerBrother": "弟弟",
+      "olderSister": "姐姐",
+      "youngerSister": "妹妹",
+      "son": "儿子",
+      "daughter": "女儿",
+      "husband": "老公",
+      "wife": "老婆"
+    },
+    "results": {
+      "father": "爸爸",
+      "mother": "妈妈",
+      "paternalGrandfather": "爷爷",
+      "paternalGrandmother": "奶奶",
+      "maternalGrandfather": "外公",
+      "maternalGrandmother": "外婆",
+      "paternalUncle": "叔叔/伯伯",
+      "paternalAunt": "姑姑",
+      "maternalUncle": "舅舅",
+      "maternalAunt": "姨妈",
+      "elderBrother": "哥哥",
+      "youngerBrother": "弟弟",
+      "elderSister": "姐姐",
+      "youngerSister": "妹妹",
+      "son": "儿子",
+      "daughter": "女儿",
+      "grandson": "孙子",
+      "granddaughter": "孙女",
+      "nephew": "侄子/外甥",
+      "niece": "侄女/外甥女",
+      "fatherInLaw": "公公/岳父",
+      "motherInLaw": "婆婆/岳母",
+      "brotherInLaw": "姐夫/妹夫/连襟",
+      "sisterInLaw": "嫂子/弟媳/妯娌",
+      "husband": "老公",
+      "wife": "老婆",
+      "daughterInLaw": "儿媳",
+      "sonInLaw": "女婿",
+      "cousin": "堂表兄弟姐妹"
+    }
+  },
+  "lunarNewYear": {
+    "countdownTitle": "春节倒计时",
+    "countdown": "距离春节还有 {count} 天",
+    "today": "今天就是大年初一！",
+    "nextDateLabel": "下一个春节",
+    "greetingTitle": "吉祥话生成器",
+    "drawGreeting": "换一句",
+    "greetings": [
+      "新年快乐，万事如意！",
+      "新春大吉，身体健康！",
+      "阖家团圆，幸福安康。",
+      "财源广进，红包拿来！",
+      "心想事成，好运整年。"
+    ]
+  },
+  "financeNumberCase": {
+    "amountLabel": "金额（人民币）",
+    "placeholder": "例如 1234.56",
+    "convert": "转换为中文大写",
+    "copy": "复制结果",
+    "copied": "已复制",
+    "resultLabel": "中文大写金额",
+    "invalid": "请输入 0-999,999,999,999.99 之间的数字。"
+  },
+  "financeToolkit": {
+    "tax": {
+      "title": "发票税额速算",
+      "amount": "未含税金额",
+      "rate": "税率（%）",
+      "taxDue": "税额",
+      "total": "含税总计"
+    },
+    "split": {
+      "title": "报销 / 津贴分摊",
+      "total": "总金额",
+      "people": "人数",
+      "days": "天数",
+      "perPerson": "人均金额",
+      "perDay": "每天金额",
+      "perPersonPerDay": "人均每天",
+      "note": "结果保留两位小数。"
+    }
+  },
+  "baseConverter": {
+    "inputLabel": "输入值",
+    "baseLabel": "原始进制",
+    "resultsLabel": "换算结果",
+    "invalid": "输入与进制不匹配。",
+    "bases": {
+      "binary": "二进制（2）",
+      "octal": "八进制（8）",
+      "decimal": "十进制（10）",
+      "hex": "十六进制（16）"
+    }
+  },
+  "computerBaseConverter": {
+    "inputLabel": "输入值",
+    "baseLabel": "原始进制",
+    "bitWidthLabel": "目标位宽",
+    "bitLengthLabel": "有效位数",
+    "approxBytesLabel": "约合字节",
+    "paddedBinaryLabel": "补齐后的二进制",
+    "paddedHexLabel": "补齐后的十六进制",
+    "outputsTitle": "常用进制",
+    "invalid": "输入与进制不匹配。",
+    "bases": {
+      "binary": "二进制",
+      "octal": "八进制",
+      "decimal": "十进制",
+      "hex": "十六进制"
+    }
   },
   "base64": {
     "encode": "编码",

@@ -20,6 +20,7 @@ export default async function HomePage({ params }: Props) {
     "design",
     "social",
     "life",
+    "数据换算",
     "dev",
     "text",
     "media",

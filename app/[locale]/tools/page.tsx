@@ -21,6 +21,7 @@ export default async function ToolsPage({ params }: Props) {
     "design",
     "social",
     "life",
+    "数据换算",
     "dev",
     "text",
     "media",

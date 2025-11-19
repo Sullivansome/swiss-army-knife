@@ -132,6 +132,34 @@
       "name": "Unit & Size Converter",
       "description": "Convert length, weight, shoe size, and clothing charts."
     },
+    "international-temperature-converter": {
+      "name": "International Temperature Unit Converter",
+      "description": "Convert Celsius, Fahrenheit, Kelvin, and Rankine for global workflows."
+    },
+    "family-relation-calculator": {
+      "name": "Family Relation Calculator",
+      "description": "Map Chinese family titles by selecting yourself and the relative steps."
+    },
+    "lunar-new-year-essentials": {
+      "name": "New Year Essentials",
+      "description": "Countdowns, greetings, and prep lists for Lunar New Year gatherings."
+    },
+    "finance-number-case-converter": {
+      "name": "Financial Uppercase Converter",
+      "description": "Turn RMB amounts into uppercase financial text instantly."
+    },
+    "finance-essentials": {
+      "name": "Finance Toolkit",
+      "description": "Handy calculators for invoices, reimbursements, and per-diem splits."
+    },
+    "base-converter": {
+      "name": "Base Converter",
+      "description": "Convert numbers between binary, octal, decimal, and hexadecimal."
+    },
+    "computer-base-converter": {
+      "name": "Computer Base Converter",
+      "description": "Developer-focused radix converter with bit-length hints."
+    },
     "video-to-gif": {
       "name": "Video to GIF (WASM)",
       "description": "Use ffmpeg.wasm to clip and export GIFs entirely in-browser."
@@ -152,7 +180,8 @@
     "design": "Design & Media",
     "social": "Social",
     "life": "Life & Math",
-    "wasm": "WebAssembly"
+    "wasm": "WebAssembly",
+    "数据换算": "Data Conversion"
   },
   "tags": {
     "encode": "encode",
@@ -206,6 +235,148 @@
     "encoded": "Encoded",
     "decoded": "Decoded",
     "error": "Something went wrong. Please check your input."
+  },
+  "temperatureConverter": {
+    "valueLabel": "Value",
+    "fromLabel": "From",
+    "toLabel": "To",
+    "swapLabel": "Swap units",
+    "resetLabel": "Reset",
+    "invalid": "Enter a numeric temperature to convert.",
+    "allConversions": "All conversions",
+    "units": {
+      "celsius": "Celsius (°C)",
+      "fahrenheit": "Fahrenheit (°F)",
+      "kelvin": "Kelvin (K)",
+      "rankine": "Rankine (°R)"
+    }
+  },
+  "familyRelation": {
+    "stepPlaceholder": "Pick the next relationship step",
+    "addStep": "Add step",
+    "undo": "Undo",
+    "clear": "Clear",
+    "stepsLabel": "Current path",
+    "empty": "Start by adding a relation step.",
+    "resultLabel": "Call them",
+    "unknown": "We don't have that combination yet.",
+    "selfLabel": "You",
+    "resultHint": "Based on the selected steps",
+    "steps": {
+      "father": "Father",
+      "mother": "Mother",
+      "olderBrother": "Older brother",
+      "youngerBrother": "Younger brother",
+      "olderSister": "Older sister",
+      "youngerSister": "Younger sister",
+      "son": "Son",
+      "daughter": "Daughter",
+      "husband": "Husband",
+      "wife": "Wife"
+    },
+    "results": {
+      "father": "Father",
+      "mother": "Mother",
+      "paternalGrandfather": "Paternal grandfather",
+      "paternalGrandmother": "Paternal grandmother",
+      "maternalGrandfather": "Maternal grandfather",
+      "maternalGrandmother": "Maternal grandmother",
+      "paternalUncle": "Paternal uncle",
+      "paternalAunt": "Paternal aunt",
+      "maternalUncle": "Maternal uncle",
+      "maternalAunt": "Maternal aunt",
+      "elderBrother": "Older brother",
+      "youngerBrother": "Younger brother",
+      "elderSister": "Older sister",
+      "youngerSister": "Younger sister",
+      "son": "Son",
+      "daughter": "Daughter",
+      "grandson": "Grandson",
+      "granddaughter": "Granddaughter",
+      "nephew": "Nephew",
+      "niece": "Niece",
+      "fatherInLaw": "Father-in-law",
+      "motherInLaw": "Mother-in-law",
+      "brotherInLaw": "Brother-in-law",
+      "sisterInLaw": "Sister-in-law",
+      "husband": "Husband",
+      "wife": "Wife",
+      "daughterInLaw": "Daughter-in-law",
+      "sonInLaw": "Son-in-law",
+      "cousin": "Cousin"
+    }
+  },
+  "lunarNewYear": {
+    "countdownTitle": "Countdown",
+    "countdown": "{count} days until Lunar New Year",
+    "today": "It's Lunar New Year's Day!",
+    "nextDateLabel": "Next celebration",
+    "greetingTitle": "Greeting generator",
+    "drawGreeting": "New greeting",
+    "greetings": [
+      "Gong xi fa cai!",
+      "Wishing you a prosperous New Year!",
+      "May your family stay joyful and healthy.",
+      "红包拿来—kidding, have an abundant year!",
+      "New year, new luck, new opportunities."
+    ]
+  },
+  "financeNumberCase": {
+    "amountLabel": "Amount (RMB)",
+    "placeholder": "e.g. 1234.56",
+    "convert": "Convert to uppercase",
+    "copy": "Copy result",
+    "copied": "Copied!",
+    "resultLabel": "Uppercase amount",
+    "invalid": "Enter a valid amount up to 999,999,999,999.99."
+  },
+  "financeToolkit": {
+    "tax": {
+      "title": "Invoice tax breakdown",
+      "amount": "Pre-tax amount",
+      "rate": "Tax rate (%)",
+      "taxDue": "Tax due",
+      "total": "Total with tax"
+    },
+    "split": {
+      "title": "Reimbursement & per-diem split",
+      "total": "Total budget",
+      "people": "People",
+      "days": "Days",
+      "perPerson": "Per person",
+      "perDay": "Per day",
+      "perPersonPerDay": "Per person / day",
+      "note": "Values are rounded to 2 decimals."
+    }
+  },
+  "baseConverter": {
+    "inputLabel": "Value",
+    "baseLabel": "Input base",
+    "resultsLabel": "Converted values",
+    "invalid": "Value is not valid for the selected base.",
+    "bases": {
+      "binary": "Binary (base 2)",
+      "octal": "Octal (base 8)",
+      "decimal": "Decimal (base 10)",
+      "hex": "Hex (base 16)"
+    }
+  },
+  "computerBaseConverter": {
+    "inputLabel": "Value",
+    "baseLabel": "Input base",
+    "bitWidthLabel": "Target bit width",
+    "bitLengthLabel": "Bit length",
+    "approxBytesLabel": "Approx. bytes",
+    "paddedBinaryLabel": "Binary (padded)",
+    "paddedHexLabel": "Hex (padded)",
+    "outputsTitle": "Quick conversions",
+    "invalid": "Value is not valid for the selected base.",
+    "bases": {
+      "binary": "Binary",
+      "octal": "Octal",
+      "decimal": "Decimal",
+      "hex": "Hex"
+    }
   },
   "base64": {
     "encode": "Encode",

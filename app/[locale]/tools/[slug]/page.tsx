@@ -32,6 +32,13 @@ import { BmiCalculatorTool } from "@/components/tools/bmi-calculator";
 import { UnitConverterTool } from "@/components/tools/unit-converter";
 import { VideoToGifTool } from "@/components/tools/video-to-gif";
 import { OcrTool } from "@/components/tools/ocr";
+import { TemperatureConverterTool } from "@/components/tools/temperature-converter";
+import { FamilyRelationCalculator } from "@/components/tools/family-relation-calculator";
+import { LunarNewYearTool } from "@/components/tools/lunar-new-year";
+import { FinanceNumberCaseTool } from "@/components/tools/finance-number-case";
+import { FinanceEssentialsTool } from "@/components/tools/finance-essentials";
+import { BaseConverterTool } from "@/components/tools/base-converter";
+import { ComputerBaseConverterTool } from "@/components/tools/computer-base-converter";
 import { ToolShell } from "@/components/tool-shell";
 import { getDictionary, type Dictionary } from "@/lib/dictionaries";
 import { assertLocale } from "@/lib/i18n-config";
@@ -302,6 +309,30 @@ function renderTool(slug: string, dict: Dictionary) {
       return <BmiCalculatorTool labels={dict.bmiCalculator} />;
     case "unit-converter":
       return <UnitConverterTool labels={dict.unitConverter} />;
+    case "international-temperature-converter":
+      return (
+        <TemperatureConverterTool
+          labels={dict.temperatureConverter}
+          units={[
+            { value: "celsius", label: dict.temperatureConverter.units.celsius },
+            { value: "fahrenheit", label: dict.temperatureConverter.units.fahrenheit },
+            { value: "kelvin", label: dict.temperatureConverter.units.kelvin },
+            { value: "rankine", label: dict.temperatureConverter.units.rankine },
+          ]}
+        />
+      );
+    case "family-relation-calculator":
+      return <FamilyRelationCalculator labels={dict.familyRelation} />;
+    case "lunar-new-year-essentials":
+      return <LunarNewYearTool labels={dict.lunarNewYear} />;
+    case "finance-number-case-converter":
+      return <FinanceNumberCaseTool labels={dict.financeNumberCase} />;
+    case "finance-essentials":
+      return <FinanceEssentialsTool labels={dict.financeToolkit} />;
+    case "base-converter":
+      return <BaseConverterTool labels={dict.baseConverter} />;
+    case "computer-base-converter":
+      return <ComputerBaseConverterTool labels={dict.computerBaseConverter} />;
     case "video-to-gif":
       return <VideoToGifTool labels={dict.videoToGif} />;
     case "ocr":
