@@ -11,7 +11,9 @@
     "subtitle": "Fast, privacy-friendly tools that run in your browser. No uploads required.",
     "cta": "Browse tools",
     "featured": "Featured tools",
-    "localOnly": "All processing happens locally in your browser."
+    "localOnly": "All processing happens locally in your browser.",
+    "categoriesTitle": "Browse by category",
+    "categoriesSubtitle": "Pick a workflow and stay in the browser."
   },
   "tools": {
     "base64": {
@@ -65,6 +67,78 @@
     "color-converter": {
       "name": "Color Converter",
       "description": "Convert between HEX and RGB on the fly."
+    },
+    "image-to-pdf": {
+      "name": "Image to PDF",
+      "description": "Reorder images and export them as a single PDF."
+    },
+    "list-dedup-sort": {
+      "name": "List Deduplicator & Sorter",
+      "description": "Remove duplicates with optional ascending or descending order."
+    },
+    "csv-json-converter": {
+      "name": "CSV ↔ JSON Converter",
+      "description": "Flip data between CSV and JSON using PapaParse."
+    },
+    "random-picker": {
+      "name": "Random Picker & Groups",
+      "description": "Draw winners or split names into random teams."
+    },
+    "image-compressor": {
+      "name": "Image Compressor",
+      "description": "Compress images via Canvas/Web Workers without uploads."
+    },
+    "image-converter": {
+      "name": "Image Format Converter",
+      "description": "Turn JPG/PNG/WebP files into another format instantly."
+    },
+    "social-mockup": {
+      "name": "Social Media Mockup",
+      "description": "Generate Tweet/Instagram style cards and download screenshots."
+    },
+    "palette-generator": {
+      "name": "Palette & Gradient Generator",
+      "description": "Generate random palettes and CSS gradients with one click."
+    },
+    "svg-recolor": {
+      "name": "SVG Recolor",
+      "description": "Upload an SVG icon and recolor fills/strokes client-side."
+    },
+    "emoji-cleaner": {
+      "name": "Emoji Cleaner",
+      "description": "Remove or extract emojis from any text block."
+    },
+    "social-formatter": {
+      "name": "Social Caption Formatter",
+      "description": "Add spacing, bullets, and emoji flourishes for IG/Xiaohongshu posts."
+    },
+    "advanced-word-count": {
+      "name": "Advanced Word Count",
+      "description": "Track characters, sentences, and paragraphs in real time."
+    },
+    "date-calculator": {
+      "name": "Date Calculator",
+      "description": "Measure the distance between two dates in days, weeks, and months."
+    },
+    "finance-calculator": {
+      "name": "Compound Interest Planner",
+      "description": "Project savings growth with charts for contributions vs. gains."
+    },
+    "bmi-calculator": {
+      "name": "BMI Calculator",
+      "description": "Input height/weight to view BMI and a quick health tip."
+    },
+    "unit-converter": {
+      "name": "Unit & Size Converter",
+      "description": "Convert length, weight, shoe size, and clothing charts."
+    },
+    "video-to-gif": {
+      "name": "Video to GIF (WASM)",
+      "description": "Use ffmpeg.wasm to clip and export GIFs entirely in-browser."
+    },
+    "ocr": {
+      "name": "OCR (Tesseract.js)",
+      "description": "Recognize English or Chinese text from an image locally."
     }
   },
   "categories": {
@@ -73,7 +147,12 @@
     "security": "Security",
     "media": "Media",
     "time": "Time",
-    "math": "Math"
+    "math": "Math",
+    "productivity": "Office & Productivity",
+    "design": "Design & Media",
+    "social": "Social",
+    "life": "Life & Math",
+    "wasm": "WebAssembly"
   },
   "tags": {
     "encode": "encode",
@@ -96,7 +175,28 @@
     "convert": "convert",
     "json": "json",
     "validate": "validate",
-    "uuid": "uuid"
+    "uuid": "uuid",
+    "pdf": "pdf",
+    "text": "text",
+    "list": "list",
+    "sort": "sort",
+    "csv": "csv",
+    "team": "team",
+    "image": "image",
+    "compress": "compress",
+    "svg": "svg",
+    "social": "social",
+    "style": "style",
+    "emoji": "emoji",
+    "clean": "clean",
+    "date": "date",
+    "time": "time",
+    "finance": "finance",
+    "chart": "chart",
+    "health": "health",
+    "video": "video",
+    "gif": "gif",
+    "ocr": "ocr"
   },
   "toolShell": {
     "input": "Input",
@@ -219,5 +319,227 @@
     "copy": "Copy",
     "error": "Please enter a number between 1 and 20.",
     "placeholder": "Generated UUIDs will appear here..."
+  },
+  "imageToPdf": {
+    "upload": "Upload images",
+    "helper": "Drop PNG/JPG files or browse",
+    "clear": "Clear list",
+    "generate": "Create PDF",
+    "empty": "Add at least one image to start.",
+    "reorder": "Drag or use buttons to reorder pages.",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "remove": "Remove",
+    "processing": "Processing...",
+    "success": "PDF ready—download started.",
+    "error": "Unable to build PDF. Please retry."
+  },
+  "listTool": {
+    "input": "List",
+    "placeholder": "Paste emails or values, one per line...",
+    "result": "Cleaned list",
+    "sortLabel": "Order",
+    "sortAsc": "A → Z",
+    "sortDesc": "Z → A",
+    "original": "Original",
+    "caseSensitive": "Case sensitive",
+    "copy": "Copy",
+    "clear": "Clear"
+  },
+  "csvJson": {
+    "csvInput": "CSV",
+    "jsonOutput": "JSON",
+    "convertToJson": "Convert to JSON",
+    "convertToCsv": "Convert to CSV",
+    "copyCsv": "Copy CSV",
+    "copyJson": "Copy JSON",
+    "placeholder": "Paste data to convert...",
+    "error": "Please enter valid CSV or JSON."
+  },
+  "randomPicker": {
+    "input": "Names",
+    "placeholder": "One participant per line...",
+    "mode": "Mode",
+    "drawMode": "Random draw",
+    "groupMode": "Random groups",
+    "winnersLabel": "Number of winners",
+    "groupSizeLabel": "People per group",
+    "run": "Run",
+    "winnersTitle": "Winners",
+    "groupsTitle": "Groups",
+    "groupLabel": "Group {index}",
+    "copy": "Copy",
+    "clear": "Clear",
+    "error": "Enter at least one name."
+  },
+  "imageCompressor": {
+    "upload": "Upload image",
+    "helper": "Drop a photo or click to browse",
+    "quality": "Quality",
+    "compress": "Compress",
+    "original": "Original",
+    "compressed": "Compressed",
+    "download": "Download",
+    "ratio": "Compressed to {ratio} of original",
+    "processing": "Working...",
+    "error": "Compression failed."
+  },
+  "imageConverter": {
+    "upload": "Upload image",
+    "helper": "Drop or browse a file",
+    "formatLabel": "Target format",
+    "convert": "Convert",
+    "download": "Download",
+    "processing": "Converting...",
+    "error": "Conversion failed.",
+    "inputLabel": "Input",
+    "outputLabel": "Output"
+  },
+  "socialMockup": {
+    "platform": "Platform",
+    "name": "Display name",
+    "handle": "Handle",
+    "content": "Content",
+    "time": "Timestamp",
+    "download": "Download PNG",
+    "helper": "Fill the fields below, then export the mockup.",
+    "twitter": "Twitter/X",
+    "instagram": "Instagram"
+  },
+  "paletteGenerator": {
+    "palette": "Palette",
+    "gradient": "Gradient preview",
+    "generate": "Generate palette",
+    "copy": "Copy hex",
+    "copied": "Copied!"
+  },
+  "svgRecolor": {
+    "upload": "Upload SVG",
+    "helper": "Drop a black SVG file",
+    "colorLabel": "Tint color",
+    "apply": "Apply",
+    "download": "Download SVG",
+    "preview": "Preview",
+    "error": "Could not recolor this SVG."
+  },
+  "emojiCleaner": {
+    "input": "Text",
+    "placeholder": "Paste text with emoji...",
+    "cleaned": "Text without emoji",
+    "emojis": "Extracted emoji",
+    "copyClean": "Copy text",
+    "copyEmoji": "Copy emoji"
+  },
+  "socialFormatter": {
+    "input": "Caption",
+    "placeholder": "Paste messy text...",
+    "spacing": "Insert blank lines",
+    "bullets": "Add bullets",
+    "emoji": "Prefix emoji",
+    "emojiPlaceholder": "e.g. ✨",
+    "format": "Format",
+    "output": "Formatted caption",
+    "copy": "Copy result"
+  },
+  "advancedWordCount": {
+    "input": "Text",
+    "placeholder": "Paste blog drafts, essays, or captions...",
+    "charsWithSpaces": "Characters (with spaces)",
+    "charsWithoutSpaces": "Characters (no spaces)",
+    "words": "Words",
+    "sentences": "Sentences",
+    "paragraphs": "Paragraphs"
+  },
+  "dateCalculator": {
+    "start": "Start date",
+    "end": "End date",
+    "days": "Days",
+    "weeks": "Weeks",
+    "months": "Months",
+    "future": "Event is in {days} days",
+    "past": "Event was {days} days ago"
+  },
+  "financeCalculator": {
+    "principal": "Initial amount",
+    "monthly": "Monthly contribution",
+    "rate": "Annual rate (%)",
+    "years": "Years",
+    "totalContributions": "Total contributions",
+    "totalInterest": "Estimated gains",
+    "chartTitle": "Projected balance"
+  },
+  "bmiCalculator": {
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
+    "result": "BMI",
+    "category": "Status",
+    "tips": {
+      "underweight": "Underweight",
+      "normal": "Healthy range",
+      "overweight": "Overweight",
+      "obese": "Obese"
+    }
+  },
+  "unitConverter": {
+    "category": "Category",
+    "categories": {
+      "length": "Length",
+      "weight": "Weight",
+      "shoe": "Shoe size",
+      "clothing": "Clothing"
+    },
+    "value": "Value",
+    "unit": "Unit",
+    "results": "Converted values",
+    "lengthUnits": {
+      "cm": "Centimeter",
+      "m": "Meter",
+      "inch": "Inch",
+      "foot": "Foot"
+    },
+    "weightUnits": {
+      "kg": "Kilogram",
+      "g": "Gram",
+      "lb": "Pound"
+    },
+    "shoe": {
+      "title": "Shoes (EU/US/CN)",
+      "eu": "EU",
+      "us": "US",
+      "cn": "CN"
+    },
+    "clothing": {
+      "title": "Clothing size chart",
+      "international": "INTL",
+      "us": "US",
+      "eu": "EU",
+      "cn": "CN"
+    }
+  },
+  "videoToGif": {
+    "upload": "Upload video",
+    "helper": "Drop MP4/WebM clips (processed locally)",
+    "start": "Start (s)",
+    "duration": "Duration (s)",
+    "width": "Width (px)",
+    "convert": "Convert",
+    "download": "Download GIF",
+    "processing": "Converting via ffmpeg.wasm...",
+    "error": "Conversion failed. Please try a shorter clip."
+  },
+  "ocr": {
+    "upload": "Upload image",
+    "helper": "Drop a screenshot or scan",
+    "language": "Language",
+    "languages": {
+      "eng": "English",
+      "chi_sim": "Simplified Chinese"
+    },
+    "run": "Run OCR",
+    "result": "Recognized text will appear here...",
+    "copy": "Copy text",
+    "processing": "Recognizing text...",
+    "error": "OCR failed.",
+    "preview": "Preview"
   }
 }

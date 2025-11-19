@@ -1,4 +1,15 @@
-export type ToolCategory = "dev" | "text" | "security" | "media" | "time" | "math";
+export type ToolCategory =
+  | "dev"
+  | "text"
+  | "security"
+  | "media"
+  | "time"
+  | "math"
+  | "productivity"
+  | "design"
+  | "social"
+  | "life"
+  | "wasm";
 
 export type ToolDefinition = {
   slug: string;
@@ -100,6 +111,133 @@ export const tools: ToolDefinition[] = [
     descriptionKey: "tools.colorConverter.description",
     category: "media",
     tags: ["color", "convert"],
+  },
+  {
+    slug: "image-to-pdf",
+    nameKey: "tools.image-to-pdf.name",
+    descriptionKey: "tools.image-to-pdf.description",
+    category: "productivity",
+    tags: ["pdf", "image"],
+  },
+  {
+    slug: "list-dedup-sort",
+    nameKey: "tools.list-dedup-sort.name",
+    descriptionKey: "tools.list-dedup-sort.description",
+    category: "productivity",
+    tags: ["list", "sort"],
+  },
+  {
+    slug: "csv-json-converter",
+    nameKey: "tools.csv-json-converter.name",
+    descriptionKey: "tools.csv-json-converter.description",
+    category: "productivity",
+    tags: ["csv", "json", "convert"],
+  },
+  {
+    slug: "random-picker",
+    nameKey: "tools.random-picker.name",
+    descriptionKey: "tools.random-picker.description",
+    category: "productivity",
+    tags: ["random", "team"],
+  },
+  {
+    slug: "image-compressor",
+    nameKey: "tools.image-compressor.name",
+    descriptionKey: "tools.image-compressor.description",
+    category: "design",
+    tags: ["image", "compress"],
+  },
+  {
+    slug: "image-converter",
+    nameKey: "tools.image-converter.name",
+    descriptionKey: "tools.image-converter.description",
+    category: "design",
+    tags: ["image", "convert"],
+  },
+  {
+    slug: "social-mockup",
+    nameKey: "tools.social-mockup.name",
+    descriptionKey: "tools.social-mockup.description",
+    category: "design",
+    tags: ["social", "image"],
+  },
+  {
+    slug: "palette-generator",
+    nameKey: "tools.palette-generator.name",
+    descriptionKey: "tools.palette-generator.description",
+    category: "design",
+    tags: ["color", "generate"],
+  },
+  {
+    slug: "svg-recolor",
+    nameKey: "tools.svg-recolor.name",
+    descriptionKey: "tools.svg-recolor.description",
+    category: "design",
+    tags: ["svg", "color"],
+  },
+  {
+    slug: "emoji-cleaner",
+    nameKey: "tools.emoji-cleaner.name",
+    descriptionKey: "tools.emoji-cleaner.description",
+    category: "social",
+    tags: ["emoji", "clean"],
+  },
+  {
+    slug: "social-formatter",
+    nameKey: "tools.social-formatter.name",
+    descriptionKey: "tools.social-formatter.description",
+    category: "social",
+    tags: ["text", "format"],
+  },
+  {
+    slug: "advanced-word-count",
+    nameKey: "tools.advanced-word-count.name",
+    descriptionKey: "tools.advanced-word-count.description",
+    category: "social",
+    tags: ["count", "text"],
+  },
+  {
+    slug: "date-calculator",
+    nameKey: "tools.date-calculator.name",
+    descriptionKey: "tools.date-calculator.description",
+    category: "life",
+    tags: ["date", "time"],
+  },
+  {
+    slug: "finance-calculator",
+    nameKey: "tools.finance-calculator.name",
+    descriptionKey: "tools.finance-calculator.description",
+    category: "life",
+    tags: ["finance", "chart"],
+  },
+  {
+    slug: "bmi-calculator",
+    nameKey: "tools.bmi-calculator.name",
+    descriptionKey: "tools.bmi-calculator.description",
+    category: "life",
+    tags: ["health"],
+  },
+  {
+    slug: "unit-converter",
+    nameKey: "tools.unit-converter.name",
+    descriptionKey: "tools.unit-converter.description",
+    category: "life",
+    tags: ["convert"],
+  },
+  {
+    slug: "video-to-gif",
+    nameKey: "tools.video-to-gif.name",
+    descriptionKey: "tools.video-to-gif.description",
+    category: "wasm",
+    tags: ["video", "gif"],
+    requiresBackend: false,
+  },
+  {
+    slug: "ocr",
+    nameKey: "tools.ocr.name",
+    descriptionKey: "tools.ocr.description",
+    category: "wasm",
+    tags: ["ocr", "text"],
   },
 ];
 

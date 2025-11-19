@@ -11,7 +11,9 @@
     "subtitle": "快速且重视隐私的工具，一切计算都在浏览器本地完成，无需上传。",
     "cta": "浏览全部工具",
     "featured": "精选工具",
-    "localOnly": "所有处理均在浏览器本地完成，不会上传到服务器。"
+    "localOnly": "所有处理均在浏览器本地完成，不会上传到服务器。",
+    "categoriesTitle": "按类别浏览",
+    "categoriesSubtitle": "围绕常见场景挑选工具，保持全程本地运行。"
   },
   "tools": {
     "base64": {
@@ -65,6 +67,78 @@
     "color-converter": {
       "name": "颜色转换",
       "description": "在 HEX 与 RGB 之间快速转换。"
+    },
+    "image-to-pdf": {
+      "name": "图片转 PDF",
+      "description": "调整顺序后将多张图片导出为 PDF。"
+    },
+    "list-dedup-sort": {
+      "name": "列表去重/排序",
+      "description": "去除重复值并按需要排序。"
+    },
+    "csv-json-converter": {
+      "name": "CSV ↔ JSON 转换",
+      "description": "利用 PapaParse 在 CSV 与 JSON 间转换。"
+    },
+    "random-picker": {
+      "name": "随机抽奖/分组",
+      "description": "抽取中奖名单或随机分组。"
+    },
+    "image-compressor": {
+      "name": "图片压缩",
+      "description": "使用 Canvas/Web Worker 本地压缩图片。"
+    },
+    "image-converter": {
+      "name": "图片格式转换",
+      "description": "在 JPG/PNG/WebP 之间快速互转。"
+    },
+    "social-mockup": {
+      "name": "社媒截图生成",
+      "description": "生成 Tweet/Instagram 风格卡片并截图下载。"
+    },
+    "palette-generator": {
+      "name": "调色板/渐变生成器",
+      "description": "一键生成随机色板与 CSS 渐变。"
+    },
+    "svg-recolor": {
+      "name": "SVG 上色器",
+      "description": "上传 SVG 图标并本地更改填充/描边颜色。"
+    },
+    "emoji-cleaner": {
+      "name": "Emoji 清理/提取",
+      "description": "快速删除或提取文本中的表情。"
+    },
+    "social-formatter": {
+      "name": "小红书/Instagram 排版",
+      "description": "自动加空行、项目符号与 Emoji。"
+    },
+    "advanced-word-count": {
+      "name": "进阶字数统计",
+      "description": "实时统计字符、句子与段落。"
+    },
+    "date-calculator": {
+      "name": "日期计算器",
+      "description": "计算两日期之间的天数、周数、月数。"
+    },
+    "finance-calculator": {
+      "name": "复利/房贷规划",
+      "description": "绘制存款/收益曲线，掌握复利增长。"
+    },
+    "bmi-calculator": {
+      "name": "BMI 身体指数",
+      "description": "输入身高体重并获取健康建议。"
+    },
+    "unit-converter": {
+      "name": "单位/尺码换算",
+      "description": "长度、重量以及鞋码、衣服尺码对照表。"
+    },
+    "video-to-gif": {
+      "name": "视频转 GIF（WASM）",
+      "description": "使用 ffmpeg.wasm 在浏览器内裁剪并导出 GIF。"
+    },
+    "ocr": {
+      "name": "本地 OCR（Tesseract.js）",
+      "description": "离线识别英文或中文图片文字。"
     }
   },
   "categories": {
@@ -73,7 +147,12 @@
     "security": "安全",
     "media": "多媒体",
     "time": "时间",
-    "math": "数学"
+    "math": "数学",
+    "productivity": "办公/效率",
+    "design": "设计/自媒体",
+    "social": "社交内容",
+    "life": "生活/计算",
+    "wasm": "WebAssembly"
   },
   "tags": {
     "encode": "编码",
@@ -96,7 +175,28 @@
     "convert": "转换",
     "json": "JSON",
     "validate": "验证",
-    "uuid": "UUID"
+    "uuid": "UUID",
+    "pdf": "PDF",
+    "text": "文本",
+    "list": "列表",
+    "sort": "排序",
+    "csv": "CSV",
+    "team": "分组",
+    "image": "图片",
+    "compress": "压缩",
+    "svg": "SVG",
+    "social": "社媒",
+    "style": "花样字体",
+    "emoji": "Emoji",
+    "clean": "清理",
+    "date": "日期",
+    "time": "时间",
+    "finance": "理财",
+    "chart": "图表",
+    "health": "健康",
+    "video": "视频",
+    "gif": "GIF",
+    "ocr": "OCR"
   },
   "toolShell": {
     "input": "输入",
@@ -219,5 +319,227 @@
     "copy": "复制",
     "error": "请输入 1 到 20 之间的数字。",
     "placeholder": "生成的 UUID 将显示在此..."
+  },
+  "imageToPdf": {
+    "upload": "上传图片",
+    "helper": "拖拽 PNG/JPG 或点击选择",
+    "clear": "清空列表",
+    "generate": "生成 PDF",
+    "empty": "请先添加至少一张图片。",
+    "reorder": "可拖拽或用按钮调整顺序。",
+    "moveUp": "上移",
+    "moveDown": "下移",
+    "remove": "移除",
+    "processing": "正在处理...",
+    "success": "PDF 已生成并开始下载。",
+    "error": "生成 PDF 失败，请重试。"
+  },
+  "listTool": {
+    "input": "列表",
+    "placeholder": "一行一个邮箱或数据...",
+    "result": "去重结果",
+    "sortLabel": "排序",
+    "sortAsc": "A → Z",
+    "sortDesc": "Z → A",
+    "original": "原顺序",
+    "caseSensitive": "区分大小写",
+    "copy": "复制",
+    "clear": "清空"
+  },
+  "csvJson": {
+    "csvInput": "CSV",
+    "jsonOutput": "JSON",
+    "convertToJson": "转为 JSON",
+    "convertToCsv": "转为 CSV",
+    "copyCsv": "复制 CSV",
+    "copyJson": "复制 JSON",
+    "placeholder": "粘贴需要转换的数据...",
+    "error": "请输入合法的 CSV 或 JSON。"
+  },
+  "randomPicker": {
+    "input": "名单",
+    "placeholder": "每行一个人名...",
+    "mode": "模式",
+    "drawMode": "随机抽奖",
+    "groupMode": "随机分组",
+    "winnersLabel": "中奖人数",
+    "groupSizeLabel": "每组人数",
+    "run": "开始",
+    "winnersTitle": "中奖名单",
+    "groupsTitle": "分组结果",
+    "groupLabel": "第 {index} 组",
+    "copy": "复制",
+    "clear": "清空",
+    "error": "请至少输入一个名字。"
+  },
+  "imageCompressor": {
+    "upload": "上传图片",
+    "helper": "拖拽或点击选择照片",
+    "quality": "质量",
+    "compress": "开始压缩",
+    "original": "原图",
+    "compressed": "压缩后",
+    "download": "下载",
+    "ratio": "压缩后为原图的 {ratio}",
+    "processing": "处理中...",
+    "error": "压缩失败。"
+  },
+  "imageConverter": {
+    "upload": "上传图片",
+    "helper": "拖拽或点击选择文件",
+    "formatLabel": "目标格式",
+    "convert": "开始转换",
+    "download": "下载",
+    "processing": "正在转换...",
+    "error": "转换失败。",
+    "inputLabel": "输入",
+    "outputLabel": "输出"
+  },
+  "socialMockup": {
+    "platform": "平台",
+    "name": "昵称",
+    "handle": "账号",
+    "content": "内容",
+    "time": "时间",
+    "download": "下载 PNG",
+    "helper": "填写右侧内容后即可导出截图。",
+    "twitter": "Twitter/X",
+    "instagram": "Instagram"
+  },
+  "paletteGenerator": {
+    "palette": "调色板",
+    "gradient": "渐变预览",
+    "generate": "重新生成",
+    "copy": "复制色值",
+    "copied": "已复制"
+  },
+  "svgRecolor": {
+    "upload": "上传 SVG",
+    "helper": "建议上传黑色图标",
+    "colorLabel": "目标颜色",
+    "apply": "应用",
+    "download": "下载 SVG",
+    "preview": "预览",
+    "error": "无法为该 SVG 上色。"
+  },
+  "emojiCleaner": {
+    "input": "文本",
+    "placeholder": "粘贴包含 Emoji 的内容...",
+    "cleaned": "去除 Emoji 的文本",
+    "emojis": "提取的 Emoji",
+    "copyClean": "复制文本",
+    "copyEmoji": "复制 Emoji"
+  },
+  "socialFormatter": {
+    "input": "文案",
+    "placeholder": "粘贴凌乱的内容...",
+    "spacing": "自动加空行",
+    "bullets": "添加项目符号",
+    "emoji": "前缀 Emoji",
+    "emojiPlaceholder": "如 ✨",
+    "format": "格式化",
+    "output": "排版结果",
+    "copy": "复制结果"
+  },
+  "advancedWordCount": {
+    "input": "文本",
+    "placeholder": "粘贴文章、论文或文案...",
+    "charsWithSpaces": "字符（含空格）",
+    "charsWithoutSpaces": "字符（不含空格）",
+    "words": "单词",
+    "sentences": "句子",
+    "paragraphs": "段落"
+  },
+  "dateCalculator": {
+    "start": "开始日期",
+    "end": "结束日期",
+    "days": "天数",
+    "weeks": "周数",
+    "months": "月数",
+    "future": "距离目标还有 {days} 天",
+    "past": "距离目标已过去 {days} 天"
+  },
+  "financeCalculator": {
+    "principal": "初始金额",
+    "monthly": "每月投入",
+    "rate": "年化收益率 (%)",
+    "years": "年限",
+    "totalContributions": "总投入",
+    "totalInterest": "预计收益",
+    "chartTitle": "资产增长曲线"
+  },
+  "bmiCalculator": {
+    "height": "身高 (cm)",
+    "weight": "体重 (kg)",
+    "result": "BMI",
+    "category": "状态",
+    "tips": {
+      "underweight": "偏瘦",
+      "normal": "健康",
+      "overweight": "过重",
+      "obese": "肥胖"
+    }
+  },
+  "unitConverter": {
+    "category": "类别",
+    "categories": {
+      "length": "长度",
+      "weight": "重量",
+      "shoe": "鞋码",
+      "clothing": "服装"
+    },
+    "value": "数值",
+    "unit": "单位",
+    "results": "换算结果",
+    "lengthUnits": {
+      "cm": "厘米",
+      "m": "米",
+      "inch": "英寸",
+      "foot": "英尺"
+    },
+    "weightUnits": {
+      "kg": "千克",
+      "g": "克",
+      "lb": "磅"
+    },
+    "shoe": {
+      "title": "鞋码（EU/US/CN）",
+      "eu": "欧码",
+      "us": "美码",
+      "cn": "国码"
+    },
+    "clothing": {
+      "title": "服装尺码对照",
+      "international": "国际",
+      "us": "美码",
+      "eu": "欧码",
+      "cn": "国码"
+    }
+  },
+  "videoToGif": {
+    "upload": "上传视频",
+    "helper": "拖拽 MP4/WebM（纯浏览器处理）",
+    "start": "开始秒数",
+    "duration": "持续秒数",
+    "width": "宽度 (px)",
+    "convert": "转换",
+    "download": "下载 GIF",
+    "processing": "正在使用 ffmpeg.wasm 转换...",
+    "error": "转换失败，请缩短片段后重试。"
+  },
+  "ocr": {
+    "upload": "上传图片",
+    "helper": "拖拽截图或扫描文件",
+    "language": "语言",
+    "languages": {
+      "eng": "英文",
+      "chi_sim": "简体中文"
+    },
+    "run": "开始识别",
+    "result": "识别结果将显示在此...",
+    "copy": "复制文本",
+    "processing": "正在识别文字...",
+    "error": "识别失败。",
+    "preview": "图片预览"
   }
 }

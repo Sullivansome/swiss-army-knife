@@ -1,0 +1,67 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+export type AdvancedWordCountLabels = {
+  input: string;
+  placeholder: string;
+  charsWithSpaces: string;
+  charsWithoutSpaces: string;
+  words: string;
+  sentences: string;
+  paragraphs: string;
+};
+
+type Props = {
+  labels: AdvancedWordCountLabels;
+};
+
+export function AdvancedWordCountTool({ labels }: Props) {
+  const [text, setText] = useState("");
+
+  const stats = useMemo(() => {
+    const trimmed = text.trim();
+    const charsWithSpaces = text.length;
+    const charsWithoutSpaces = text.replace(/\s+/g, "").length;
+    const words = trimmed ? trimmed.split(/\s+/).length : 0;
+    const sentences = trimmed ? trimmed.split(/[.!?\u3002\uff01\uff1f]+/).filter(Boolean).length : 0;
+    const paragraphs = trimmed ? trimmed.split(/\n\s*\n/).filter(Boolean).length : 0;
+    return { charsWithSpaces, charsWithoutSpaces, words, sentences, paragraphs };
+  }, [text]);
+
+  return (
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-foreground">{labels.input}</label>
+        <textarea
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          placeholder={labels.placeholder}
+          className="min-h-48 w-full rounded-lg border bg-background p-3 text-sm shadow-inner"
+        />
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2">
+        <Stat label={labels.charsWithSpaces} value={stats.charsWithSpaces} />
+        <Stat label={labels.charsWithoutSpaces} value={stats.charsWithoutSpaces} />
+        <Stat label={labels.words} value={stats.words} />
+        <Stat label={labels.sentences} value={stats.sentences} />
+        <Stat label={labels.paragraphs} value={stats.paragraphs} />
+      </div>
+    </div>
+  );
+}
+
+type StatProps = {
+  label: string;
+  value: number;
+};
+
+function Stat({ label, value }: StatProps) {
+  return (
+    <div className="rounded-xl border bg-card p-4 text-center">
+      <p className="text-sm text-muted-foreground">{label}</p>
+      <p className="mt-2 text-2xl font-semibold text-foreground">{value}</p>
+    </div>
+  );
+}
