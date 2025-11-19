@@ -18,6 +18,13 @@ export const tools: ToolDefinition[] = [
     tags: ["encode", "decode"],
   },
   {
+    slug: "json-formatter",
+    nameKey: "tools.jsonFormatter.name",
+    descriptionKey: "tools.jsonFormatter.description",
+    category: "dev",
+    tags: ["json", "format", "validate"],
+  },
+  {
     slug: "word-counter",
     nameKey: "tools.wordCounter.name",
     descriptionKey: "tools.wordCounter.description",
@@ -58,6 +65,13 @@ export const tools: ToolDefinition[] = [
     descriptionKey: "tools.passwordGenerator.description",
     category: "security",
     tags: ["random", "password"],
+  },
+  {
+    slug: "uuid-generator",
+    nameKey: "tools.uuidGenerator.name",
+    descriptionKey: "tools.uuidGenerator.description",
+    category: "dev",
+    tags: ["uuid", "random", "generate"],
   },
   {
     slug: "hash-generator",

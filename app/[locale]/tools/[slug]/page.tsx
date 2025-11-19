@@ -7,10 +7,12 @@ import { DiffCheckerTool } from "@/components/tools/diff-checker";
 import { ColorConverterTool } from "@/components/tools/color-converter";
 import { ExifViewerTool } from "@/components/tools/exif-viewer";
 import { HashGeneratorTool } from "@/components/tools/hash-generator";
+import { JsonFormatterTool } from "@/components/tools/json-formatter";
 import { LoremIpsumTool } from "@/components/tools/lorem-ipsum";
 import { MarkdownPreviewTool } from "@/components/tools/markdown-preview";
 import { PasswordGeneratorTool } from "@/components/tools/password-generator";
 import { QrGeneratorTool } from "@/components/tools/qr-generator";
+import { UuidGeneratorTool } from "@/components/tools/uuid-generator";
 import { WordCounterTool } from "@/components/tools/word-counter";
 import { ToolShell } from "@/components/tool-shell";
 import { getDictionary } from "@/lib/dictionaries";
@@ -94,6 +96,20 @@ export default async function ToolPage({ params }: Props) {
               placeholder: dict.caseConverter.placeholder,
             }}
           />
+        ) : tool.slug === "json-formatter" ? (
+          <JsonFormatterTool
+            labels={{
+              input: dict.jsonFormatter.input,
+              output: dict.jsonFormatter.output,
+              format: dict.jsonFormatter.format,
+              validate: dict.jsonFormatter.validate,
+              clear: dict.jsonFormatter.clear,
+              copy: dict.jsonFormatter.copy,
+              placeholder: dict.jsonFormatter.placeholder,
+              error: dict.jsonFormatter.error,
+              valid: dict.jsonFormatter.valid,
+            }}
+          />
         ) : tool.slug === "diff-checker" ? (
           <DiffCheckerTool
             labels={{
@@ -138,6 +154,17 @@ export default async function ToolPage({ params }: Props) {
               copy: dict.passwordGenerator.copy,
               password: dict.passwordGenerator.password,
               placeholder: dict.passwordGenerator.placeholder,
+            }}
+          />
+        ) : tool.slug === "uuid-generator" ? (
+          <UuidGeneratorTool
+            labels={{
+              count: dict.uuidGenerator.count,
+              countHelper: dict.uuidGenerator.countHelper,
+              generate: dict.uuidGenerator.generate,
+              copy: dict.uuidGenerator.copy,
+              error: dict.uuidGenerator.error,
+              placeholder: dict.uuidGenerator.placeholder,
             }}
           />
         ) : tool.slug === "hash-generator" ? (

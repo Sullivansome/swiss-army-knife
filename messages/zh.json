@@ -18,6 +18,10 @@
       "name": "Base64 转换器",
       "description": "在浏览器本地完成文本的 Base64 编码/解码。"
     },
+    "json-formatter": {
+      "name": "JSON 格式化与校验",
+      "description": "在浏览器中验证并美化 JSON。"
+    },
     "word-counter": {
       "name": "字数统计",
       "description": "快速统计字数、字符数与行数。"
@@ -41,6 +45,10 @@
     "password-generator": {
       "name": "随机密码生成器",
       "description": "本地生成自定义长度和符号的强密码。"
+    },
+    "uuid-generator": {
+      "name": "UUID 生成器",
+      "description": "使用 Web Crypto 本地生成 UUID v4。"
     },
     "hash-generator": {
       "name": "哈希生成器",
@@ -85,7 +93,10 @@
     "exif": "EXIF",
     "metadata": "元数据",
     "color": "颜色",
-    "convert": "转换"
+    "convert": "转换",
+    "json": "JSON",
+    "validate": "验证",
+    "uuid": "UUID"
   },
   "toolShell": {
     "input": "输入",
@@ -189,5 +200,24 @@
     "placeholderHex": "#3366ff",
     "placeholderRgb": "51, 102, 255",
     "invalid": "颜色值无效。"
+  },
+  "jsonFormatter": {
+    "input": "JSON 输入",
+    "output": "格式化结果",
+    "format": "格式化",
+    "validate": "校验",
+    "clear": "清空",
+    "copy": "复制",
+    "placeholder": "在此粘贴 JSON...",
+    "error": "JSON 无效，请检查逗号、引号或括号。",
+    "valid": "JSON 格式正确"
+  },
+  "uuidGenerator": {
+    "count": "生成数量",
+    "countHelper": "每次生成 1 到 20 个 UUID。",
+    "generate": "生成",
+    "copy": "复制",
+    "error": "请输入 1 到 20 之间的数字。",
+    "placeholder": "生成的 UUID 将显示在此..."
   }
 }

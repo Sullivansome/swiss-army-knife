@@ -18,6 +18,10 @@
       "name": "Base64 Converter",
       "description": "Encode and decode text locally in your browser."
     },
+    "json-formatter": {
+      "name": "JSON Formatter & Validator",
+      "description": "Validate and pretty-print JSON without leaving the browser."
+    },
     "word-counter": {
       "name": "Word Counter",
       "description": "Count words, characters, and lines instantly."
@@ -41,6 +45,10 @@
     "password-generator": {
       "name": "Password Generator",
       "description": "Generate strong local passwords with custom length and symbols."
+    },
+    "uuid-generator": {
+      "name": "UUID Generator",
+      "description": "Create UUID v4 strings with Web Crypto in your browser."
     },
     "hash-generator": {
       "name": "Hash Generator",
@@ -85,7 +93,10 @@
     "exif": "exif",
     "metadata": "metadata",
     "color": "color",
-    "convert": "convert"
+    "convert": "convert",
+    "json": "json",
+    "validate": "validate",
+    "uuid": "uuid"
   },
   "toolShell": {
     "input": "Input",
@@ -189,5 +200,24 @@
     "placeholderHex": "#3366ff",
     "placeholderRgb": "51, 102, 255",
     "invalid": "Invalid color value."
+  },
+  "jsonFormatter": {
+    "input": "JSON Input",
+    "output": "Formatted JSON",
+    "format": "Format",
+    "validate": "Validate",
+    "clear": "Clear",
+    "copy": "Copy",
+    "placeholder": "Paste JSON here...",
+    "error": "Invalid JSON. Please check for trailing commas or missing quotes.",
+    "valid": "Valid JSON"
+  },
+  "uuidGenerator": {
+    "count": "Amount",
+    "countHelper": "Generate between 1 and 20 UUIDs per run.",
+    "generate": "Generate",
+    "copy": "Copy",
+    "error": "Please enter a number between 1 and 20.",
+    "placeholder": "Generated UUIDs will appear here..."
   }
 }
