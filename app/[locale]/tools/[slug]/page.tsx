@@ -54,16 +54,20 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale: raw } = await params;
   const tool = getTool(slug);
 
   if (!tool) {
     return {};
   }
 
+  const locale = assertLocale(raw);
+  const dict = await getDictionary(locale);
+  const toolDict = dict.tools[tool.slug as keyof typeof dict.tools];
+
   return {
-    title: tool.slug,
-    description: tool.slug,
+    title: toolDict?.name ?? tool.slug,
+    description: toolDict?.description ?? tool.slug,
   };
 }
 
