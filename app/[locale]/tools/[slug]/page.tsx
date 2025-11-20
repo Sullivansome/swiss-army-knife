@@ -39,6 +39,12 @@ import { FinanceNumberCaseTool } from "@/components/tools/finance-number-case";
 import { FinanceEssentialsTool } from "@/components/tools/finance-essentials";
 import { BaseConverterTool } from "@/components/tools/base-converter";
 import { ComputerBaseConverterTool } from "@/components/tools/computer-base-converter";
+import { RegexPlaygroundTool } from "@/components/tools/regex-playground";
+import { JwtInspectorTool } from "@/components/tools/jwt-inspector";
+import { ColorContrastChecker } from "@/components/tools/color-contrast-checker";
+import { TimezonePlanner } from "@/components/tools/timezone-planner";
+import { CronExplainerTool } from "@/components/tools/cron-explainer";
+import { StatisticsSummaryTool } from "@/components/tools/statistics-summary";
 import { ToolShell } from "@/components/tool-shell";
 import { getDictionary, type Dictionary } from "@/lib/dictionaries";
 import { assertLocale } from "@/lib/i18n-config";
@@ -160,6 +166,28 @@ function renderTool(slug: string, dict: Dictionary) {
           }}
         />
       );
+    case "regex-playground":
+      return (
+        <RegexPlaygroundTool
+          labels={{
+            patternLabel: dict.regexPlayground.patternLabel,
+            patternPlaceholder: dict.regexPlayground.patternPlaceholder,
+            flagsLabel: dict.regexPlayground.flagsLabel,
+            flagsHint: dict.regexPlayground.flagsHint,
+            sampleLabel: dict.regexPlayground.sampleLabel,
+            samplePlaceholder: dict.regexPlayground.samplePlaceholder,
+            matchesLabel: dict.regexPlayground.matchesLabel,
+            noMatches: dict.regexPlayground.noMatches,
+            helper: dict.regexPlayground.helper,
+            error: dict.regexPlayground.error,
+            clear: dict.toolShell.clear,
+            indexLabel: dict.regexPlayground.indexLabel,
+            groupLabel: dict.regexPlayground.groupLabel,
+            highlightLabel: dict.regexPlayground.highlightLabel,
+            flagDescriptions: dict.regexPlayground.flagDescriptions,
+          }}
+        />
+      );
     case "diff-checker":
       return (
         <DiffCheckerTool
@@ -243,6 +271,39 @@ function renderTool(slug: string, dict: Dictionary) {
           }}
         />
       );
+    case "jwt-inspector":
+      return (
+        <JwtInspectorTool
+          labels={{
+            inputLabel: dict.jwtInspector.inputLabel,
+            placeholder: dict.jwtInspector.placeholder,
+            helper: dict.jwtInspector.helper,
+            headerTitle: dict.jwtInspector.headerTitle,
+            payloadTitle: dict.jwtInspector.payloadTitle,
+            signatureTitle: dict.jwtInspector.signatureTitle,
+            claimsTitle: dict.jwtInspector.claimsTitle,
+            copyJson: dict.jwtInspector.copyJson,
+            copied: dict.jwtInspector.copied,
+            invalidStructure: dict.jwtInspector.invalidStructure,
+            decodeError: dict.jwtInspector.decodeError,
+            statusActive: dict.jwtInspector.statusActive,
+            statusExpired: dict.jwtInspector.statusExpired,
+            expiresIn: dict.jwtInspector.expiresIn,
+            expiredAgo: dict.jwtInspector.expiredAgo,
+            noExpiry: dict.jwtInspector.noExpiry,
+            noClaims: dict.jwtInspector.noClaims,
+            signatureMissing: dict.jwtInspector.signatureMissing,
+            signaturePresent: dict.jwtInspector.signaturePresent,
+            issuer: dict.jwtInspector.issuer,
+            subject: dict.jwtInspector.subject,
+            audience: dict.jwtInspector.audience,
+            expires: dict.jwtInspector.expires,
+            issuedAt: dict.jwtInspector.issuedAt,
+            validFrom: dict.jwtInspector.validFrom,
+            durationUnits: dict.jwtInspector.durationUnits,
+          }}
+        />
+      );
     case "qr-generator":
       return (
         <QrGeneratorTool
@@ -281,6 +342,24 @@ function renderTool(slug: string, dict: Dictionary) {
           }}
         />
       );
+    case "color-contrast-checker":
+      return (
+        <ColorContrastChecker
+          labels={{
+            textColor: dict.colorContrast.textColor,
+            backgroundColor: dict.colorContrast.backgroundColor,
+            swap: dict.colorContrast.swap,
+            ratioLabel: dict.colorContrast.ratioLabel,
+            aaNormal: dict.colorContrast.aaNormal,
+            aaLarge: dict.colorContrast.aaLarge,
+            aaa: dict.colorContrast.aaa,
+            pass: dict.colorContrast.pass,
+            fail: dict.colorContrast.fail,
+            previewLabel: dict.colorContrast.previewLabel,
+            helper: dict.colorContrast.helper,
+          }}
+        />
+      );
     case "image-to-pdf":
       return <ImageToPdfTool labels={dict.imageToPdf} />;
     case "list-dedup-sort":
@@ -307,12 +386,46 @@ function renderTool(slug: string, dict: Dictionary) {
       return <AdvancedWordCountTool labels={dict.advancedWordCount} />;
     case "date-calculator":
       return <DateCalculatorTool labels={dict.dateCalculator} />;
+    case "timezone-meeting-planner":
+      return (
+        <TimezonePlanner
+          labels={{
+            meetingTime: dict.timezonePlanner.meetingTime,
+            baseTimezone: dict.timezonePlanner.baseTimezone,
+            timezoneHint: dict.timezonePlanner.timezoneHint,
+            participants: dict.timezonePlanner.participants,
+            addTimezone: dict.timezonePlanner.addTimezone,
+            removeTimezone: dict.timezonePlanner.removeTimezone,
+            workingHours: dict.timezonePlanner.workingHours,
+            offHours: dict.timezonePlanner.offHours,
+            copySummary: dict.timezonePlanner.copySummary,
+            copied: dict.timezonePlanner.copied,
+            emptyState: dict.timezonePlanner.emptyState,
+            timelineLabel: dict.timezonePlanner.timelineLabel,
+          }}
+        />
+      );
     case "finance-calculator":
       return <FinanceCalculatorTool labels={dict.financeCalculator} />;
     case "bmi-calculator":
       return <BmiCalculatorTool labels={dict.bmiCalculator} />;
     case "unit-converter":
       return <UnitConverterTool labels={dict.unitConverter} />;
+    case "statistics-summary":
+      return (
+        <StatisticsSummaryTool
+          labels={{
+            inputLabel: dict.statisticsSummary.inputLabel,
+            placeholder: dict.statisticsSummary.placeholder,
+            invalidCount: dict.statisticsSummary.invalidCount,
+            metrics: dict.statisticsSummary.metrics,
+            empty: dict.statisticsSummary.empty,
+            chartLabel: dict.statisticsSummary.chartLabel,
+            copySummary: dict.statisticsSummary.copySummary,
+            copied: dict.statisticsSummary.copied,
+          }}
+        />
+      );
     case "international-temperature-converter":
       return (
         <TemperatureConverterTool
@@ -337,6 +450,26 @@ function renderTool(slug: string, dict: Dictionary) {
       return <BaseConverterTool labels={dict.baseConverter} />;
     case "computer-base-converter":
       return <ComputerBaseConverterTool labels={dict.computerBaseConverter} />;
+    case "cron-explainer":
+      return (
+        <CronExplainerTool
+          labels={{
+            expressionLabel: dict.cronExplainer.expressionLabel,
+            placeholder: dict.cronExplainer.placeholder,
+            helper: dict.cronExplainer.helper,
+            timezoneLabel: dict.cronExplainer.timezoneLabel,
+            parseError: dict.cronExplainer.parseError,
+            fields: dict.cronExplainer.fields,
+            unitNames: dict.cronExplainer.unitNames,
+            months: dict.cronExplainer.months,
+            weekdays: dict.cronExplainer.weekdays,
+            descriptions: dict.cronExplainer.descriptions,
+            nextRuns: dict.cronExplainer.nextRuns,
+            copySchedule: dict.cronExplainer.copySchedule,
+            copied: dict.cronExplainer.copied,
+          }}
+        />
+      );
     case "video-to-gif":
       return <VideoToGifTool labels={dict.videoToGif} />;
     case "ocr":

@@ -24,6 +24,10 @@
       "name": "JSON 格式化与校验",
       "description": "在浏览器中验证并美化 JSON。"
     },
+    "regex-playground": {
+      "name": "Regex 沙箱",
+      "description": "本地测试 JS 正则并实时高亮匹配。"
+    },
     "word-counter": {
       "name": "字数统计",
       "description": "快速统计字数、字符数与行数。"
@@ -56,6 +60,10 @@
       "name": "哈希生成器",
       "description": "在浏览器本地计算 MD5、SHA-256、SHA-512。"
     },
+    "jwt-inspector": {
+      "name": "JWT 解码器",
+      "description": "本地解码 Header/Payload，并提示是否过期。"
+    },
     "qr-generator": {
       "name": "二维码生成器",
       "description": "在本地生成文本或链接的二维码。"
@@ -67,6 +75,10 @@
     "color-converter": {
       "name": "颜色转换",
       "description": "在 HEX 与 RGB 之间快速转换。"
+    },
+    "color-contrast-checker": {
+      "name": "颜色对比度检测",
+      "description": "按照 WCAG 标准计算对比度并预览。"
     },
     "image-to-pdf": {
       "name": "图片转 PDF",
@@ -120,6 +132,10 @@
       "name": "日期计算器",
       "description": "计算两日期之间的天数、周数、月数。"
     },
+    "timezone-meeting-planner": {
+      "name": "时区会议规划",
+      "description": "设定基准时间后，快速查看各地对应时间。"
+    },
     "finance-calculator": {
       "name": "复利/房贷规划",
       "description": "绘制存款/收益曲线，掌握复利增长。"
@@ -131,6 +147,10 @@
     "unit-converter": {
       "name": "单位/尺码换算",
       "description": "长度、重量以及鞋码、衣服尺码对照表。"
+    },
+    "statistics-summary": {
+      "name": "统计汇总",
+      "description": "粘贴数字即可计算均值、中位数、方差与趋势。"
     },
     "international-temperature-converter": {
       "name": "国际温度单位转换",
@@ -159,6 +179,10 @@
     "computer-base-converter": {
       "name": "计算机进制转换",
       "description": "面向开发者的进制工具，附带位数与补零提示。"
+    },
+    "cron-explainer": {
+      "name": "Cron 解析器",
+      "description": "逐字段解释 5 段 cron 表达式并预览下次执行。"
     },
     "video-to-gif": {
       "name": "视频转 GIF（WASM）",
@@ -225,7 +249,17 @@
     "health": "健康",
     "video": "视频",
     "gif": "GIF",
-    "ocr": "OCR"
+    "ocr": "OCR",
+    "regex": "正则",
+    "test": "测试",
+    "jwt": "JWT",
+    "token": "令牌",
+    "contrast": "对比度",
+    "wcag": "WCAG",
+    "timezone": "时区",
+    "schedule": "调度",
+    "stats": "统计",
+    "analysis": "分析"
   },
   "toolShell": {
     "input": "输入",
@@ -235,6 +269,162 @@
     "encoded": "编码结果",
     "decoded": "解码结果",
     "error": "出现错误，请检查输入内容。"
+  },
+  "regexPlayground": {
+    "patternLabel": "正则表达式",
+    "patternPlaceholder": "例如 (hello)+",
+    "flagsLabel": "修饰符",
+    "flagsHint": "切换常见的 JavaScript 正则标志。",
+    "sampleLabel": "测试文本",
+    "samplePlaceholder": "粘贴需要匹配的文本…",
+    "matchesLabel": "匹配结果",
+    "noMatches": "暂未匹配成功，请输入文本或调整表达式。",
+    "helper": "完全在浏览器本地计算，不上传任何内容。",
+    "error": "无法编译该表达式，请检查语法。",
+    "indexLabel": "起始位置",
+    "groupLabel": "分组",
+    "highlightLabel": "高亮区",
+    "flagDescriptions": {
+      "g": "全局",
+      "i": "忽略大小写",
+      "m": "多行",
+      "s": "点号匹配换行",
+      "u": "Unicode",
+      "y": "粘滞"
+    }
+  },
+  "jwtInspector": {
+    "inputLabel": "JWT 令牌",
+    "placeholder": "粘贴 JWT（header.payload.signature）…",
+    "helper": "仅在本地解码，不校验签名。",
+    "headerTitle": "Header",
+    "payloadTitle": "Payload",
+    "signatureTitle": "签名",
+    "claimsTitle": "常见声明",
+    "copyJson": "复制 JSON",
+    "copied": "已复制",
+    "invalidStructure": "令牌至少需要两个点号分隔的部分。",
+    "decodeError": "无法解码该令牌，请检查 Base64 内容。",
+    "statusActive": "有效",
+    "statusExpired": "已过期",
+    "expiresIn": "{duration} 后过期",
+    "expiredAgo": "已于 {duration} 前过期",
+    "noExpiry": "未提供 exp 字段。",
+    "noClaims": "未检测到常见声明。",
+    "signatureMissing": "缺少签名片段，此令牌未加密。",
+    "signaturePresent": "已包含签名，本工具不验证真伪。",
+    "issuer": "签发方 (iss)",
+    "subject": "主体 (sub)",
+    "audience": "受众 (aud)",
+    "expires": "过期时间 (exp)",
+    "issuedAt": "签发时间 (iat)",
+    "validFrom": "生效时间 (nbf)",
+    "durationUnits": {
+      "days": "天",
+      "hours": "小时",
+      "minutes": "分钟"
+    }
+  },
+  "colorContrast": {
+    "textColor": "文字颜色",
+    "backgroundColor": "背景颜色",
+    "swap": "交换颜色",
+    "ratioLabel": "对比度",
+    "aaNormal": "AA（正文）",
+    "aaLarge": "AA（大字号）",
+    "aaa": "AAA（正文）",
+    "pass": "通过",
+    "fail": "未达标",
+    "previewLabel": "预览",
+    "helper": "WCAG 2.1 要求正文 4.5:1、大标题 3:1。"
+  },
+  "timezonePlanner": {
+    "meetingTime": "会议时间",
+    "baseTimezone": "基准时区",
+    "timezoneHint": "上方时间会按照所选时区保存。",
+    "participants": "其他时区",
+    "addTimezone": "新增时区",
+    "removeTimezone": "移除",
+    "workingHours": "工作时间",
+    "offHours": "非工作时间",
+    "copySummary": "复制概览",
+    "copied": "已复制",
+    "emptyState": "请先添加一个时区以进行对比。",
+    "timelineLabel": "时间轴"
+  },
+  "cronExplainer": {
+    "expressionLabel": "Cron 表达式",
+    "placeholder": "0 9 * * 1-5",
+    "helper": "格式：分钟 小时 日期 月份 星期（共 5 字段）。",
+    "timezoneLabel": "时区",
+    "parseError": "无法解析该 cron 表达式。",
+    "fields": {
+      "minute": "分钟",
+      "hour": "小时",
+      "dayOfMonth": "日期",
+      "month": "月份",
+      "dayOfWeek": "星期"
+    },
+    "unitNames": {
+      "minute": "分钟",
+      "hour": "小时",
+      "dayOfMonth": "日期",
+      "month": "月份",
+      "dayOfWeek": "星期"
+    },
+    "months": {
+      "1": "一月",
+      "2": "二月",
+      "3": "三月",
+      "4": "四月",
+      "5": "五月",
+      "6": "六月",
+      "7": "七月",
+      "8": "八月",
+      "9": "九月",
+      "10": "十月",
+      "11": "十一月",
+      "12": "十二月"
+    },
+    "weekdays": {
+      "0": "周日",
+      "1": "周一",
+      "2": "周二",
+      "3": "周三",
+      "4": "周四",
+      "5": "周五",
+      "6": "周六"
+    },
+    "descriptions": {
+      "any": "任意 {unit}",
+      "value": "{value}",
+      "list": "包含：{items}",
+      "range": "{start}-{end}",
+      "rangeStep": "{start}-{end}，每 {step} 个 {unit}",
+      "separator": "，"
+    },
+    "nextRuns": "最近执行时间",
+    "copySchedule": "复制计划",
+    "copied": "已复制"
+  },
+  "statisticsSummary": {
+    "inputLabel": "数据列表",
+    "placeholder": "粘贴以逗号或换行分隔的数字…",
+    "invalidCount": "忽略了 {count} 个无法解析的值。",
+    "metrics": {
+      "count": "数量",
+      "sum": "总和",
+      "mean": "均值",
+      "median": "中位数",
+      "min": "最小值",
+      "max": "最大值",
+      "variance": "方差",
+      "stddev": "标准差"
+    },
+    "empty": "至少输入两个数字才能查看完整统计。",
+    "chartLabel": "趋势预览",
+    "copySummary": "复制摘要",
+    "copied": "已复制"
   },
   "temperatureConverter": {
     "valueLabel": "数值",

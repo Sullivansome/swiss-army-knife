@@ -24,6 +24,10 @@
       "name": "JSON Formatter & Validator",
       "description": "Validate and pretty-print JSON without leaving the browser."
     },
+    "regex-playground": {
+      "name": "Regex Playground",
+      "description": "Test JavaScript regular expressions with inline highlighting."
+    },
     "word-counter": {
       "name": "Word Counter",
       "description": "Count words, characters, and lines instantly."
@@ -56,6 +60,10 @@
       "name": "Hash Generator",
       "description": "Compute MD5, SHA-256, and SHA-512 locally in your browser."
     },
+    "jwt-inspector": {
+      "name": "JWT Inspector",
+      "description": "Decode headers and payloads locally with quick expiration hints."
+    },
     "qr-generator": {
       "name": "QR Code Generator",
       "description": "Create QR codes locally from text or URLs."
@@ -67,6 +75,10 @@
     "color-converter": {
       "name": "Color Converter",
       "description": "Convert between HEX and RGB on the fly."
+    },
+    "color-contrast-checker": {
+      "name": "Color Contrast Checker",
+      "description": "Evaluate WCAG contrast ratios with live previews."
     },
     "image-to-pdf": {
       "name": "Image to PDF",
@@ -120,6 +132,10 @@
       "name": "Date Calculator",
       "description": "Measure the distance between two dates in days, weeks, and months."
     },
+    "timezone-meeting-planner": {
+      "name": "Time Zone Meeting Planner",
+      "description": "Pick a base time and preview it across teammates' time zones."
+    },
     "finance-calculator": {
       "name": "Compound Interest Planner",
       "description": "Project savings growth with charts for contributions vs. gains."
@@ -131,6 +147,10 @@
     "unit-converter": {
       "name": "Unit & Size Converter",
       "description": "Convert length, weight, shoe size, and clothing charts."
+    },
+    "statistics-summary": {
+      "name": "Statistical Summary",
+      "description": "Paste numbers to get mean, median, variance, and a quick trend line."
     },
     "international-temperature-converter": {
       "name": "International Temperature Unit Converter",
@@ -159,6 +179,10 @@
     "computer-base-converter": {
       "name": "Computer Base Converter",
       "description": "Developer-focused radix converter with bit-length hints."
+    },
+    "cron-explainer": {
+      "name": "Cron Explainer",
+      "description": "Parse 5-field cron strings with readable summaries and next runs."
     },
     "video-to-gif": {
       "name": "Video to GIF (WASM)",
@@ -225,7 +249,17 @@
     "health": "health",
     "video": "video",
     "gif": "gif",
-    "ocr": "ocr"
+    "ocr": "ocr",
+    "regex": "regex",
+    "test": "test",
+    "jwt": "jwt",
+    "token": "token",
+    "contrast": "contrast",
+    "wcag": "wcag",
+    "timezone": "timezone",
+    "schedule": "schedule",
+    "stats": "stats",
+    "analysis": "analysis"
   },
   "toolShell": {
     "input": "Input",
@@ -235,6 +269,162 @@
     "encoded": "Encoded",
     "decoded": "Decoded",
     "error": "Something went wrong. Please check your input."
+  },
+  "regexPlayground": {
+    "patternLabel": "Pattern",
+    "patternPlaceholder": "e.g. (hello)+",
+    "flagsLabel": "Flags",
+    "flagsHint": "Toggle JavaScript regex modifiers.",
+    "sampleLabel": "Sample text",
+    "samplePlaceholder": "Paste text to test against your pattern...",
+    "matchesLabel": "Matches",
+    "noMatches": "No matches yet. Add text or adjust your pattern.",
+    "helper": "Runs entirely in your browser—nothing is sent to a server.",
+    "error": "Unable to compile this pattern. Please check the syntax.",
+    "indexLabel": "Index",
+    "groupLabel": "Group",
+    "highlightLabel": "Highlighted text",
+    "flagDescriptions": {
+      "g": "global",
+      "i": "ignore case",
+      "m": "multiline",
+      "s": "dotall",
+      "u": "unicode",
+      "y": "sticky"
+    }
+  },
+  "jwtInspector": {
+    "inputLabel": "JWT token",
+    "placeholder": "Paste a JWT (header.payload.signature)...",
+    "helper": "Decodes locally; signatures are not verified.",
+    "headerTitle": "Header",
+    "payloadTitle": "Payload",
+    "signatureTitle": "Signature",
+    "claimsTitle": "Registered claims",
+    "copyJson": "Copy JSON",
+    "copied": "Copied!",
+    "invalidStructure": "Tokens must include at least two dot-separated segments.",
+    "decodeError": "Unable to decode this token. Check the Base64 contents.",
+    "statusActive": "Active",
+    "statusExpired": "Expired",
+    "expiresIn": "Expires in {duration}",
+    "expiredAgo": "Expired {duration} ago",
+    "noExpiry": "No exp claim provided.",
+    "noClaims": "No standard claims detected.",
+    "signatureMissing": "Signature segment missing. This token is unsecured.",
+    "signaturePresent": "Signature present. Verification not performed.",
+    "issuer": "Issuer (iss)",
+    "subject": "Subject (sub)",
+    "audience": "Audience (aud)",
+    "expires": "Expires (exp)",
+    "issuedAt": "Issued at (iat)",
+    "validFrom": "Valid from (nbf)",
+    "durationUnits": {
+      "days": "d",
+      "hours": "h",
+      "minutes": "m"
+    }
+  },
+  "colorContrast": {
+    "textColor": "Text color",
+    "backgroundColor": "Background color",
+    "swap": "Swap colors",
+    "ratioLabel": "Contrast ratio",
+    "aaNormal": "AA (normal text)",
+    "aaLarge": "AA (large text)",
+    "aaa": "AAA (normal text)",
+    "pass": "Pass",
+    "fail": "Fail",
+    "previewLabel": "Preview",
+    "helper": "WCAG 2.1 calls for 4.5:1 for body text and 3:1 for large text."
+  },
+  "timezonePlanner": {
+    "meetingTime": "Proposed time",
+    "baseTimezone": "Base timezone",
+    "timezoneHint": "The datetime above uses the selected base timezone.",
+    "participants": "Additional timezones",
+    "addTimezone": "Add timezone",
+    "removeTimezone": "Remove",
+    "workingHours": "Working hours",
+    "offHours": "Off hours",
+    "copySummary": "Copy summary",
+    "copied": "Copied!",
+    "emptyState": "Add at least one timezone to compare schedules.",
+    "timelineLabel": "Time window"
+  },
+  "cronExplainer": {
+    "expressionLabel": "Cron expression",
+    "placeholder": "0 9 * * 1-5",
+    "helper": "Standard 5-field format: minute hour day-of-month month day-of-week.",
+    "timezoneLabel": "Timezone",
+    "parseError": "Unable to parse this cron expression.",
+    "fields": {
+      "minute": "Minute",
+      "hour": "Hour",
+      "dayOfMonth": "Day of month",
+      "month": "Month",
+      "dayOfWeek": "Day of week"
+    },
+    "unitNames": {
+      "minute": "minute",
+      "hour": "hour",
+      "dayOfMonth": "day",
+      "month": "month",
+      "dayOfWeek": "weekday"
+    },
+    "months": {
+      "1": "January",
+      "2": "February",
+      "3": "March",
+      "4": "April",
+      "5": "May",
+      "6": "June",
+      "7": "July",
+      "8": "August",
+      "9": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+    },
+    "weekdays": {
+      "0": "Sunday",
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday"
+    },
+    "descriptions": {
+      "any": "Any {unit}",
+      "value": "{value}",
+      "list": "Includes: {items}",
+      "range": "From {start} to {end}",
+      "rangeStep": "From {start} to {end}, every {step} {unit}",
+      "separator": ", "
+    },
+    "nextRuns": "Next runs",
+    "copySchedule": "Copy schedule",
+    "copied": "Copied!"
+  },
+  "statisticsSummary": {
+    "inputLabel": "Dataset",
+    "placeholder": "Paste numbers separated by commas or new lines...",
+    "invalidCount": "Ignored {count} values that were not numbers.",
+    "metrics": {
+      "count": "Count",
+      "sum": "Sum",
+      "mean": "Mean",
+      "median": "Median",
+      "min": "Min",
+      "max": "Max",
+      "variance": "Variance",
+      "stddev": "Std. deviation"
+    },
+    "empty": "Add at least two numbers to see the full summary.",
+    "chartLabel": "Trend snapshot",
+    "copySummary": "Copy summary",
+    "copied": "Copied!"
   },
   "temperatureConverter": {
     "valueLabel": "Value",

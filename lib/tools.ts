@@ -37,6 +37,13 @@ export const tools: ToolDefinition[] = [
     tags: ["json", "format", "validate"],
   },
   {
+    slug: "regex-playground",
+    nameKey: "tools.regexPlayground.name",
+    descriptionKey: "tools.regexPlayground.description",
+    category: "dev",
+    tags: ["regex", "test"],
+  },
+  {
     slug: "word-counter",
     nameKey: "tools.wordCounter.name",
     descriptionKey: "tools.wordCounter.description",
@@ -93,6 +100,13 @@ export const tools: ToolDefinition[] = [
     tags: ["hash", "md5", "sha"],
   },
   {
+    slug: "jwt-inspector",
+    nameKey: "tools.jwtInspector.name",
+    descriptionKey: "tools.jwtInspector.description",
+    category: "security",
+    tags: ["jwt", "token", "decode"],
+  },
+  {
     slug: "qr-generator",
     nameKey: "tools.qrGenerator.name",
     descriptionKey: "tools.qrGenerator.description",
@@ -112,6 +126,13 @@ export const tools: ToolDefinition[] = [
     descriptionKey: "tools.colorConverter.description",
     category: "media",
     tags: ["color", "convert"],
+  },
+  {
+    slug: "color-contrast-checker",
+    nameKey: "tools.colorContrast.name",
+    descriptionKey: "tools.colorContrast.description",
+    category: "design",
+    tags: ["color", "contrast", "wcag"],
   },
   {
     slug: "image-to-pdf",
@@ -205,6 +226,13 @@ export const tools: ToolDefinition[] = [
     tags: ["date", "time"],
   },
   {
+    slug: "timezone-meeting-planner",
+    nameKey: "tools.timezonePlanner.name",
+    descriptionKey: "tools.timezonePlanner.description",
+    category: "time",
+    tags: ["timezone", "schedule"],
+  },
+  {
     slug: "finance-calculator",
     nameKey: "tools.finance-calculator.name",
     descriptionKey: "tools.finance-calculator.description",
@@ -224,6 +252,13 @@ export const tools: ToolDefinition[] = [
     descriptionKey: "tools.unit-converter.description",
     category: "life",
     tags: ["convert"],
+  },
+  {
+    slug: "statistics-summary",
+    nameKey: "tools.statisticsSummary.name",
+    descriptionKey: "tools.statisticsSummary.description",
+    category: "math",
+    tags: ["stats", "analysis"],
   },
   {
     slug: "international-temperature-converter",
@@ -273,6 +308,13 @@ export const tools: ToolDefinition[] = [
     descriptionKey: "tools.computer-base-converter.description",
     category: "数据换算",
     tags: ["convert"],
+  },
+  {
+    slug: "cron-explainer",
+    nameKey: "tools.cronExplainer.name",
+    descriptionKey: "tools.cronExplainer.description",
+    category: "dev",
+    tags: ["cron", "schedule"],
   },
   {
     slug: "video-to-gif",
