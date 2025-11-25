@@ -4,7 +4,11 @@
     "navTools": "Tools",
     "navHome": "Home",
     "themeToggle": "Theme",
-    "language": "Language"
+    "language": "Language",
+    "searchLabel": "Search tools",
+    "searchPlaceholder": "Search tools or keywords…",
+    "searchShortcut": "Cmd/Ctrl + K",
+    "searchNoResults": "No tools matched your search."
   },
   "home": {
     "title": "Browser-first utilities for developers and creators",

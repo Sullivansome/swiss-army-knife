@@ -40,7 +40,12 @@ export default async function LocaleLayout({ children, params }: Props) {
           disableTransitionOnChange
         >
           <div className="flex min-h-screen flex-col bg-background text-foreground">
-            <SiteHeader locale={locale} dict={dict.layout} />
+            <SiteHeader
+              locale={locale}
+              dict={dict.layout}
+              categories={dict.categories}
+              toolsDict={dict.tools}
+            />
             <main className="flex-1 pb-16">{children}</main>
             <SiteFooter dict={dict.layout} />
             <Toaster richColors position="top-center" closeButton />

@@ -4,7 +4,11 @@
     "navTools": "工具",
     "navHome": "首页",
     "themeToggle": "主题",
-    "language": "语言"
+    "language": "语言",
+    "searchLabel": "搜索工具",
+    "searchPlaceholder": "搜索工具或关键字…",
+    "searchShortcut": "Cmd/Ctrl + K",
+    "searchNoResults": "未找到匹配的工具。"
   },
   "home": {
     "title": "面向浏览器的开发者与创作者工具集",
