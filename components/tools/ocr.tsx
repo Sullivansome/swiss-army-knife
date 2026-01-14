@@ -122,15 +122,26 @@ export function OcrTool({ labels }: Props) {
     <div className="space-y-4">
       <label className="flex cursor-pointer flex-col gap-2 text-sm font-medium text-foreground">
         {labels.upload}
-        <input type="file" accept="image/*" className="hidden" onChange={(event) => handleFile(event.target.files)} />
-        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">{labels.helper}</span>
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={(event) => handleFile(event.target.files)}
+        />
+        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">
+          {labels.helper}
+        </span>
       </label>
 
       <div className="space-y-1">
-        <label className="text-sm font-medium text-foreground">{labels.language}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.language}
+        </label>
         <select
           value={language}
-          onChange={(event) => setLanguage(event.target.value as keyof OcrLabels["languages"])}
+          onChange={(event) =>
+            setLanguage(event.target.value as keyof OcrLabels["languages"])
+          }
           className="w-full rounded-lg border bg-background px-3 py-2 text-sm"
         >
           <option value="eng">{labels.languages.eng}</option>
@@ -140,9 +151,15 @@ export function OcrTool({ labels }: Props) {
 
       {previewUrl ? (
         <div className="space-y-2">
-          <p className="text-sm font-medium text-foreground">{labels.preview}</p>
+          <p className="text-sm font-medium text-foreground">
+            {labels.preview}
+          </p>
           <div className="rounded-xl border bg-muted/30 p-3">
-            <img src={previewUrl} alt={labels.preview} className="mx-auto max-h-72 w-full object-contain" />
+            <img
+              src={previewUrl}
+              alt={labels.preview}
+              className="mx-auto max-h-72 w-full object-contain"
+            />
           </div>
         </div>
       ) : null}
@@ -156,9 +173,16 @@ export function OcrTool({ labels }: Props) {
         </Button>
       </div>
 
-      <textarea value={text} readOnly className="min-h-48 w-full rounded-lg border bg-muted/50 p-3 text-sm shadow-inner" placeholder={labels.result} />
+      <textarea
+        value={text}
+        readOnly
+        className="min-h-48 w-full rounded-lg border bg-muted/50 p-3 text-sm shadow-inner"
+        placeholder={labels.result}
+      />
 
-      {status ? <p className="text-sm text-muted-foreground">{status}</p> : null}
+      {status ? (
+        <p className="text-sm text-muted-foreground">{status}</p>
+      ) : null}
     </div>
   );
 }

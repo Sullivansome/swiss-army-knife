@@ -1,11 +1,18 @@
 import { describe, expect, it } from "vitest";
 
-import { getDaysUntil, getNextLunarNewYearDate, pickGreeting } from "@/lib/lunar-new-year";
+import {
+  getDaysUntil,
+  getNextLunarNewYearDate,
+  pickGreeting,
+} from "@/lib/lunar-new-year";
 
 describe("lunar new year helpers", () => {
   it("picks the next lunar new year date", () => {
     const reference = new Date("2025-01-01T12:00:00Z");
-    const next = getNextLunarNewYearDate(reference, ["2025-01-29", "2026-02-17"]);
+    const next = getNextLunarNewYearDate(reference, [
+      "2025-01-29",
+      "2026-02-17",
+    ]);
     expect(next.getFullYear()).toBe(2025);
     expect(next.getMonth()).toBe(0);
     expect(next.getDate()).toBe(29);

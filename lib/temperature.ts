@@ -1,6 +1,12 @@
 export type TemperatureUnit = "celsius" | "fahrenheit" | "kelvin" | "rankine";
 
-const converters: Record<TemperatureUnit, { toCelsius: (value: number) => number; fromCelsius: (value: number) => number }> = {
+const converters: Record<
+  TemperatureUnit,
+  {
+    toCelsius: (value: number) => number;
+    fromCelsius: (value: number) => number;
+  }
+> = {
   celsius: {
     toCelsius: (value) => value,
     fromCelsius: (value) => value,
@@ -19,9 +25,14 @@ const converters: Record<TemperatureUnit, { toCelsius: (value: number) => number
   },
 };
 
-export function convertTemperature(value: number, from: TemperatureUnit, to: TemperatureUnit): number {
+export function convertTemperature(
+  value: number,
+  from: TemperatureUnit,
+  to: TemperatureUnit,
+): number {
   const toCelsius = converters[from]?.toCelsius ?? converters.celsius.toCelsius;
-  const fromCelsius = converters[to]?.fromCelsius ?? converters.celsius.fromCelsius;
+  const fromCelsius =
+    converters[to]?.fromCelsius ?? converters.celsius.fromCelsius;
   const celsiusValue = toCelsius(value);
   return fromCelsius(celsiusValue);
 }

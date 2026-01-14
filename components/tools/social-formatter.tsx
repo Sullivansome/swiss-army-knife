@@ -50,7 +50,9 @@ export function SocialFormatterTool({ labels }: Props) {
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.input}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.input}
+        </label>
         <textarea
           value={input}
           onChange={(event) => setInput(event.target.value)}
@@ -61,15 +63,25 @@ export function SocialFormatterTool({ labels }: Props) {
 
       <div className="grid gap-4 md:grid-cols-3">
         <label className="inline-flex items-center gap-2 text-sm text-foreground">
-          <input type="checkbox" checked={insertSpacing} onChange={(event) => setInsertSpacing(event.target.checked)} />
+          <input
+            type="checkbox"
+            checked={insertSpacing}
+            onChange={(event) => setInsertSpacing(event.target.checked)}
+          />
           {labels.spacing}
         </label>
         <label className="inline-flex items-center gap-2 text-sm text-foreground">
-          <input type="checkbox" checked={useBullets} onChange={(event) => setUseBullets(event.target.checked)} />
+          <input
+            type="checkbox"
+            checked={useBullets}
+            onChange={(event) => setUseBullets(event.target.checked)}
+          />
           {labels.bullets}
         </label>
         <div className="space-y-1">
-          <label className="text-sm font-medium text-foreground">{labels.emoji}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.emoji}
+          </label>
           <input
             value={emoji}
             onChange={(event) => setEmoji(event.target.value)}
@@ -89,8 +101,14 @@ export function SocialFormatterTool({ labels }: Props) {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.output}</label>
-        <textarea value={output} readOnly className="min-h-40 w-full rounded-lg border bg-muted/50 p-3 text-sm shadow-inner" />
+        <label className="text-sm font-medium text-foreground">
+          {labels.output}
+        </label>
+        <textarea
+          value={output}
+          readOnly
+          className="min-h-40 w-full rounded-lg border bg-muted/50 p-3 text-sm shadow-inner"
+        />
       </div>
     </div>
   );

@@ -16,7 +16,11 @@ export function base64UrlDecode(value: string) {
   return decodeBase64(normalized + "=".repeat(padding));
 }
 
-export function decodeJwtToken(raw: string, invalidMessage: string, decodeError: string): JwtDecodeResult {
+export function decodeJwtToken(
+  raw: string,
+  invalidMessage: string,
+  decodeError: string,
+): JwtDecodeResult {
   const token = raw.trim();
   if (!token) return { status: "idle" };
   const parts = token.split(".");
@@ -39,7 +43,10 @@ export function formatJwtJson(value: Record<string, unknown>) {
   return JSON.stringify(value, null, 2);
 }
 
-export function formatDuration(ms: number, labels: { durationUnits: { days: string; hours: string; minutes: string } }) {
+export function formatDuration(
+  ms: number,
+  labels: { durationUnits: { days: string; hours: string; minutes: string } },
+) {
   const totalMinutes = Math.max(0, Math.round(ms / 60000));
   const days = Math.floor(totalMinutes / (24 * 60));
   const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
@@ -47,7 +54,8 @@ export function formatDuration(ms: number, labels: { durationUnits: { days: stri
   const parts = [];
   if (days) parts.push(`${days}${labels.durationUnits.days}`);
   if (hours) parts.push(`${hours}${labels.durationUnits.hours}`);
-  if (minutes || parts.length === 0) parts.push(`${minutes}${labels.durationUnits.minutes}`);
+  if (minutes || parts.length === 0)
+    parts.push(`${minutes}${labels.durationUnits.minutes}`);
   return parts.join(" ");
 }
 

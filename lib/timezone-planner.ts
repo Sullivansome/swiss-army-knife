@@ -1,4 +1,8 @@
-import { formatInTimeZone, getDatePartsForZone, getTimeZoneLabel } from "@/lib/timezones";
+import {
+  formatInTimeZone,
+  getDatePartsForZone,
+  getTimeZoneLabel,
+} from "@/lib/timezones";
 
 export type TimelineEntry = {
   id: string;
@@ -16,7 +20,11 @@ export type ParticipantZone = {
   isBase: boolean;
 };
 
-export function buildTimeline(baseDate: Date, participants: ParticipantZone[], locale: string) {
+export function buildTimeline(
+  baseDate: Date,
+  participants: ParticipantZone[],
+  locale: string,
+) {
   return participants.map((row) => {
     const label = getTimeZoneLabel(row.zone);
     const formatted = formatInTimeZone(baseDate, row.zone, locale);
@@ -36,5 +44,7 @@ export function buildTimeline(baseDate: Date, participants: ParticipantZone[], l
 }
 
 export function buildTimelineSummary(entries: TimelineEntry[]) {
-  return entries.map((entry) => `${entry.label}: ${entry.formatted}`).join("\n");
+  return entries
+    .map((entry) => `${entry.label}: ${entry.formatted}`)
+    .join("\n");
 }

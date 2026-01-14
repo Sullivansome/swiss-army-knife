@@ -3,7 +3,13 @@ export type Rgb = { r: number; g: number; b: number };
 export function hexToRgb(hex: string): Rgb | null {
   const cleaned = hex.replace("#", "").trim();
   if (![3, 6].includes(cleaned.length)) return null;
-  const normalized = cleaned.length === 3 ? cleaned.split("").map((c) => c + c).join("") : cleaned;
+  const normalized =
+    cleaned.length === 3
+      ? cleaned
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : cleaned;
   const int = Number.parseInt(normalized, 16);
   if (Number.isNaN(int)) return null;
   return {
@@ -14,7 +20,8 @@ export function hexToRgb(hex: string): Rgb | null {
 }
 
 export function rgbToHex({ r, g, b }: Rgb): string | null {
-  if (![r, g, b].every((v) => Number.isInteger(v) && v >= 0 && v <= 255)) return null;
+  if (![r, g, b].every((v) => Number.isInteger(v) && v >= 0 && v <= 255))
+    return null;
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 

@@ -16,6 +16,9 @@ describe("random picker helpers", () => {
 
   it("builds groups deterministically", () => {
     const groups = buildGroups(["a", "b", "c", "d"], 2, rng);
-    expect(groups).toEqual([["a", "b"], ["c", "d"]]);
+    expect(groups).toEqual([
+      ["a", "b"],
+      ["c", "d"],
+    ]);
   });
 });

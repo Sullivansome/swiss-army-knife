@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { getDictionary } from "@/lib/dictionaries";
 import { assertLocale } from "@/lib/i18n-config";
-import { tools, type ToolCategory } from "@/lib/tools";
+import { type ToolCategory, tools } from "@/lib/tools";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -45,7 +45,9 @@ export default async function HomePage({ params }: Props) {
             <h1 className="text-3xl font-semibold leading-tight tracking-tight text-foreground lg:text-4xl">
               {home.title}
             </h1>
-            <p className="text-lg text-muted-foreground lg:text-xl">{home.subtitle}</p>
+            <p className="text-lg text-muted-foreground lg:text-xl">
+              {home.subtitle}
+            </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Link
@@ -60,15 +62,23 @@ export default async function HomePage({ params }: Props) {
 
       <section className="space-y-6">
         <div>
-          <h2 className="text-xl font-semibold text-foreground">{home.categoriesTitle}</h2>
-          <p className="text-sm text-muted-foreground">{home.categoriesSubtitle}</p>
+          <h2 className="text-xl font-semibold text-foreground">
+            {home.categoriesTitle}
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            {home.categoriesSubtitle}
+          </p>
         </div>
         <div className="space-y-8">
           {grouped.map((group) => (
             <div key={group.category} className="space-y-3">
               <div className="flex items-center justify-between gap-2">
-                <h3 className="text-lg font-semibold text-foreground">{cat[group.category]}</h3>
-                <span className="text-xs font-medium text-muted-foreground">{home.localOnly}</span>
+                <h3 className="text-lg font-semibold text-foreground">
+                  {cat[group.category]}
+                </h3>
+                <span className="text-xs font-medium text-muted-foreground">
+                  {home.localOnly}
+                </span>
               </div>
               <div className="grid gap-4 md:grid-cols-2">
                 {group.tools.map((tool) => (
@@ -80,10 +90,12 @@ export default async function HomePage({ params }: Props) {
                     <div className="flex items-center justify-between gap-2">
                       <div className="space-y-1">
                         <div className="text-sm font-semibold text-foreground">
-                          {dict.tools[tool.slug as keyof typeof dict.tools]?.name ?? tool.slug}
+                          {dict.tools[tool.slug as keyof typeof dict.tools]
+                            ?.name ?? tool.slug}
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          {dict.tools[tool.slug as keyof typeof dict.tools]?.description ?? ""}
+                          {dict.tools[tool.slug as keyof typeof dict.tools]
+                            ?.description ?? ""}
                         </p>
                       </div>
                       <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-foreground/80">

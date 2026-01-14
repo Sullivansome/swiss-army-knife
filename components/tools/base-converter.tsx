@@ -61,7 +61,10 @@ export function BaseConverterTool({ labels }: { labels: BaseConverterLabels }) {
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-[2fr,1fr]">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="base-value">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="base-value"
+          >
             {labels.inputLabel}
           </label>
           <input
@@ -73,7 +76,10 @@ export function BaseConverterTool({ labels }: { labels: BaseConverterLabels }) {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="base-select">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="base-select"
+          >
             {labels.baseLabel}
           </label>
           <select
@@ -97,17 +103,28 @@ export function BaseConverterTool({ labels }: { labels: BaseConverterLabels }) {
       ) : null}
 
       <div className="rounded-2xl border bg-card px-5 py-6 shadow-sm">
-        <p className="text-sm font-semibold text-foreground">{labels.resultsLabel}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.resultsLabel}
+        </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {conversion.outputs.map((entry) => (
-            <div key={entry.base} className="rounded-xl border bg-background px-4 py-3">
-              <p className="text-xs font-medium text-muted-foreground">{labels.bases[entry.key]}</p>
-              <p className="mt-1 font-mono text-lg text-foreground">{entry.display}</p>
+            <div
+              key={entry.base}
+              className="rounded-xl border bg-background px-4 py-3"
+            >
+              <p className="text-xs font-medium text-muted-foreground">
+                {labels.bases[entry.key]}
+              </p>
+              <p className="mt-1 font-mono text-lg text-foreground">
+                {entry.display}
+              </p>
             </div>
           ))}
         </div>
         {decimalValue ? (
-          <p className="mt-3 text-xs text-muted-foreground">{labels.bases.decimal}: {decimalValue}</p>
+          <p className="mt-3 text-xs text-muted-foreground">
+            {labels.bases.decimal}: {decimalValue}
+          </p>
         ) : null}
       </div>
     </div>

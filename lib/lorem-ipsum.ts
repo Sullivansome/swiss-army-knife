@@ -11,7 +11,11 @@ const defaultGenerator = new LoremIpsum({
   },
 });
 
-export function buildLoremParagraphs(words: string[], paragraphCount: number, wordsPerParagraph: number) {
+export function buildLoremParagraphs(
+  words: string[],
+  paragraphCount: number,
+  wordsPerParagraph: number,
+) {
   const paragraphs = Math.max(1, paragraphCount);
   const wordsPer = Math.max(1, wordsPerParagraph);
   const chunks: string[] = [];
@@ -23,7 +27,11 @@ export function buildLoremParagraphs(words: string[], paragraphCount: number, wo
   return chunks.join("\n\n");
 }
 
-export function generateLoremIpsum(paragraphs: number, wordsPerParagraph: number, generator: LoremWordsSource = defaultGenerator) {
+export function generateLoremIpsum(
+  paragraphs: number,
+  wordsPerParagraph: number,
+  generator: LoremWordsSource = defaultGenerator,
+) {
   const totalWords = Math.max(1, paragraphs * wordsPerParagraph);
   const allWords = generator.generateWords(totalWords).split(" ");
   return buildLoremParagraphs(allWords, paragraphs, wordsPerParagraph);

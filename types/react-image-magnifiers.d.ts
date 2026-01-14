@@ -1,7 +1,8 @@
 declare module "react-image-magnifiers" {
   import * as React from "react";
 
-  export interface SideBySideMagnifierProps extends React.HTMLAttributes<HTMLDivElement> {
+  export interface SideBySideMagnifierProps
+    extends React.HTMLAttributes<HTMLDivElement> {
     imageSrc: string | string[];
     largeImageSrc?: string | string[];
     imageAlt?: string;

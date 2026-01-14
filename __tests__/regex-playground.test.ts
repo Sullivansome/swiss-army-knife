@@ -19,7 +19,11 @@ describe("regex playground helpers", () => {
     const result = analyzeRegexMatches("a(.)", "g", "abc");
     expect(result.hasError).toBe(false);
     expect(result.matches).toHaveLength(1);
-    expect(result.matches[0]).toMatchObject({ text: "ab", index: 0, groups: ["b"] });
-    expect(result.segments.map((segment) => segment.text).join("")) .toBe("abc");
+    expect(result.matches[0]).toMatchObject({
+      text: "ab",
+      index: 0,
+      groups: ["b"],
+    });
+    expect(result.segments.map((segment) => segment.text).join("")).toBe("abc");
   });
 });

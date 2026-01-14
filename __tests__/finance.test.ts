@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { calculateFinanceSummary, calculateTaxBreakdown, splitExpenses, toChineseUppercase } from "@/lib/finance";
+import {
+  calculateFinanceSummary,
+  calculateTaxBreakdown,
+  splitExpenses,
+  toChineseUppercase,
+} from "@/lib/finance";
 
 describe("calculateFinanceSummary", () => {
   it("tracks yearly points and totals", () => {
@@ -9,10 +14,14 @@ describe("calculateFinanceSummary", () => {
     // first year grows principal plus contributions + interest
     expect(summary.points[0].year).toBe(1);
     expect(summary.points[0].contributed).toBe(2200);
-    expect(summary.points[0].balance).toBeGreaterThan(summary.points[0].contributed);
+    expect(summary.points[0].balance).toBeGreaterThan(
+      summary.points[0].contributed,
+    );
 
     expect(summary.totalContributions).toBe(3400);
-    expect(summary.totalInterest).toBe(summary.points.at(-1)!.balance - summary.totalContributions);
+    expect(summary.totalInterest).toBe(
+      summary.points.at(-1)!.balance - summary.totalContributions,
+    );
   });
 
   it("handles zero rates", () => {

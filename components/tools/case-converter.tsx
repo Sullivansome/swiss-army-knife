@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { convertCase, type CaseStyle } from "@/lib/text";
+import { type CaseStyle, convertCase } from "@/lib/text";
 
 type Props = {
   labels: {
@@ -21,7 +21,14 @@ type Props = {
   };
 };
 
-const order: CaseStyle[] = ["upper", "lower", "camel", "snake", "kebab", "title"];
+const order: CaseStyle[] = [
+  "upper",
+  "lower",
+  "camel",
+  "snake",
+  "kebab",
+  "title",
+];
 
 export function CaseConverterTool({ labels }: Props) {
   const [text, setText] = useState("");
@@ -53,10 +60,18 @@ export function CaseConverterTool({ labels }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-foreground" htmlFor="case-input">
+        <label
+          className="text-sm font-medium text-foreground"
+          htmlFor="case-input"
+        >
           {labels.input}
         </label>
-        <Button variant="outline" size="sm" onClick={handleReset} disabled={!text && !output}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleReset}
+          disabled={!text && !output}
+        >
           {labels.reset}
         </Button>
       </div>
@@ -70,7 +85,13 @@ export function CaseConverterTool({ labels }: Props) {
 
       <div className="flex flex-wrap gap-2">
         {order.map((style) => (
-          <Button key={style} variant="outline" size="sm" onClick={() => handleConvert(style)} disabled={!text}>
+          <Button
+            key={style}
+            variant="outline"
+            size="sm"
+            onClick={() => handleConvert(style)}
+            disabled={!text}
+          >
             {labelMap[style]}
           </Button>
         ))}
@@ -78,8 +99,15 @@ export function CaseConverterTool({ labels }: Props) {
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-foreground">{labels.output}</span>
-          <Button variant="outline" size="sm" onClick={handleCopy} disabled={!output}>
+          <span className="text-sm font-medium text-foreground">
+            {labels.output}
+          </span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopy}
+            disabled={!output}
+          >
             {labels.copy}
           </Button>
         </div>

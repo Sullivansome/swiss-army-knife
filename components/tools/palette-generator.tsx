@@ -45,7 +45,9 @@ export function PaletteGeneratorTool({ labels }: Props) {
       </Button>
 
       <div className="space-y-3">
-        <p className="text-sm font-semibold text-foreground">{labels.palette}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.palette}
+        </p>
         <div className="grid gap-3 md:grid-cols-5">
           {colors.map((color) => (
             <button
@@ -54,19 +56,30 @@ export function PaletteGeneratorTool({ labels }: Props) {
               className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 text-sm transition hover:-translate-y-0.5"
               style={{ borderColor: color }}
             >
-              <span className="h-16 w-full rounded-lg" style={{ backgroundColor: color }} />
+              <span
+                className="h-16 w-full rounded-lg"
+                style={{ backgroundColor: color }}
+              />
               <span className="font-mono text-sm text-foreground">{color}</span>
-              {copied === color ? <span className="text-xs text-muted-foreground">{labels.copied}</span> : null}
+              {copied === color ? (
+                <span className="text-xs text-muted-foreground">
+                  {labels.copied}
+                </span>
+              ) : null}
             </button>
           ))}
         </div>
       </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-semibold text-foreground">{labels.gradient}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.gradient}
+        </p>
         <div
           className="h-32 w-full rounded-xl border"
-          style={{ background: `linear-gradient(135deg, ${colors.join(", ")})` }}
+          style={{
+            background: `linear-gradient(135deg, ${colors.join(", ")})`,
+          }}
         />
       </div>
     </div>

@@ -4,7 +4,8 @@ export default function NotFound() {
       <div className="space-y-2">
         <h1 className="text-2xl font-semibold text-foreground">404</h1>
         <p className="text-sm text-muted-foreground">
-          We couldn&apos;t find that page. Please check the URL or pick a tool from the list.
+          We couldn&apos;t find that page. Please check the URL or pick a tool
+          from the list.
         </p>
       </div>
     </div>

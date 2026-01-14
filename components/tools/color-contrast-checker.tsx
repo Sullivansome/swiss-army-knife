@@ -27,7 +27,10 @@ export function ColorContrastChecker({ labels }: Props) {
   const [textColor, setTextColor] = useState("#111827");
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
 
-  const ratio = useMemo(() => getContrastRatio(textColor, backgroundColor), [textColor, backgroundColor]);
+  const ratio = useMemo(
+    () => getContrastRatio(textColor, backgroundColor),
+    [textColor, backgroundColor],
+  );
   const aaNormal = ratio !== null && ratio >= 4.5;
   const aaLarge = ratio !== null && ratio >= 3;
   const aaa = ratio !== null && ratio >= 7;
@@ -40,33 +43,49 @@ export function ColorContrastChecker({ labels }: Props) {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
-        {([
-          { label: labels.textColor, value: textColor, onChange: setTextColor },
-          { label: labels.backgroundColor, value: backgroundColor, onChange: setBackgroundColor },
-        ] as const).map((field) => (
+        {(
+          [
+            {
+              label: labels.textColor,
+              value: textColor,
+              onChange: setTextColor,
+            },
+            {
+              label: labels.backgroundColor,
+              value: backgroundColor,
+              onChange: setBackgroundColor,
+            },
+          ] as const
+        ).map((field) => (
           <div key={field.label} className="space-y-2">
-              <label className="text-sm font-medium text-foreground">{field.label}</label>
-              <div className="flex items-center gap-3">
-                <input
-                  type="color"
-                  value={field.value}
-                  onChange={(event) => field.onChange(event.target.value)}
-                  className="h-10 w-14 cursor-pointer rounded border bg-transparent"
-                />
-                <input
-                  value={field.value}
-                  onChange={(event) => field.onChange(event.target.value)}
-                  className="flex-1 rounded-lg border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-ring"
-                />
-              </div>
+            <label className="text-sm font-medium text-foreground">
+              {field.label}
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                type="color"
+                value={field.value}
+                onChange={(event) => field.onChange(event.target.value)}
+                className="h-10 w-14 cursor-pointer rounded border bg-transparent"
+              />
+              <input
+                value={field.value}
+                onChange={(event) => field.onChange(event.target.value)}
+                className="flex-1 rounded-lg border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-ring"
+              />
             </div>
-          ))}
+          </div>
+        ))}
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
         <div>
-          <p className="text-sm font-semibold text-foreground">{labels.ratioLabel}</p>
-          <p className="text-2xl font-bold tracking-tight text-foreground">{formatContrastRatio(ratio)}</p>
+          <p className="text-sm font-semibold text-foreground">
+            {labels.ratioLabel}
+          </p>
+          <p className="text-2xl font-bold tracking-tight text-foreground">
+            {formatContrastRatio(ratio)}
+          </p>
         </div>
         <Button variant="outline" size="sm" onClick={swapColors}>
           {labels.swap}
@@ -80,9 +99,14 @@ export function ColorContrastChecker({ labels }: Props) {
           { label: labels.aaLarge, pass: aaLarge },
           { label: labels.aaa, pass: aaa },
         ].map((item) => (
-          <div key={item.label} className="space-y-1 rounded-lg border bg-card p-3 text-sm">
+          <div
+            key={item.label}
+            className="space-y-1 rounded-lg border bg-card p-3 text-sm"
+          >
             <p className="font-semibold text-foreground">{item.label}</p>
-            <p className={`text-sm font-medium ${item.pass ? "text-emerald-600" : "text-amber-600"}`}>
+            <p
+              className={`text-sm font-medium ${item.pass ? "text-emerald-600" : "text-amber-600"}`}
+            >
               {item.pass ? labels.pass : labels.fail}
             </p>
           </div>
@@ -90,7 +114,9 @@ export function ColorContrastChecker({ labels }: Props) {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.previewLabel}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.previewLabel}
+        </label>
         <div
           className="rounded-xl border p-6 shadow-sm"
           style={{ backgroundColor, color: textColor }}

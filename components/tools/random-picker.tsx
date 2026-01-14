@@ -72,7 +72,9 @@ export function RandomPickerTool({ labels }: Props) {
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.input}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.input}
+        </label>
         <textarea
           value={input}
           onChange={(event) => setInput(event.target.value)}
@@ -83,7 +85,9 @@ export function RandomPickerTool({ labels }: Props) {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">{labels.mode}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.mode}
+          </label>
           <select
             value={mode}
             onChange={(event) => setMode(event.target.value as Mode)}
@@ -95,7 +99,9 @@ export function RandomPickerTool({ labels }: Props) {
         </div>
         {mode === "draw" ? (
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">{labels.winnersLabel}</label>
+            <label className="text-sm font-medium text-foreground">
+              {labels.winnersLabel}
+            </label>
             <input
               type="number"
               min={1}
@@ -106,7 +112,9 @@ export function RandomPickerTool({ labels }: Props) {
           </div>
         ) : (
           <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">{labels.groupSizeLabel}</label>
+            <label className="text-sm font-medium text-foreground">
+              {labels.groupSizeLabel}
+            </label>
             <input
               type="number"
               min={2}
@@ -132,8 +140,14 @@ export function RandomPickerTool({ labels }: Props) {
       {winners.length ? (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-foreground">{labels.winnersTitle}</p>
-            <Button variant="outline" size="sm" onClick={() => copyResult(winners.join("\n"))}>
+            <p className="text-sm font-semibold text-foreground">
+              {labels.winnersTitle}
+            </p>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => copyResult(winners.join("\n"))}
+            >
               {labels.copy}
             </Button>
           </div>
@@ -148,19 +162,32 @@ export function RandomPickerTool({ labels }: Props) {
       {groups.length ? (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-foreground">{labels.groupsTitle}</p>
+            <p className="text-sm font-semibold text-foreground">
+              {labels.groupsTitle}
+            </p>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => copyResult(groups.map((group, index) => `#${index + 1}: ${group.join(", ")}`).join("\n"))}
+              onClick={() =>
+                copyResult(
+                  groups
+                    .map((group, index) => `#${index + 1}: ${group.join(", ")}`)
+                    .join("\n"),
+                )
+              }
             >
               {labels.copy}
             </Button>
           </div>
           <div className="space-y-2">
             {groups.map((group, index) => (
-              <div key={index} className="rounded-lg border bg-muted/30 p-3 text-sm">
-                <p className="font-semibold">{labels.groupLabel.replace("{index}", String(index + 1))}</p>
+              <div
+                key={index}
+                className="rounded-lg border bg-muted/30 p-3 text-sm"
+              >
+                <p className="font-semibold">
+                  {labels.groupLabel.replace("{index}", String(index + 1))}
+                </p>
                 <p>{group.join(", ")}</p>
               </div>
             ))}

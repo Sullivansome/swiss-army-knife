@@ -22,7 +22,11 @@ export function buildRegex(pattern: string, flags: string) {
   }
 }
 
-export function analyzeRegexMatches(pattern: string, flags: string, sample: string) {
+export function analyzeRegexMatches(
+  pattern: string,
+  flags: string,
+  sample: string,
+) {
   if (!pattern) {
     return {
       matches: [] as MatchResult[],
@@ -40,7 +44,9 @@ export function analyzeRegexMatches(pattern: string, flags: string, sample: stri
     };
   }
 
-  const globalFlags = regex.flags.includes("g") ? regex.flags : `${regex.flags}g`;
+  const globalFlags = regex.flags.includes("g")
+    ? regex.flags
+    : `${regex.flags}g`;
   const matcher = buildRegex(regex.source, globalFlags);
   if (!matcher) {
     return {
@@ -65,7 +71,12 @@ export function analyzeRegexMatches(pattern: string, flags: string, sample: stri
     const chunk = entry[0];
     fragments.push({ text: chunk, match: true });
     cursor = index + chunk.length;
-    results.push({ text: chunk, index, groups: entry.slice(1), named: entry.groups ?? undefined });
+    results.push({
+      text: chunk,
+      index,
+      groups: entry.slice(1),
+      named: entry.groups ?? undefined,
+    });
     if (stopAfterFirst) {
       break;
     }

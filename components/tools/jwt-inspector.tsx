@@ -3,7 +3,12 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { decodeJwtToken, formatDuration, formatJwtJson, template } from "@/lib/jwt";
+import {
+  decodeJwtToken,
+  formatDuration,
+  formatJwtJson,
+  template,
+} from "@/lib/jwt";
 
 type Labels = {
   inputLabel: string;
@@ -44,7 +49,9 @@ type Props = {
 
 export function JwtInspectorTool({ labels }: Props) {
   const [value, setValue] = useState("");
-  const [copiedField, setCopiedField] = useState<"header" | "payload" | null>(null);
+  const [copiedField, setCopiedField] = useState<"header" | "payload" | null>(
+    null,
+  );
   const [timestamp, setTimestamp] = useState(() => Date.now());
 
   const decoded = useMemo(
@@ -57,14 +64,22 @@ export function JwtInspectorTool({ labels }: Props) {
       return null;
     }
     const payload = decoded.payload as Record<string, unknown>;
-    const exp = typeof payload.exp === "number" ? payload.exp : Number(payload.exp);
+    const exp =
+      typeof payload.exp === "number" ? payload.exp : Number(payload.exp);
     if (!Number.isFinite(exp)) {
-      return { state: labels.statusActive, tone: "success" as const, detail: labels.noExpiry };
+      return {
+        state: labels.statusActive,
+        tone: "success" as const,
+        detail: labels.noExpiry,
+      };
     }
     const expiryDate = new Date(exp * 1000);
     const now = timestamp;
     const expired = expiryDate.getTime() <= now;
-    const duration = formatDuration(Math.abs(expiryDate.getTime() - now), labels);
+    const duration = formatDuration(
+      Math.abs(expiryDate.getTime() - now),
+      labels,
+    );
     const detail = expired
       ? template(labels.expiredAgo, { duration })
       : template(labels.expiresIn, { duration });
@@ -83,14 +98,35 @@ export function JwtInspectorTool({ labels }: Props) {
       { label: labels.issuer, value: payload.iss },
       { label: labels.subject, value: payload.sub },
       { label: labels.audience, value: payload.aud },
-      { label: labels.expires, value: payload.exp ? new Date(Number(payload.exp) * 1000).toISOString() : null },
-      { label: labels.issuedAt, value: payload.iat ? new Date(Number(payload.iat) * 1000).toISOString() : null },
-      { label: labels.validFrom, value: payload.nbf ? new Date(Number(payload.nbf) * 1000).toISOString() : null },
+      {
+        label: labels.expires,
+        value: payload.exp
+          ? new Date(Number(payload.exp) * 1000).toISOString()
+          : null,
+      },
+      {
+        label: labels.issuedAt,
+        value: payload.iat
+          ? new Date(Number(payload.iat) * 1000).toISOString()
+          : null,
+      },
+      {
+        label: labels.validFrom,
+        value: payload.nbf
+          ? new Date(Number(payload.nbf) * 1000).toISOString()
+          : null,
+      },
     ];
-    return entries.filter((entry) => entry.value !== undefined && entry.value !== null && entry.value !== "");
+    return entries.filter(
+      (entry) =>
+        entry.value !== undefined && entry.value !== null && entry.value !== "",
+    );
   }, [decoded, labels]);
 
-  const handleCopy = async (data: Record<string, unknown>, target: "header" | "payload") => {
+  const handleCopy = async (
+    data: Record<string, unknown>,
+    target: "header" | "payload",
+  ) => {
     try {
       await navigator.clipboard.writeText(formatJwtJson(data));
       setCopiedField(target);
@@ -104,7 +140,9 @@ export function JwtInspectorTool({ labels }: Props) {
     <div className="space-y-6">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">{labels.inputLabel}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.inputLabel}
+          </label>
           <span className="text-xs text-muted-foreground">{labels.helper}</span>
         </div>
         <textarea
@@ -126,15 +164,34 @@ export function JwtInspectorTool({ labels }: Props) {
 
       {decoded.status === "ready" ? (
         <div className="grid gap-4 md:grid-cols-2">
-          {([
-            { title: labels.headerTitle, data: decoded.header, key: "header" as const },
-            { title: labels.payloadTitle, data: decoded.payload, key: "payload" as const },
-          ]).map((section) => (
-            <div key={section.key} className="space-y-2 rounded-xl border bg-card p-4 shadow-sm">
+          {[
+            {
+              title: labels.headerTitle,
+              data: decoded.header,
+              key: "header" as const,
+            },
+            {
+              title: labels.payloadTitle,
+              data: decoded.payload,
+              key: "payload" as const,
+            },
+          ].map((section) => (
+            <div
+              key={section.key}
+              className="space-y-2 rounded-xl border bg-card p-4 shadow-sm"
+            >
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-foreground">{section.title}</h3>
-                <Button variant="outline" size="sm" onClick={() => handleCopy(section.data, section.key)}>
-                  {copiedField === section.key ? labels.copied : labels.copyJson}
+                <h3 className="text-sm font-semibold text-foreground">
+                  {section.title}
+                </h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleCopy(section.data, section.key)}
+                >
+                  {copiedField === section.key
+                    ? labels.copied
+                    : labels.copyJson}
                 </Button>
               </div>
               <pre className="min-h-32 whitespace-pre-wrap rounded-lg bg-muted/40 p-3 font-mono text-xs text-foreground">
@@ -149,9 +206,13 @@ export function JwtInspectorTool({ labels }: Props) {
         <div className="space-y-3 rounded-xl border bg-card p-4 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <p className="text-sm font-semibold text-foreground">{labels.signatureTitle}</p>
+              <p className="text-sm font-semibold text-foreground">
+                {labels.signatureTitle}
+              </p>
               <p className="text-xs text-muted-foreground">
-                {decoded.signature ? labels.signaturePresent : labels.signatureMissing}
+                {decoded.signature
+                  ? labels.signaturePresent
+                  : labels.signatureMissing}
               </p>
             </div>
             {statusInfo ? (
@@ -174,16 +235,25 @@ export function JwtInspectorTool({ labels }: Props) {
 
       {decoded.status === "ready" ? (
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-foreground">{labels.claimsTitle}</h3>
+          <h3 className="text-sm font-semibold text-foreground">
+            {labels.claimsTitle}
+          </h3>
           {claims.length === 0 ? (
             <p className="text-sm text-muted-foreground">{labels.noClaims}</p>
           ) : (
             <div className="divide-y rounded-xl border">
               {claims.map((claim) => (
-                <div key={claim.label} className="flex items-center justify-between gap-3 px-4 py-3">
-                  <span className="text-sm text-muted-foreground">{claim.label}</span>
+                <div
+                  key={claim.label}
+                  className="flex items-center justify-between gap-3 px-4 py-3"
+                >
+                  <span className="text-sm text-muted-foreground">
+                    {claim.label}
+                  </span>
                   <span className="text-sm font-medium text-foreground">
-                    {typeof claim.value === "string" ? claim.value : String(claim.value)}
+                    {typeof claim.value === "string"
+                      ? claim.value
+                      : String(claim.value)}
                   </span>
                 </div>
               ))}

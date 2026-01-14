@@ -5,7 +5,10 @@ export function parseEntries(input: string) {
     .filter(Boolean);
 }
 
-export function shuffleEntries(entries: string[], rng: () => number = Math.random) {
+export function shuffleEntries(
+  entries: string[],
+  rng: () => number = Math.random,
+) {
   const next = [...entries];
   for (let i = next.length - 1; i > 0; i -= 1) {
     const j = Math.floor(rng() * (i + 1));
@@ -14,14 +17,22 @@ export function shuffleEntries(entries: string[], rng: () => number = Math.rando
   return next;
 }
 
-export function pickWinners(entries: string[], count: number, rng: () => number = Math.random) {
+export function pickWinners(
+  entries: string[],
+  count: number,
+  rng: () => number = Math.random,
+) {
   if (!entries.length) return [];
   const shuffled = shuffleEntries(entries, rng);
   const winnerCount = Math.min(Math.max(1, count), shuffled.length);
   return shuffled.slice(0, winnerCount);
 }
 
-export function buildGroups(entries: string[], groupSize: number, rng: () => number = Math.random) {
+export function buildGroups(
+  entries: string[],
+  groupSize: number,
+  rng: () => number = Math.random,
+) {
   if (!entries.length) return [] as string[][];
   const size = Math.max(2, groupSize);
   const shuffled = shuffleEntries(entries, rng);

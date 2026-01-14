@@ -1,7 +1,7 @@
 "use client";
 
-import { ChangeEvent } from "react";
 import { useParams, usePathname, useRouter } from "next/navigation";
+import type { ChangeEvent } from "react";
 
 import { locales } from "@/lib/i18n-config";
 

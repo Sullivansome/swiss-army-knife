@@ -34,10 +34,13 @@ export function computeSummaryStats(values: number[]): SummaryStats | null {
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(count / 2);
   const median =
-    count % 2 === 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle];
+    count % 2 === 0
+      ? (sorted[middle - 1] + sorted[middle]) / 2
+      : sorted[middle];
   const min = sorted[0];
   const max = sorted[sorted.length - 1];
-  const variance = values.reduce((acc, value) => acc + (value - mean) ** 2, 0) / count;
+  const variance =
+    values.reduce((acc, value) => acc + (value - mean) ** 2, 0) / count;
   const stddev = Math.sqrt(variance);
   return { count, sum, mean, median, min, max, variance, stddev };
 }

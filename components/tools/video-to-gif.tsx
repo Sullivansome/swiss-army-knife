@@ -1,9 +1,9 @@
 "use client";
+
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useRef, useState } from "react";
-
 import type { FFmpeg } from "@ffmpeg/ffmpeg";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { buildFfmpegArgs } from "@/lib/video-to-gif";
@@ -33,7 +33,9 @@ export function VideoToGifTool({ labels }: Props) {
   const [status, setStatus] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const ffmpegRef = useRef<FFmpeg | null>(null);
-  const fetchFileRef = useRef<((file: File | Blob | string) => Promise<Uint8Array>) | null>(null);
+  const fetchFileRef = useRef<
+    ((file: File | Blob | string) => Promise<Uint8Array>) | null
+  >(null);
 
   useEffect(() => {
     return () => {
@@ -73,9 +75,14 @@ export function VideoToGifTool({ labels }: Props) {
       await ffmpeg.exec(buildFfmpegArgs({ start, duration, width }));
       const data = (await ffmpeg.readFile("output.gif")) as Uint8Array;
       const typed = new Uint8Array(data);
-      const url = URL.createObjectURL(new Blob([typed.buffer], { type: "image/gif" }));
+      const url = URL.createObjectURL(
+        new Blob([typed.buffer], { type: "image/gif" }),
+      );
       setOutput(url);
-      await Promise.all([ffmpeg.deleteFile("input.mp4"), ffmpeg.deleteFile("output.gif")]);
+      await Promise.all([
+        ffmpeg.deleteFile("input.mp4"),
+        ffmpeg.deleteFile("output.gif"),
+      ]);
       setStatus("");
     } catch (error) {
       console.error("ffmpeg", error);
@@ -97,13 +104,24 @@ export function VideoToGifTool({ labels }: Props) {
     <div className="space-y-4">
       <label className="flex cursor-pointer flex-col gap-2 text-sm font-medium text-foreground">
         {labels.upload}
-        <input type="file" accept="video/*" className="hidden" onChange={(event) => handleFile(event.target.files)} />
-        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">{labels.helper}</span>
+        <input
+          type="file"
+          accept="video/*"
+          className="hidden"
+          onChange={(event) => handleFile(event.target.files)}
+        />
+        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">
+          {labels.helper}
+        </span>
       </label>
 
       <div className="grid gap-4 md:grid-cols-3">
         <Field label={labels.start} value={start} onChange={setStart} />
-        <Field label={labels.duration} value={duration} onChange={setDuration} />
+        <Field
+          label={labels.duration}
+          value={duration}
+          onChange={setDuration}
+        />
         <Field label={labels.width} value={width} onChange={setWidth} />
       </div>
 
@@ -111,12 +129,19 @@ export function VideoToGifTool({ labels }: Props) {
         <Button size="sm" onClick={convert} disabled={!file || loading}>
           {loading ? labels.processing : labels.convert}
         </Button>
-        <Button variant="outline" size="sm" onClick={download} disabled={!output}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={download}
+          disabled={!output}
+        >
           {labels.download}
         </Button>
       </div>
 
-      {status ? <p className="text-sm text-muted-foreground">{status}</p> : null}
+      {status ? (
+        <p className="text-sm text-muted-foreground">{status}</p>
+      ) : null}
 
       {output ? (
         <div className="rounded-xl border bg-muted/30 p-4 text-center">

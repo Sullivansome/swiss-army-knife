@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { computeTargetSizeMB, formatCompressionRatio, formatFileSize } from "@/lib/image-compression";
+import {
+  computeTargetSizeMB,
+  formatCompressionRatio,
+  formatFileSize,
+} from "@/lib/image-compression";
 
 describe("image compression helpers", () => {
   it("computes target size with minimum", () => {

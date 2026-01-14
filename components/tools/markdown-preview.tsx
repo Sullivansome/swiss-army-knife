@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { DEFAULT_MARKDOWN, MARKDOWN_REHYPE_PLUGINS, MARKDOWN_REMARK_PLUGINS } from "@/lib/markdown";
+import {
+  DEFAULT_MARKDOWN,
+  MARKDOWN_REHYPE_PLUGINS,
+  MARKDOWN_REMARK_PLUGINS,
+} from "@/lib/markdown";
 
 type Props = {
   labels: {
@@ -18,7 +22,10 @@ export function MarkdownPreviewTool({ labels }: Props) {
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground" htmlFor="markdown-input">
+        <label
+          className="text-sm font-medium text-foreground"
+          htmlFor="markdown-input"
+        >
           {labels.input}
         </label>
         <textarea
@@ -30,9 +37,14 @@ export function MarkdownPreviewTool({ labels }: Props) {
         />
       </div>
       <div className="space-y-2">
-        <div className="text-sm font-medium text-foreground">{labels.preview}</div>
+        <div className="text-sm font-medium text-foreground">
+          {labels.preview}
+        </div>
         <div className="prose prose-sm max-w-none rounded-lg border bg-card p-4 dark:prose-invert">
-          <ReactMarkdown remarkPlugins={[...MARKDOWN_REMARK_PLUGINS]} rehypePlugins={[...MARKDOWN_REHYPE_PLUGINS]}>
+          <ReactMarkdown
+            remarkPlugins={[...MARKDOWN_REMARK_PLUGINS]}
+            rehypePlugins={[...MARKDOWN_REHYPE_PLUGINS]}
+          >
             {value}
           </ReactMarkdown>
         </div>

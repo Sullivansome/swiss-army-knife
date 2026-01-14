@@ -55,7 +55,9 @@ export function ColorConverterTool({ labels }: Props) {
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.hex}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.hex}
+        </label>
         <div className="flex flex-wrap items-center gap-2">
           <input
             type="text"
@@ -64,15 +66,25 @@ export function ColorConverterTool({ labels }: Props) {
             placeholder={labels.placeholderHex}
             className="flex-1 min-w-0 rounded-lg border bg-background px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
           />
-          <Button variant="outline" size="sm" onClick={() => handleCopy(hex)} disabled={!hex}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handleCopy(hex)}
+            disabled={!hex}
+          >
             {labels.copy}
           </Button>
         </div>
-        <div className="h-10 w-full rounded-md border" style={{ backgroundColor: error ? "#fff" : hex }} />
+        <div
+          className="h-10 w-full rounded-md border"
+          style={{ backgroundColor: error ? "#fff" : hex }}
+        />
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.rgb}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.rgb}
+        </label>
         <div className="flex flex-wrap items-center gap-2">
           <input
             type="text"
@@ -81,7 +93,12 @@ export function ColorConverterTool({ labels }: Props) {
             placeholder={labels.placeholderRgb}
             className="flex-1 min-w-0 rounded-lg border bg-background px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
           />
-          <Button variant="outline" size="sm" onClick={() => handleCopy(rgb)} disabled={!rgb}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handleCopy(rgb)}
+            disabled={!rgb}
+          >
             {labels.copy}
           </Button>
         </div>

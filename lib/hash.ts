@@ -4,7 +4,10 @@ import { bytesToHex } from "@noble/hashes/utils.js";
 
 export type HashAlgorithm = "md5" | "sha256" | "sha512";
 
-export async function computeHash(input: string, algo: HashAlgorithm): Promise<string> {
+export async function computeHash(
+  input: string,
+  algo: HashAlgorithm,
+): Promise<string> {
   const data = new TextEncoder().encode(input);
   switch (algo) {
     case "md5":

@@ -51,7 +51,9 @@ export function ImageToPdfTool({ labels }: Props) {
     if (!files?.length) return;
     const entries = await Promise.all(
       Array.from(files).map(async (file) => ({
-        id: crypto.randomUUID?.() ?? `${file.name}-${Date.now()}-${Math.random()}`,
+        id:
+          crypto.randomUUID?.() ??
+          `${file.name}-${Date.now()}-${Math.random()}`,
         name: file.name,
         dataUrl: await readAsDataUrl(file),
       })),
@@ -124,10 +126,19 @@ export function ImageToPdfTool({ labels }: Props) {
             {labels.helper}
           </span>
         </label>
-        <Button variant="outline" size="sm" onClick={() => setImages([])} disabled={!hasImages}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setImages([])}
+          disabled={!hasImages}
+        >
           {labels.clear}
         </Button>
-        <Button size="sm" onClick={generatePdf} disabled={!hasImages || loading}>
+        <Button
+          size="sm"
+          onClick={generatePdf}
+          disabled={!hasImages || loading}
+        >
           {loading ? labels.processing : labels.generate}
         </Button>
       </div>
@@ -137,13 +148,27 @@ export function ImageToPdfTool({ labels }: Props) {
           <p className="text-sm text-muted-foreground">{labels.reorder}</p>
           <ul className="space-y-3">
             {previews.map((image, index) => (
-              <li key={image.id} className="flex items-center gap-3 rounded-lg border p-3">
-                <img src={image.dataUrl} alt={image.name} className="h-16 w-16 rounded object-cover" />
+              <li
+                key={image.id}
+                className="flex items-center gap-3 rounded-lg border p-3"
+              >
+                <img
+                  src={image.dataUrl}
+                  alt={image.name}
+                  className="h-16 w-16 rounded object-cover"
+                />
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-foreground">{image.name}</p>
+                  <p className="text-sm font-medium text-foreground">
+                    {image.name}
+                  </p>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <Button variant="outline" size="sm" onClick={() => moveImage(index, -1)} disabled={index === 0}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => moveImage(index, -1)}
+                    disabled={index === 0}
+                  >
                     {labels.moveUp}
                   </Button>
                   <Button
@@ -155,7 +180,11 @@ export function ImageToPdfTool({ labels }: Props) {
                     {labels.moveDown}
                   </Button>
                 </div>
-                <Button variant="ghost" size="sm" onClick={() => removeImage(index)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => removeImage(index)}
+                >
                   {labels.remove}
                 </Button>
               </li>
@@ -166,7 +195,9 @@ export function ImageToPdfTool({ labels }: Props) {
         <p className="text-sm text-muted-foreground">{labels.empty}</p>
       )}
 
-      {status ? <p className="text-sm text-muted-foreground">{status}</p> : null}
+      {status ? (
+        <p className="text-sm text-muted-foreground">{status}</p>
+      ) : null}
     </div>
   );
 }

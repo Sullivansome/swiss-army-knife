@@ -15,7 +15,11 @@ export type FinanceNumberCaseLabels = {
   invalid: string;
 };
 
-export function FinanceNumberCaseTool({ labels }: { labels: FinanceNumberCaseLabels }) {
+export function FinanceNumberCaseTool({
+  labels,
+}: {
+  labels: FinanceNumberCaseLabels;
+}) {
   const [amount, setAmount] = useState("1000.50");
   const [result, setResult] = useState(() => toChineseUppercase(1000.5));
   const [error, setError] = useState("");
@@ -49,7 +53,10 @@ export function FinanceNumberCaseTool({ labels }: { labels: FinanceNumberCaseLab
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground" htmlFor="finance-amount">
+        <label
+          className="text-sm font-medium text-foreground"
+          htmlFor="finance-amount"
+        >
           {labels.amountLabel}
         </label>
         <input
@@ -66,15 +73,24 @@ export function FinanceNumberCaseTool({ labels }: { labels: FinanceNumberCaseLab
         <Button type="button" onClick={handleConvert}>
           {labels.convert}
         </Button>
-        <Button type="button" variant="outline" onClick={handleCopy} disabled={!result}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={handleCopy}
+          disabled={!result}
+        >
           {copied ? labels.copied : labels.copy}
         </Button>
       </div>
       {error ? (
-        <p className="rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-2 text-sm text-destructive">{error}</p>
+        <p className="rounded-lg border border-destructive/40 bg-destructive/5 px-4 py-2 text-sm text-destructive">
+          {error}
+        </p>
       ) : null}
       <div className="rounded-2xl border bg-card px-5 py-6 shadow-sm">
-        <p className="text-sm font-semibold text-foreground">{labels.resultLabel}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.resultLabel}
+        </p>
         <p className="mt-2 text-xl font-medium text-foreground">{result}</p>
       </div>
     </div>

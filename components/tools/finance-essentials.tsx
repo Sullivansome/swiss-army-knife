@@ -24,7 +24,11 @@ export type FinanceEssentialsLabels = {
   };
 };
 
-export function FinanceEssentialsTool({ labels }: { labels: FinanceEssentialsLabels }) {
+export function FinanceEssentialsTool({
+  labels,
+}: {
+  labels: FinanceEssentialsLabels;
+}) {
   const [preTax, setPreTax] = useState("5000");
   const [rate, setRate] = useState("6");
   const [total, setTotal] = useState("2400");
@@ -47,9 +51,14 @@ export function FinanceEssentialsTool({ labels }: { labels: FinanceEssentialsLab
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <div className="space-y-3 rounded-2xl border bg-card px-5 py-6 shadow-sm">
-        <p className="text-sm font-semibold text-foreground">{labels.tax.title}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.tax.title}
+        </p>
         <div className="space-y-2">
-          <label className="text-xs font-medium text-muted-foreground" htmlFor="tax-amount">
+          <label
+            className="text-xs font-medium text-muted-foreground"
+            htmlFor="tax-amount"
+          >
             {labels.tax.amount}
           </label>
           <input
@@ -61,7 +70,10 @@ export function FinanceEssentialsTool({ labels }: { labels: FinanceEssentialsLab
           />
         </div>
         <div className="space-y-2">
-          <label className="text-xs font-medium text-muted-foreground" htmlFor="tax-rate">
+          <label
+            className="text-xs font-medium text-muted-foreground"
+            htmlFor="tax-rate"
+          >
             {labels.tax.rate}
           </label>
           <input
@@ -85,10 +97,15 @@ export function FinanceEssentialsTool({ labels }: { labels: FinanceEssentialsLab
       </div>
 
       <div className="space-y-3 rounded-2xl border bg-card px-5 py-6 shadow-sm">
-        <p className="text-sm font-semibold text-foreground">{labels.split.title}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.split.title}
+        </p>
         <div className="grid gap-3 sm:grid-cols-3">
           <div className="space-y-2">
-            <label className="text-xs font-medium text-muted-foreground" htmlFor="split-total">
+            <label
+              className="text-xs font-medium text-muted-foreground"
+              htmlFor="split-total"
+            >
               {labels.split.total}
             </label>
             <input
@@ -100,7 +117,10 @@ export function FinanceEssentialsTool({ labels }: { labels: FinanceEssentialsLab
             />
           </div>
           <div className="space-y-2">
-            <label className="text-xs font-medium text-muted-foreground" htmlFor="split-people">
+            <label
+              className="text-xs font-medium text-muted-foreground"
+              htmlFor="split-people"
+            >
               {labels.split.people}
             </label>
             <input
@@ -112,7 +132,10 @@ export function FinanceEssentialsTool({ labels }: { labels: FinanceEssentialsLab
             />
           </div>
           <div className="space-y-2">
-            <label className="text-xs font-medium text-muted-foreground" htmlFor="split-days">
+            <label
+              className="text-xs font-medium text-muted-foreground"
+              htmlFor="split-days"
+            >
               {labels.split.days}
             </label>
             <input
@@ -127,17 +150,25 @@ export function FinanceEssentialsTool({ labels }: { labels: FinanceEssentialsLab
         <div className="rounded-xl border bg-muted/30 px-4 py-3 text-sm">
           <div className="flex items-center justify-between">
             <span>{labels.split.perPerson}</span>
-            <span className="font-semibold">¥{splitValues.perPerson.toFixed(2)}</span>
+            <span className="font-semibold">
+              ¥{splitValues.perPerson.toFixed(2)}
+            </span>
           </div>
           <div className="mt-2 flex items-center justify-between">
             <span>{labels.split.perDay}</span>
-            <span className="font-semibold">¥{splitValues.perDay.toFixed(2)}</span>
+            <span className="font-semibold">
+              ¥{splitValues.perDay.toFixed(2)}
+            </span>
           </div>
           <div className="mt-2 flex items-center justify-between">
             <span>{labels.split.perPersonPerDay}</span>
-            <span className="font-semibold">¥{splitValues.perPersonPerDay.toFixed(2)}</span>
+            <span className="font-semibold">
+              ¥{splitValues.perPersonPerDay.toFixed(2)}
+            </span>
           </div>
-          <p className="mt-2 text-xs text-muted-foreground">{labels.split.note}</p>
+          <p className="mt-2 text-xs text-muted-foreground">
+            {labels.split.note}
+          </p>
         </div>
       </div>
     </div>

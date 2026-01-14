@@ -1,13 +1,13 @@
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Analytics } from "@vercel/analytics/react";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { assertLocale, locales } from "@/lib/i18n-config";
 import { getDictionary } from "@/lib/dictionaries";
+import { assertLocale, locales } from "@/lib/i18n-config";
 
 import "../globals.css";
 

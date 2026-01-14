@@ -1,51 +1,50 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-
+import { ToolShell } from "@/components/tool-shell";
+import { AdvancedWordCountTool } from "@/components/tools/advanced-word-count";
+import { BaseConverterTool } from "@/components/tools/base-converter";
 import { Base64Tool } from "@/components/tools/base64-tool";
+import { BmiCalculatorTool } from "@/components/tools/bmi-calculator";
 import { CaseConverterTool } from "@/components/tools/case-converter";
-import { DiffCheckerTool } from "@/components/tools/diff-checker";
+import { ColorContrastChecker } from "@/components/tools/color-contrast-checker";
 import { ColorConverterTool } from "@/components/tools/color-converter";
-import { ExifViewerTool } from "@/components/tools/exif-viewer";
-import { HashGeneratorTool } from "@/components/tools/hash-generator";
-import { JsonFormatterTool } from "@/components/tools/json-formatter";
-import { LoremIpsumTool } from "@/components/tools/lorem-ipsum";
-import { MarkdownPreviewTool } from "@/components/tools/markdown-preview";
-import { PasswordGeneratorTool } from "@/components/tools/password-generator";
-import { QrGeneratorTool } from "@/components/tools/qr-generator";
-import { UuidGeneratorTool } from "@/components/tools/uuid-generator";
-import { ImageToPdfTool } from "@/components/tools/image-to-pdf";
-import { ListDedupSortTool } from "@/components/tools/list-dedup-sort";
+import { ComputerBaseConverterTool } from "@/components/tools/computer-base-converter";
+import { CronExplainerTool } from "@/components/tools/cron-explainer";
 import { CsvJsonConverterTool } from "@/components/tools/csv-json-converter";
-import { RandomPickerTool } from "@/components/tools/random-picker";
+import { DateCalculatorTool } from "@/components/tools/date-calculator";
+import { DiffCheckerTool } from "@/components/tools/diff-checker";
+import { EmojiCleanerTool } from "@/components/tools/emoji-cleaner";
+import { ExifViewerTool } from "@/components/tools/exif-viewer";
+import { FamilyRelationCalculator } from "@/components/tools/family-relation-calculator";
+import { FinanceCalculatorTool } from "@/components/tools/finance-calculator";
+import { FinanceEssentialsTool } from "@/components/tools/finance-essentials";
+import { FinanceNumberCaseTool } from "@/components/tools/finance-number-case";
+import { HashGeneratorTool } from "@/components/tools/hash-generator";
 import { ImageCompressorTool } from "@/components/tools/image-compressor";
 import { ImageConverterTool } from "@/components/tools/image-converter";
-import { SocialMockupTool } from "@/components/tools/social-mockup";
-import { PaletteGeneratorTool } from "@/components/tools/palette-generator";
-import { SvgRecolorTool } from "@/components/tools/svg-recolor";
-import { EmojiCleanerTool } from "@/components/tools/emoji-cleaner";
-import { SocialFormatterTool } from "@/components/tools/social-formatter";
-import { AdvancedWordCountTool } from "@/components/tools/advanced-word-count";
-import { DateCalculatorTool } from "@/components/tools/date-calculator";
-import { FinanceCalculatorTool } from "@/components/tools/finance-calculator";
-import { BmiCalculatorTool } from "@/components/tools/bmi-calculator";
-import { UnitConverterTool } from "@/components/tools/unit-converter";
-import { VideoToGifTool } from "@/components/tools/video-to-gif";
-import { OcrTool } from "@/components/tools/ocr";
-import { TemperatureConverterTool } from "@/components/tools/temperature-converter";
-import { FamilyRelationCalculator } from "@/components/tools/family-relation-calculator";
-import { LunarNewYearTool } from "@/components/tools/lunar-new-year";
-import { FinanceNumberCaseTool } from "@/components/tools/finance-number-case";
-import { FinanceEssentialsTool } from "@/components/tools/finance-essentials";
-import { BaseConverterTool } from "@/components/tools/base-converter";
-import { ComputerBaseConverterTool } from "@/components/tools/computer-base-converter";
-import { RegexPlaygroundTool } from "@/components/tools/regex-playground";
+import { ImageToPdfTool } from "@/components/tools/image-to-pdf";
+import { JsonFormatterTool } from "@/components/tools/json-formatter";
 import { JwtInspectorTool } from "@/components/tools/jwt-inspector";
-import { ColorContrastChecker } from "@/components/tools/color-contrast-checker";
-import { TimezonePlanner } from "@/components/tools/timezone-planner";
-import { CronExplainerTool } from "@/components/tools/cron-explainer";
+import { ListDedupSortTool } from "@/components/tools/list-dedup-sort";
+import { LoremIpsumTool } from "@/components/tools/lorem-ipsum";
+import { LunarNewYearTool } from "@/components/tools/lunar-new-year";
+import { MarkdownPreviewTool } from "@/components/tools/markdown-preview";
+import { OcrTool } from "@/components/tools/ocr";
+import { PaletteGeneratorTool } from "@/components/tools/palette-generator";
+import { PasswordGeneratorTool } from "@/components/tools/password-generator";
+import { QrGeneratorTool } from "@/components/tools/qr-generator";
+import { RandomPickerTool } from "@/components/tools/random-picker";
+import { RegexPlaygroundTool } from "@/components/tools/regex-playground";
+import { SocialFormatterTool } from "@/components/tools/social-formatter";
+import { SocialMockupTool } from "@/components/tools/social-mockup";
 import { StatisticsSummaryTool } from "@/components/tools/statistics-summary";
-import { ToolShell } from "@/components/tool-shell";
-import { getDictionary, type Dictionary } from "@/lib/dictionaries";
+import { SvgRecolorTool } from "@/components/tools/svg-recolor";
+import { TemperatureConverterTool } from "@/components/tools/temperature-converter";
+import { TimezonePlanner } from "@/components/tools/timezone-planner";
+import { UnitConverterTool } from "@/components/tools/unit-converter";
+import { UuidGeneratorTool } from "@/components/tools/uuid-generator";
+import { VideoToGifTool } from "@/components/tools/video-to-gif";
+import { type Dictionary, getDictionary } from "@/lib/dictionaries";
 import { assertLocale } from "@/lib/i18n-config";
 import { getTool, tools } from "@/lib/tools";
 
@@ -55,7 +54,9 @@ type Props = {
 
 export async function generateStaticParams() {
   const locales = ["en", "zh"];
-  return tools.flatMap((tool) => locales.map((locale) => ({ slug: tool.slug, locale })));
+  return tools.flatMap((tool) =>
+    locales.map((locale) => ({ slug: tool.slug, locale })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -94,7 +95,10 @@ export default async function ToolPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
-      <ToolShell title={toolDict?.name ?? tool.slug} description={toolDict?.description}>
+      <ToolShell
+        title={toolDict?.name ?? tool.slug}
+        description={toolDict?.description}
+      >
         {rendered}
       </ToolShell>
     </div>
@@ -417,10 +421,19 @@ function renderTool(slug: string, dict: Dictionary) {
         <TemperatureConverterTool
           labels={dict.temperatureConverter}
           units={[
-            { value: "celsius", label: dict.temperatureConverter.units.celsius },
-            { value: "fahrenheit", label: dict.temperatureConverter.units.fahrenheit },
+            {
+              value: "celsius",
+              label: dict.temperatureConverter.units.celsius,
+            },
+            {
+              value: "fahrenheit",
+              label: dict.temperatureConverter.units.fahrenheit,
+            },
             { value: "kelvin", label: dict.temperatureConverter.units.kelvin },
-            { value: "rankine", label: dict.temperatureConverter.units.rankine },
+            {
+              value: "rankine",
+              label: dict.temperatureConverter.units.rankine,
+            },
           ]}
         />
       );

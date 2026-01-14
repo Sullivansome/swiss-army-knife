@@ -1,23 +1,29 @@
 "use client";
 
-import { useMemo, useState } from "react";
-
-import { Line } from "react-chartjs-2";
 import {
-  Chart,
   CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
+  Chart,
   Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Tooltip,
 } from "chart.js";
+import { useMemo, useState } from "react";
+import { Line } from "react-chartjs-2";
 
 import { calculateFinanceSummary } from "@/lib/finance";
 
 let chartRegistered = false;
 if (!chartRegistered) {
-  Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+  Chart.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Tooltip,
+    Legend,
+  );
   chartRegistered = true;
 }
 
@@ -71,15 +77,47 @@ export function FinanceCalculatorTool({ labels }: Props) {
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-4">
-        <Field label={labels.principal} value={principal} onChange={setPrincipal} min={0} step={100} />
-        <Field label={labels.monthly} value={monthly} onChange={setMonthly} min={0} step={50} />
-        <Field label={labels.rate} value={rate} onChange={setRate} min={0} step={0.1} />
-        <Field label={labels.years} value={years} onChange={setYears} min={1} step={1} />
+        <Field
+          label={labels.principal}
+          value={principal}
+          onChange={setPrincipal}
+          min={0}
+          step={100}
+        />
+        <Field
+          label={labels.monthly}
+          value={monthly}
+          onChange={setMonthly}
+          min={0}
+          step={50}
+        />
+        <Field
+          label={labels.rate}
+          value={rate}
+          onChange={setRate}
+          min={0}
+          step={0.1}
+        />
+        <Field
+          label={labels.years}
+          value={years}
+          onChange={setYears}
+          min={1}
+          step={1}
+        />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Stat label={labels.totalContributions} value={summary.totalContributions} prefix="$" />
-        <Stat label={labels.totalInterest} value={summary.totalInterest} prefix="$" />
+        <Stat
+          label={labels.totalContributions}
+          value={summary.totalContributions}
+          prefix="$"
+        />
+        <Stat
+          label={labels.totalInterest}
+          value={summary.totalInterest}
+          prefix="$"
+        />
       </div>
 
       <div className="rounded-2xl border bg-card p-4">

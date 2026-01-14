@@ -62,29 +62,52 @@ export function SvgRecolorTool({ labels }: Props) {
     <div className="space-y-4">
       <label className="flex cursor-pointer flex-col gap-2 text-sm font-medium text-foreground">
         {labels.upload}
-        <input type="file" accept="image/svg+xml" className="hidden" onChange={(event) => handleFile(event.target.files)} />
-        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">{labels.helper}</span>
+        <input
+          type="file"
+          accept="image/svg+xml"
+          className="hidden"
+          onChange={(event) => handleFile(event.target.files)}
+        />
+        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">
+          {labels.helper}
+        </span>
       </label>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.colorLabel}</label>
-        <input type="color" value={color} onChange={(event) => setColor(event.target.value)} />
+        <label className="text-sm font-medium text-foreground">
+          {labels.colorLabel}
+        </label>
+        <input
+          type="color"
+          value={color}
+          onChange={(event) => setColor(event.target.value)}
+        />
       </div>
 
       <div className="flex gap-2">
         <Button size="sm" onClick={applyColor} disabled={!source}>
           {labels.apply}
         </Button>
-        <Button variant="outline" size="sm" onClick={download} disabled={!output}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={download}
+          disabled={!output}
+        >
           {labels.download}
         </Button>
       </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-semibold text-foreground">{labels.preview}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.preview}
+        </p>
         <div className="rounded-xl border bg-muted/30 p-4">
           {output ? (
-            <div className="flex items-center justify-center" dangerouslySetInnerHTML={{ __html: output }} />
+            <div
+              className="flex items-center justify-center"
+              dangerouslySetInnerHTML={{ __html: output }}
+            />
           ) : (
             <p className="text-sm text-muted-foreground">{labels.helper}</p>
           )}

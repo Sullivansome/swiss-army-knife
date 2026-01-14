@@ -63,7 +63,9 @@ export function Base64Tool({ labels }: Props) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">{labels.input}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.input}
+          </label>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={handleClear}>
               {labels.clear}
@@ -86,8 +88,15 @@ export function Base64Tool({ labels }: Props) {
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">{labels.output}</label>
-          <Button variant="outline" size="sm" onClick={handleCopy} disabled={!output}>
+          <label className="text-sm font-medium text-foreground">
+            {labels.output}
+          </label>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopy}
+            disabled={!output}
+          >
             {labels.copy}
           </Button>
         </div>

@@ -6,11 +6,14 @@ const serverSchema = z.object({
 });
 
 const clientSchema = z.object({
-  NEXT_PUBLIC_BASE_URL: z.string().url({ message: "NEXT_PUBLIC_BASE_URL must be a valid URL" }),
+  NEXT_PUBLIC_BASE_URL: z
+    .string()
+    .url({ message: "NEXT_PUBLIC_BASE_URL must be a valid URL" }),
 });
 
 const baseDomain =
-  process.env.BASE_DOMAIN ?? (process.env.NODE_ENV === "development" ? "localhost" : undefined);
+  process.env.BASE_DOMAIN ??
+  (process.env.NODE_ENV === "development" ? "localhost" : undefined);
 const mainSubdomain =
   process.env.MAIN_SUBDOMAIN ??
   (process.env.NODE_ENV === "development" ? "toolcenter" : undefined);
@@ -22,7 +25,9 @@ export const serverEnv = serverSchema.parse({
 
 const publicBaseUrl =
   process.env.NEXT_PUBLIC_BASE_URL ??
-  (process.env.NODE_ENV === "development" ? "http://localhost:3000" : undefined);
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : undefined);
 
 export const clientEnv = clientSchema.parse({
   NEXT_PUBLIC_BASE_URL: publicBaseUrl,

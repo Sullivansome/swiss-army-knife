@@ -31,11 +31,9 @@ export const clothingTable = [
   { intl: "XL", us: "16-18", eu: "46-48", cn: "175/96A" },
 ] as const;
 
-export function convertUnits<T extends readonly { key: string; factor: number }[]>(
-  value: number,
-  unitKey: T[number]["key"],
-  units: T,
-) {
+export function convertUnits<
+  T extends readonly { key: string; factor: number }[],
+>(value: number, unitKey: T[number]["key"], units: T) {
   const base = value * units.find((unit) => unit.key === unitKey)!.factor;
   return units.map((unit) => ({
     key: unit.key,

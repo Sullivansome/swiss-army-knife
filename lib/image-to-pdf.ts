@@ -18,7 +18,12 @@ export function removeItem<T>(items: T[], index: number) {
   return items.filter((_, idx) => idx !== index);
 }
 
-export function fitImageToPage(imageWidth: number, imageHeight: number, pageWidth: number, pageHeight: number): FitResult {
+export function fitImageToPage(
+  imageWidth: number,
+  imageHeight: number,
+  pageWidth: number,
+  pageHeight: number,
+): FitResult {
   const ratio = Math.min(pageWidth / imageWidth, pageHeight / imageHeight);
   const width = imageWidth * ratio;
   const height = imageHeight * ratio;

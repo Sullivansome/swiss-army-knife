@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { clothingTable, convertUnits, lengthUnits, shoeTable, weightUnits } from "@/lib/unit-converter";
+import {
+  clothingTable,
+  convertUnits,
+  lengthUnits,
+  shoeTable,
+  weightUnits,
+} from "@/lib/unit-converter";
 
 describe("unit converter helpers", () => {
   it("converts length units", () => {

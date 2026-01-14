@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { decodeJwtToken, formatDuration, formatJwtJson, template } from "@/lib/jwt";
+import {
+  decodeJwtToken,
+  formatDuration,
+  formatJwtJson,
+  template,
+} from "@/lib/jwt";
 
 describe("jwt helpers", () => {
   const encode = (value: Record<string, unknown>) =>
@@ -16,7 +21,7 @@ describe("jwt helpers", () => {
       expect(decoded.header).toMatchObject(header);
       expect(decoded.payload).toMatchObject(payload);
       expect(decoded.signature).toBeNull();
-      expect(formatJwtJson(decoded.payload)).toContain("\"sub\"");
+      expect(formatJwtJson(decoded.payload)).toContain('"sub"');
     }
   });
 
@@ -30,7 +35,10 @@ describe("jwt helpers", () => {
 
   it("formats durations", () => {
     const labels = { durationUnits: { days: "d", hours: "h", minutes: "m" } };
-    const result = formatDuration(2 * 24 * 60 * 60000 + 3 * 60 * 60000 + 5 * 60000, labels);
+    const result = formatDuration(
+      2 * 24 * 60 * 60000 + 3 * 60 * 60000 + 5 * 60000,
+      labels,
+    );
     expect(result).toBe("2d 3h 5m");
   });
 

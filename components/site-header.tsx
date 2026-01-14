@@ -21,12 +21,20 @@ type Props = {
   toolsDict: Dictionary["tools"];
 };
 
-export async function SiteHeader({ locale, dict, categories, toolsDict }: Props) {
+export async function SiteHeader({
+  locale,
+  dict,
+  categories,
+  toolsDict,
+}: Props) {
   return (
     <header className="border-b bg-card/70 backdrop-blur">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-6 py-4">
         <div className="flex items-center gap-3">
-          <Link href={`/${locale}`} className="text-lg font-semibold tracking-tight text-foreground">
+          <Link
+            href={`/${locale}`}
+            className="text-lg font-semibold tracking-tight text-foreground"
+          >
             {dict.brand}
           </Link>
           <nav className="flex items-center gap-2 text-sm font-medium text-muted-foreground">

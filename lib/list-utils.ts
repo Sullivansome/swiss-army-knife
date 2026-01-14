@@ -1,6 +1,10 @@
 export type SortMode = "none" | "asc" | "desc";
 
-export function processList(input: string, caseSensitive: boolean, sortMode: SortMode): string[] {
+export function processList(
+  input: string,
+  caseSensitive: boolean,
+  sortMode: SortMode,
+): string[] {
   const lines = input
     .split(/\r?\n/)
     .map((line) => line.trim())

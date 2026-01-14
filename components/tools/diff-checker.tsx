@@ -61,18 +61,30 @@ export function DiffCheckerTool({ labels }: Props) {
             {labels.removed}: {summary.removed}
           </span>
         </div>
-        <Button variant="default" size="sm" onClick={handleCompare} disabled={!left && !right}>
+        <Button
+          variant="default"
+          size="sm"
+          onClick={handleCompare}
+          disabled={!left && !right}
+        >
           {labels.button}
         </Button>
       </div>
 
       <div className="overflow-hidden rounded-lg border">
         {diff.length === 0 ? (
-          <div className="px-4 py-3 text-sm text-muted-foreground">{labels.noDiff}</div>
+          <div className="px-4 py-3 text-sm text-muted-foreground">
+            {labels.noDiff}
+          </div>
         ) : (
           <div className="max-h-[500px] overflow-auto text-sm font-mono">
             {diff.map((part, index) => (
-              <DiffLine key={index} value={part.value} added={part.added} removed={part.removed} />
+              <DiffLine
+                key={index}
+                value={part.value}
+                added={part.added}
+                removed={part.removed}
+              />
             ))}
           </div>
         )}
@@ -109,9 +121,15 @@ type DiffLineProps = {
 };
 
 function DiffLine({ value, added, removed }: DiffLineProps) {
-  const bg = added ? "bg-emerald-50 text-emerald-900" : removed ? "bg-rose-50 text-rose-900" : "bg-card";
+  const bg = added
+    ? "bg-emerald-50 text-emerald-900"
+    : removed
+      ? "bg-rose-50 text-rose-900"
+      : "bg-card";
   const prefix = added ? "+ " : removed ? "- " : "  ";
   return (
-    <pre className={`whitespace-pre-wrap px-4 py-2 ${bg}`}>{`${prefix}${value}`}</pre>
+    <pre
+      className={`whitespace-pre-wrap px-4 py-2 ${bg}`}
+    >{`${prefix}${value}`}</pre>
   );
 }

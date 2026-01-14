@@ -50,7 +50,10 @@ export function UuidGeneratorTool({ labels }: Props) {
     <div className="space-y-4">
       <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="uuid-count">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="uuid-count"
+          >
             {labels.count}
           </label>
           <input

@@ -25,7 +25,10 @@ export function BmiCalculatorTool({ labels }: Props) {
   const [height, setHeight] = useState(170);
   const [weight, setWeight] = useState(65);
 
-  const { bmi, category } = useMemo(() => calculateBmi(height, weight), [height, weight]);
+  const { bmi, category } = useMemo(
+    () => calculateBmi(height, weight),
+    [height, weight],
+  );
   const categoryLabel = labels.tips[category];
 
   return (
@@ -37,9 +40,13 @@ export function BmiCalculatorTool({ labels }: Props) {
 
       <div className="rounded-2xl border bg-card p-4 text-center">
         <p className="text-sm text-muted-foreground">{labels.result}</p>
-        <p className="mt-3 text-4xl font-semibold text-foreground">{bmi ? bmi.toFixed(1) : "—"}</p>
+        <p className="mt-3 text-4xl font-semibold text-foreground">
+          {bmi ? bmi.toFixed(1) : "—"}
+        </p>
         <p className="mt-2 text-sm text-muted-foreground">{labels.category}</p>
-        <p className="mt-1 text-base font-medium text-foreground">{categoryLabel}</p>
+        <p className="mt-1 text-base font-medium text-foreground">
+          {categoryLabel}
+        </p>
       </div>
     </div>
   );

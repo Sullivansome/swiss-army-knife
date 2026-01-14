@@ -1,11 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import { SearchIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import type { Dictionary } from "@/lib/dictionaries";
-import { tools, type ToolCategory } from "@/lib/tools";
+import { type ToolCategory, tools } from "@/lib/tools";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import {
@@ -47,7 +47,13 @@ const categoryOrder: ToolCategory[] = [
   "wasm",
 ];
 
-export function ToolSearch({ locale, layout, categories, toolsDict, className }: Props) {
+export function ToolSearch({
+  locale,
+  layout,
+  categories,
+  toolsDict,
+  className,
+}: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -88,41 +94,46 @@ export function ToolSearch({ locale, layout, categories, toolsDict, className }:
   const normalizedQuery = searchValue.trim().toLowerCase();
 
   const scoreTool = useCallback(
-    (item: (typeof grouped)[number]["items"][number], query: string): number => {
+    (
+      item: (typeof grouped)[number]["items"][number],
+      query: string,
+    ): number => {
       const q = query.toLowerCase();
       const name = item.name.toLowerCase();
       const slug = item.slug.toLowerCase();
       const description = item.description.toLowerCase();
       const category = item.categoryLabel.toLowerCase();
-    const tags = item.tags.map((tag) => tag.toLowerCase());
+      const tags = item.tags.map((tag) => tag.toLowerCase());
 
-    let score = 0;
-    if (!q) return score;
+      let score = 0;
+      if (!q) return score;
 
-    const parts = q.split(/\s+/).filter(Boolean);
-    const includes = (value: string) => value.includes(q);
-    const startsWith = (value: string) => value.startsWith(q);
+      const parts = q.split(/\s+/).filter(Boolean);
+      const includes = (value: string) => value.includes(q);
+      const startsWith = (value: string) => value.startsWith(q);
 
-    if (name === q) score += 12;
-    if (slug === q) score += 10;
-    if (startsWith(name)) score += 8;
-    if (startsWith(slug)) score += 6;
-    if (tags.some((tag) => startsWith(tag))) score += 5;
-    if (includes(name)) score += 4;
-    if (tags.some((tag) => includes(tag))) score += 3;
-    if (includes(slug)) score += 2;
-    if (includes(description)) score += 2;
-    if (includes(category)) score += 1;
+      if (name === q) score += 12;
+      if (slug === q) score += 10;
+      if (startsWith(name)) score += 8;
+      if (startsWith(slug)) score += 6;
+      if (tags.some((tag) => startsWith(tag))) score += 5;
+      if (includes(name)) score += 4;
+      if (tags.some((tag) => includes(tag))) score += 3;
+      if (includes(slug)) score += 2;
+      if (includes(description)) score += 2;
+      if (includes(category)) score += 1;
 
-    parts.forEach((part) => {
-      if (part === q) return;
-      if (name.includes(part)) score += 2;
-      if (slug.includes(part)) score += 1;
-      if (tags.some((tag) => tag.includes(part))) score += 1;
-      if (description.includes(part)) score += 1;
-    });
-    return score;
-  }, []);
+      parts.forEach((part) => {
+        if (part === q) return;
+        if (name.includes(part)) score += 2;
+        if (slug.includes(part)) score += 1;
+        if (tags.some((tag) => tag.includes(part))) score += 1;
+        if (description.includes(part)) score += 1;
+      });
+      return score;
+    },
+    [],
+  );
 
   const filteredGroups = useMemo(() => {
     return grouped
@@ -202,9 +213,13 @@ export function ToolSearch({ locale, layout, categories, toolsDict, className }:
                   onSelect={() => handleSelect(item.slug)}
                 >
                   <div className="flex flex-col gap-1">
-                    <span className="text-sm font-medium text-foreground">{item.name}</span>
+                    <span className="text-sm font-medium text-foreground">
+                      {item.name}
+                    </span>
                     {item.description ? (
-                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {item.description}
+                      </span>
                     ) : null}
                   </div>
                   <span className="ml-auto rounded-full bg-muted px-2 py-1 text-[11px] font-semibold text-muted-foreground">

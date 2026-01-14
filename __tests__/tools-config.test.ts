@@ -60,7 +60,9 @@ describe("tools catalog", () => {
   });
 
   it("keeps tag coverage for finance-specific utilities", () => {
-    const financeTools = conversionTools.filter((tool) => tool.tags.includes("finance"));
+    const financeTools = conversionTools.filter((tool) =>
+      tool.tags.includes("finance"),
+    );
 
     financeTools.forEach(({ slug, tags }) => {
       const tool = getTool(slug);

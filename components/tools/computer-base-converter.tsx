@@ -2,7 +2,12 @@
 
 import { useMemo, useState } from "react";
 
-import { bigintBitLength, convertBase, convertToDecimal, padBinary } from "@/lib/base";
+import {
+  bigintBitLength,
+  convertBase,
+  convertToDecimal,
+  padBinary,
+} from "@/lib/base";
 
 export type ComputerBaseLabels = {
   inputLabel: string;
@@ -24,7 +29,11 @@ export type ComputerBaseLabels = {
 
 const bitWidths = [8, 16, 32, 64];
 
-export function ComputerBaseConverterTool({ labels }: { labels: ComputerBaseLabels }) {
+export function ComputerBaseConverterTool({
+  labels,
+}: {
+  labels: ComputerBaseLabels;
+}) {
   const [value, setValue] = useState("FF");
   const [inputBase, setInputBase] = useState(16);
   const [bitWidth, setBitWidth] = useState(32);
@@ -61,7 +70,10 @@ export function ComputerBaseConverterTool({ labels }: { labels: ComputerBaseLabe
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-3">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="computer-base-value">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="computer-base-value"
+          >
             {labels.inputLabel}
           </label>
           <input
@@ -73,7 +85,10 @@ export function ComputerBaseConverterTool({ labels }: { labels: ComputerBaseLabe
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="computer-base-select">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="computer-base-select"
+          >
             {labels.baseLabel}
           </label>
           <select
@@ -89,7 +104,10 @@ export function ComputerBaseConverterTool({ labels }: { labels: ComputerBaseLabe
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="bit-width">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="bit-width"
+          >
             {labels.bitWidthLabel}
           </label>
           <select
@@ -118,15 +136,21 @@ export function ComputerBaseConverterTool({ labels }: { labels: ComputerBaseLabe
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl border bg-card px-4 py-3 text-sm">
               <p className="text-muted-foreground">{labels.bitLengthLabel}</p>
-              <p className="text-2xl font-semibold text-foreground">{info.bitLength}</p>
+              <p className="text-2xl font-semibold text-foreground">
+                {info.bitLength}
+              </p>
             </div>
             <div className="rounded-xl border bg-card px-4 py-3 text-sm">
               <p className="text-muted-foreground">{labels.approxBytesLabel}</p>
-              <p className="text-2xl font-semibold text-foreground">{info.bytes}</p>
+              <p className="text-2xl font-semibold text-foreground">
+                {info.bytes}
+              </p>
             </div>
           </div>
           <div className="rounded-2xl border bg-card px-5 py-6 shadow-sm">
-            <p className="text-sm font-semibold text-foreground">{labels.outputsTitle}</p>
+            <p className="text-sm font-semibold text-foreground">
+              {labels.outputsTitle}
+            </p>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               <ValueCard label={labels.bases.binary} value={info.binary} />
               <ValueCard label={labels.bases.octal} value={info.octal} />
@@ -135,12 +159,20 @@ export function ComputerBaseConverterTool({ labels }: { labels: ComputerBaseLabe
             </div>
             <div className="mt-4 space-y-2 rounded-xl border bg-muted/30 px-4 py-3 text-sm">
               <div>
-                <p className="text-xs font-semibold text-muted-foreground">{labels.paddedBinaryLabel}</p>
-                <p className="font-mono text-base text-foreground">{info.paddedBinary}</p>
+                <p className="text-xs font-semibold text-muted-foreground">
+                  {labels.paddedBinaryLabel}
+                </p>
+                <p className="font-mono text-base text-foreground">
+                  {info.paddedBinary}
+                </p>
               </div>
               <div>
-                <p className="text-xs font-semibold text-muted-foreground">{labels.paddedHexLabel}</p>
-                <p className="font-mono text-base text-foreground">{info.paddedHex}</p>
+                <p className="text-xs font-semibold text-muted-foreground">
+                  {labels.paddedHexLabel}
+                </p>
+                <p className="font-mono text-base text-foreground">
+                  {info.paddedHex}
+                </p>
               </div>
             </div>
           </div>

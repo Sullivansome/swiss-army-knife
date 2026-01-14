@@ -1,4 +1,8 @@
-import { differenceInDays, differenceInMonths, differenceInWeeks } from "date-fns";
+import {
+  differenceInDays,
+  differenceInMonths,
+  differenceInWeeks,
+} from "date-fns";
 
 export type DateDiffStats = {
   days: number;
@@ -12,7 +16,10 @@ function isValidDate(value: string) {
   return Number.isFinite(timestamp);
 }
 
-export function getDateDiffStats(start: string, end: string): DateDiffStats | null {
+export function getDateDiffStats(
+  start: string,
+  end: string,
+): DateDiffStats | null {
   if (!start || !end || !isValidDate(start) || !isValidDate(end)) {
     return null;
   }

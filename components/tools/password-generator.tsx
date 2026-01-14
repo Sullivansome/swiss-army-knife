@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { generatePassword } from "@/lib/password";
 
 type Props = {
@@ -62,17 +61,43 @@ export function PasswordGeneratorTool({ labels }: Props) {
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
-        <NumberField label={labels.length} value={length} min={4} max={128} onChange={setLength} />
+        <NumberField
+          label={labels.length}
+          value={length}
+          min={4}
+          max={128}
+          onChange={setLength}
+        />
         <div className="grid grid-cols-2 gap-3">
-          <CheckboxField label={labels.uppercase} checked={uppercase} onChange={setUppercase} />
-          <CheckboxField label={labels.lowercase} checked={lowercase} onChange={setLowercase} />
-          <CheckboxField label={labels.numbers} checked={numbers} onChange={setNumbers} />
-          <CheckboxField label={labels.symbols} checked={symbols} onChange={setSymbols} />
+          <CheckboxField
+            label={labels.uppercase}
+            checked={uppercase}
+            onChange={setUppercase}
+          />
+          <CheckboxField
+            label={labels.lowercase}
+            checked={lowercase}
+            onChange={setLowercase}
+          />
+          <CheckboxField
+            label={labels.numbers}
+            checked={numbers}
+            onChange={setNumbers}
+          />
+          <CheckboxField
+            label={labels.symbols}
+            checked={symbols}
+            onChange={setSymbols}
+          />
         </div>
       </div>
 
       <div className="flex gap-2">
-        <Button variant="default" onClick={handleGenerate} disabled={!uppercase && !lowercase && !numbers && !symbols}>
+        <Button
+          variant="default"
+          onClick={handleGenerate}
+          disabled={!uppercase && !lowercase && !numbers && !symbols}
+        >
           {labels.generate}
         </Button>
         <Button variant="outline" onClick={handleCopy} disabled={!password}>
@@ -81,7 +106,9 @@ export function PasswordGeneratorTool({ labels }: Props) {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.password}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.password}
+        </label>
         <input
           type="text"
           readOnly

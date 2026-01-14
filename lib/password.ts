@@ -12,7 +12,8 @@ export type PasswordOptions = {
 };
 
 export function generatePassword(options: PasswordOptions): string {
-  const { length, useUppercase, useLowercase, useNumbers, useSymbols } = options;
+  const { length, useUppercase, useLowercase, useNumbers, useSymbols } =
+    options;
   let pool = "";
   if (useUppercase) pool += UPPER;
   if (useLowercase) pool += LOWER;

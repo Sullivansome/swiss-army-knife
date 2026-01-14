@@ -3,7 +3,11 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { getDaysUntil, getNextLunarNewYearDate, pickGreeting } from "@/lib/lunar-new-year";
+import {
+  getDaysUntil,
+  getNextLunarNewYearDate,
+  pickGreeting,
+} from "@/lib/lunar-new-year";
 
 export type LunarNewYearLabels = {
   countdownTitle: string;
@@ -20,7 +24,10 @@ export function LunarNewYearTool({ labels }: { labels: LunarNewYearLabels }) {
 
   const nextDate = useMemo(() => getNextLunarNewYearDate(new Date()), []);
 
-  const daysUntil = useMemo(() => getDaysUntil(new Date(), nextDate), [nextDate]);
+  const daysUntil = useMemo(
+    () => getDaysUntil(new Date(), nextDate),
+    [nextDate],
+  );
 
   function handlePickGreeting() {
     setGreeting(pickGreeting(labels.greetings));
@@ -29,18 +36,29 @@ export function LunarNewYearTool({ labels }: { labels: LunarNewYearLabels }) {
   return (
     <div className="space-y-6">
       <div className="rounded-2xl border bg-card px-5 py-6 shadow-sm">
-        <p className="text-sm font-semibold text-foreground">{labels.countdownTitle}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.countdownTitle}
+        </p>
         <p className="text-3xl font-bold text-foreground">
-          {daysUntil === 0 ? labels.today : labels.countdown.replace("{count}", daysUntil.toString())}
+          {daysUntil === 0
+            ? labels.today
+            : labels.countdown.replace("{count}", daysUntil.toString())}
         </p>
         <p className="text-sm text-muted-foreground">
-          {labels.nextDateLabel}: {nextDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
+          {labels.nextDateLabel}:{" "}
+          {nextDate.toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </p>
       </div>
 
       <div className="rounded-2xl border bg-card px-5 py-6 shadow-sm">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-sm font-semibold text-foreground">{labels.greetingTitle}</p>
+          <p className="text-sm font-semibold text-foreground">
+            {labels.greetingTitle}
+          </p>
           <Button type="button" onClick={handlePickGreeting} variant="outline">
             {labels.drawGreeting}
           </Button>

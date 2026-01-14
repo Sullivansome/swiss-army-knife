@@ -38,7 +38,13 @@ export function LoremIpsumTool({ labels }: Props) {
           max={20}
           onChange={setParagraphs}
         />
-        <NumberField label={labels.words} value={words} min={4} max={120} onChange={setWords} />
+        <NumberField
+          label={labels.words}
+          value={words}
+          min={4}
+          max={120}
+          onChange={setWords}
+        />
         <div className="md:col-span-2 flex items-end justify-end gap-2">
           <Button variant="default" onClick={handleGenerate}>
             {labels.generate}

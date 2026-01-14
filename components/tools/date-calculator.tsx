@@ -28,7 +28,9 @@ export function DateCalculatorTool({ labels }: Props) {
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-1">
-          <label className="text-sm font-medium text-foreground">{labels.start}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.start}
+          </label>
           <input
             type="date"
             value={start}
@@ -37,7 +39,9 @@ export function DateCalculatorTool({ labels }: Props) {
           />
         </div>
         <div className="space-y-1">
-          <label className="text-sm font-medium text-foreground">{labels.end}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.end}
+          </label>
           <input
             type="date"
             value={end}

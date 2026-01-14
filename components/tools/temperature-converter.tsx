@@ -20,10 +20,17 @@ export type TemperatureConverterProps = {
   units: { value: TemperatureUnit; label: string }[];
 };
 
-export function TemperatureConverterTool({ labels, units }: TemperatureConverterProps) {
+export function TemperatureConverterTool({
+  labels,
+  units,
+}: TemperatureConverterProps) {
   const [input, setInput] = useState("0");
-  const [fromUnit, setFromUnit] = useState<TemperatureUnit>(units[0]?.value ?? "celsius");
-  const [toUnit, setToUnit] = useState<TemperatureUnit>(units[1]?.value ?? units[0]?.value ?? "fahrenheit");
+  const [fromUnit, setFromUnit] = useState<TemperatureUnit>(
+    units[0]?.value ?? "celsius",
+  );
+  const [toUnit, setToUnit] = useState<TemperatureUnit>(
+    units[1]?.value ?? units[0]?.value ?? "fahrenheit",
+  );
 
   const parsedValue = Number(input);
   const hasError = Number.isNaN(parsedValue);
@@ -62,7 +69,10 @@ export function TemperatureConverterTool({ labels, units }: TemperatureConverter
     <div className="space-y-5">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="temperature-value">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="temperature-value"
+          >
             {labels.valueLabel}
           </label>
           <input
@@ -74,13 +84,18 @@ export function TemperatureConverterTool({ labels, units }: TemperatureConverter
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="from-unit">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="from-unit"
+          >
             {labels.fromLabel}
           </label>
           <select
             id="from-unit"
             value={fromUnit}
-            onChange={(event) => setFromUnit(event.target.value as TemperatureUnit)}
+            onChange={(event) =>
+              setFromUnit(event.target.value as TemperatureUnit)
+            }
             className="w-full rounded-lg border bg-background px-3 py-2 text-sm"
           >
             {units.map((unit) => (
@@ -91,13 +106,18 @@ export function TemperatureConverterTool({ labels, units }: TemperatureConverter
           </select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="to-unit">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="to-unit"
+          >
             {labels.toLabel}
           </label>
           <select
             id="to-unit"
             value={toUnit}
-            onChange={(event) => setToUnit(event.target.value as TemperatureUnit)}
+            onChange={(event) =>
+              setToUnit(event.target.value as TemperatureUnit)
+            }
             className="w-full rounded-lg border bg-background px-3 py-2 text-sm"
           >
             {units.map((unit) => (
@@ -111,7 +131,12 @@ export function TemperatureConverterTool({ labels, units }: TemperatureConverter
           <Button type="button" onClick={swapUnits} className="flex-1">
             {labels.swapLabel}
           </Button>
-          <Button type="button" variant="outline" onClick={reset} className="flex-1">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={reset}
+            className="flex-1"
+          >
             {labels.resetLabel}
           </Button>
         </div>
@@ -126,12 +151,19 @@ export function TemperatureConverterTool({ labels, units }: TemperatureConverter
       {result ? (
         <div className="space-y-3">
           <div className="rounded-xl border bg-card px-4 py-3">
-            <p className="text-sm text-muted-foreground">{labels.allConversions}</p>
+            <p className="text-sm text-muted-foreground">
+              {labels.allConversions}
+            </p>
             <div className="mt-2 grid gap-2 sm:grid-cols-2">
               {result.list.map((entry) => (
-                <div key={entry.unit} className="rounded-lg border bg-background px-3 py-2 text-sm">
+                <div
+                  key={entry.unit}
+                  className="rounded-lg border bg-background px-3 py-2 text-sm"
+                >
                   <p className="font-semibold text-foreground">{entry.label}</p>
-                  <p className="text-lg font-mono text-foreground">{entry.value}</p>
+                  <p className="text-lg font-mono text-foreground">
+                    {entry.value}
+                  </p>
                 </div>
               ))}
             </div>

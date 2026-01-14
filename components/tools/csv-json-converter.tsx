@@ -68,8 +68,15 @@ export function CsvJsonConverterTool({ labels }: Props) {
     <div className="grid gap-4 md:grid-cols-2">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">{labels.csvInput}</label>
-          <Button variant="outline" size="sm" onClick={() => copy(csvText)} disabled={!csvText}>
+          <label className="text-sm font-medium text-foreground">
+            {labels.csvInput}
+          </label>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => copy(csvText)}
+            disabled={!csvText}
+          >
             {labels.copyCsv}
           </Button>
         </div>
@@ -86,8 +93,15 @@ export function CsvJsonConverterTool({ labels }: Props) {
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">{labels.jsonOutput}</label>
-          <Button variant="outline" size="sm" onClick={() => copy(jsonText)} disabled={!jsonText}>
+          <label className="text-sm font-medium text-foreground">
+            {labels.jsonOutput}
+          </label>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => copy(jsonText)}
+            disabled={!jsonText}
+          >
             {labels.copyJson}
           </Button>
         </div>
@@ -102,7 +116,9 @@ export function CsvJsonConverterTool({ labels }: Props) {
         </Button>
       </div>
 
-      {status ? <p className="md:col-span-2 text-sm text-destructive">{status}</p> : null}
+      {status ? (
+        <p className="md:col-span-2 text-sm text-destructive">{status}</p>
+      ) : null}
     </div>
   );
 }

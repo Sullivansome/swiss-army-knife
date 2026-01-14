@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
+import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { normalizeQrSize, QR_DOWNLOAD_NAME } from "@/lib/qr";
@@ -32,7 +32,10 @@ export function QrGeneratorTool({ labels }: Props) {
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground" htmlFor="qr-input">
+        <label
+          className="text-sm font-medium text-foreground"
+          htmlFor="qr-input"
+        >
           {labels.input}
         </label>
         <input
@@ -46,7 +49,10 @@ export function QrGeneratorTool({ labels }: Props) {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <label className="text-sm font-medium text-foreground" htmlFor="qr-size">
+        <label
+          className="text-sm font-medium text-foreground"
+          htmlFor="qr-size"
+        >
           {labels.size}
         </label>
         <input
@@ -55,7 +61,9 @@ export function QrGeneratorTool({ labels }: Props) {
           min={100}
           max={500}
           value={size}
-          onChange={(event) => setSize(normalizeQrSize(Number(event.target.value)))}
+          onChange={(event) =>
+            setSize(normalizeQrSize(Number(event.target.value)))
+          }
           className="w-28 rounded-lg border bg-background px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
         />
         <Button variant="outline" onClick={handleDownload} disabled={!text}>

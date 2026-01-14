@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import exifr from "exifr";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { formatExifDate } from "@/lib/exif";
@@ -34,7 +34,11 @@ export function ExifViewerTool({ labels }: Props) {
     setError("");
     setData(null);
     try {
-      const parsed = await exifr.parse(file, ["Make", "Model", "DateTimeOriginal"]);
+      const parsed = await exifr.parse(file, [
+        "Make",
+        "Model",
+        "DateTimeOriginal",
+      ]);
       if (parsed) {
         setData(parsed as ExifData);
       } else {
@@ -52,7 +56,12 @@ export function ExifViewerTool({ labels }: Props) {
       <div className="flex items-center gap-3">
         <label className="cursor-pointer rounded-lg border bg-background px-3 py-2 text-sm font-medium shadow-sm hover:bg-muted">
           {labels.upload}
-          <input type="file" accept="image/*" className="hidden" onChange={handleFile} />
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFile}
+          />
         </label>
         <Button variant="ghost" disabled>
           {labels.camera}: {data?.Make ?? "--"}
@@ -64,7 +73,11 @@ export function ExifViewerTool({ labels }: Props) {
           {labels.datetime}: {formatExifDate(data?.DateTimeOriginal)}
         </Button>
       </div>
-      {error ? <div className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</div> : null}
+      {error ? (
+        <div className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+          {error}
+        </div>
+      ) : null}
     </div>
   );
 }

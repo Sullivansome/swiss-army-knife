@@ -77,7 +77,11 @@ function parseToken(value: string, type: FieldType) {
   return parsed;
 }
 
-function expandSegment(segment: string, type: FieldType, [min, max]: [number, number]) {
+function expandSegment(
+  segment: string,
+  type: FieldType,
+  [min, max]: [number, number],
+) {
   const trimmed = segment.trim();
   if (!trimmed) {
     throw new Error("Empty segment in cron field.");
@@ -87,13 +91,18 @@ function expandSegment(segment: string, type: FieldType, [min, max]: [number, nu
   }
 
   const [rangePartRaw, stepPart] = trimmed.split("/");
-  const rangePart = rangePartRaw === "*" || rangePartRaw === "?" ? `${min}-${max}` : rangePartRaw;
+  const rangePart =
+    rangePartRaw === "*" || rangePartRaw === "?"
+      ? `${min}-${max}`
+      : rangePartRaw;
   const step = stepPart ? Number(stepPart) : 1;
   if (Number.isNaN(step) || step <= 0) {
     throw new Error(`Invalid step value "${stepPart}" in cron field.`);
   }
 
-  const [startRaw, endRaw] = rangePart.includes("-") ? rangePart.split("-") : [rangePart, rangePart];
+  const [startRaw, endRaw] = rangePart.includes("-")
+    ? rangePart.split("-")
+    : [rangePart, rangePart];
   const start = parseToken(startRaw, type);
   const end = parseToken(endRaw, type);
 
@@ -101,13 +110,19 @@ function expandSegment(segment: string, type: FieldType, [min, max]: [number, nu
     throw new Error(`Value out of range in cron field: ${segment}`);
   }
   if (start > end) {
-    throw new Error(`Range start must be less than or equal to end in cron field: ${segment}`);
+    throw new Error(
+      `Range start must be less than or equal to end in cron field: ${segment}`,
+    );
   }
   const normalizedStart = start;
   const normalizedEnd = end;
 
   const values = new Set<number>();
-  for (let current = normalizedStart; current <= normalizedEnd; current += step) {
+  for (
+    let current = normalizedStart;
+    current <= normalizedEnd;
+    current += step
+  ) {
     const value = type === "dayOfWeek" ? normalizeDayOfWeek(current) : current;
     values.add(value);
   }
@@ -130,7 +145,11 @@ function mergeFieldData(fieldParts: string[], type: FieldType) {
   for (const part of fieldParts) {
     const expanded = expandSegment(part, type, [min, max]);
     if (expanded.token.type === "any") {
-      return { any: true, values: new Set<number>(), segments: [{ type: "any" as const }] };
+      return {
+        any: true,
+        values: new Set<number>(),
+        segments: [{ type: "any" as const }],
+      };
     }
     segments.push(expanded.token);
     expanded.values.forEach((value) => values.add(value));
@@ -141,7 +160,11 @@ function mergeFieldData(fieldParts: string[], type: FieldType) {
 function parseField(field: string, type: FieldType) {
   const trimmed = field.trim();
   if (!trimmed || trimmed === "*" || trimmed === "?") {
-    return { any: true, values: new Set<number>(), segments: [{ type: "any" as const }] };
+    return {
+      any: true,
+      values: new Set<number>(),
+      segments: [{ type: "any" as const }],
+    };
   }
   const parts = trimmed.split(",");
   return mergeFieldData(parts, type);
@@ -170,7 +193,10 @@ function matchesField(value: number, field: CronField) {
   return field.any || field.values.has(value);
 }
 
-function matchesDay(dateParts: ReturnType<typeof getDatePartsForZone>, schedule: CronSchedule) {
+function matchesDay(
+  dateParts: ReturnType<typeof getDatePartsForZone>,
+  schedule: CronSchedule,
+) {
   const domAny = schedule.dayOfMonth.any;
   const dowAny = schedule.dayOfWeek.any;
   const domMatch = matchesField(dateParts.day, schedule.dayOfMonth);

@@ -4,7 +4,11 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { computeTargetSizeMB, formatCompressionRatio, formatFileSize } from "@/lib/image-compression";
+import {
+  computeTargetSizeMB,
+  formatCompressionRatio,
+  formatFileSize,
+} from "@/lib/image-compression";
 
 export type ImageCompressorLabels = {
   upload: string;
@@ -58,18 +62,26 @@ export function ImageCompressorTool({ labels }: Props) {
     setLoading(true);
     setStatus(labels.processing);
     try {
-      const imageCompression = (await import("browser-image-compression")).default;
+      const imageCompression = (await import("browser-image-compression"))
+        .default;
       const targetSize = computeTargetSizeMB(file.file.size, quality);
       const compressedBlob = await imageCompression(file.file, {
         maxSizeMB: targetSize,
         initialQuality: quality,
         useWebWorker: true,
       });
-      const compressedFile = new File([compressedBlob], file.file.name.replace(/\.[^.]+$/, "-compressed.jpg"), {
-        type: compressedBlob.type || "image/jpeg",
-      });
+      const compressedFile = new File(
+        [compressedBlob],
+        file.file.name.replace(/\.[^.]+$/, "-compressed.jpg"),
+        {
+          type: compressedBlob.type || "image/jpeg",
+        },
+      );
       if (result) URL.revokeObjectURL(result.url);
-      setResult({ file: compressedFile, url: URL.createObjectURL(compressedFile) });
+      setResult({
+        file: compressedFile,
+        url: URL.createObjectURL(compressedFile),
+      });
       setStatus("");
     } catch (error) {
       console.error("compress", error);
@@ -93,12 +105,21 @@ export function ImageCompressorTool({ labels }: Props) {
     <div className="space-y-4">
       <label className="flex cursor-pointer flex-col gap-2 text-sm font-medium text-foreground">
         {labels.upload}
-        <input type="file" accept="image/*" className="hidden" onChange={(event) => handleFile(event.target.files)} />
-        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">{labels.helper}</span>
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={(event) => handleFile(event.target.files)}
+        />
+        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">
+          {labels.helper}
+        </span>
       </label>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.quality}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.quality}
+        </label>
         <input
           type="range"
           min={0.3}
@@ -108,7 +129,9 @@ export function ImageCompressorTool({ labels }: Props) {
           onChange={(event) => setQuality(Number(event.target.value))}
           className="w-full"
         />
-        <p className="text-xs text-muted-foreground">{Math.round(quality * 100)}%</p>
+        <p className="text-xs text-muted-foreground">
+          {Math.round(quality * 100)}%
+        </p>
       </div>
 
       <Button size="sm" onClick={compress} disabled={!file || loading}>
@@ -118,29 +141,48 @@ export function ImageCompressorTool({ labels }: Props) {
       {file ? (
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-foreground">{labels.original}</p>
-            <img src={file.url} alt="original" className="rounded-lg border object-cover" />
-            <p className="text-xs text-muted-foreground">{formatSize(file.file.size)}</p>
+            <p className="text-sm font-semibold text-foreground">
+              {labels.original}
+            </p>
+            <img
+              src={file.url}
+              alt="original"
+              className="rounded-lg border object-cover"
+            />
+            <p className="text-xs text-muted-foreground">
+              {formatSize(file.file.size)}
+            </p>
           </div>
           {result ? (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-foreground">{labels.compressed}</p>
+                <p className="text-sm font-semibold text-foreground">
+                  {labels.compressed}
+                </p>
                 <Button variant="outline" size="sm" onClick={download}>
                   {labels.download}
                 </Button>
               </div>
-              <img src={result.url} alt="compressed" className="rounded-lg border object-cover" />
+              <img
+                src={result.url}
+                alt="compressed"
+                className="rounded-lg border object-cover"
+              />
               <p className="text-xs text-muted-foreground">
                 {formatSize(result.file.size)} •
-                {labels.ratio.replace("{ratio}", formatCompressionRatio(file.file.size, result.file.size))}
+                {labels.ratio.replace(
+                  "{ratio}",
+                  formatCompressionRatio(file.file.size, result.file.size),
+                )}
               </p>
             </div>
           ) : null}
         </div>
       ) : null}
 
-      {status ? <p className="text-sm text-muted-foreground">{status}</p> : null}
+      {status ? (
+        <p className="text-sm text-muted-foreground">{status}</p>
+      ) : null}
     </div>
   );
 }

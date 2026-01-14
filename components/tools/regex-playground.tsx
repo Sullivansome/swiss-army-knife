@@ -37,7 +37,9 @@ export function RegexPlaygroundTool({ labels }: Props) {
   const [sample, setSample] = useState("");
   const [selectedFlags, setSelectedFlags] = useState<FlagKey[]>(["g"]);
 
-  const flagString = FLAG_ORDER.filter((flag) => selectedFlags.includes(flag)).join("");
+  const flagString = FLAG_ORDER.filter((flag) =>
+    selectedFlags.includes(flag),
+  ).join("");
 
   const { matches, segments, hasError } = useMemo(
     () => analyzeRegexMatches(pattern, flagString, sample),
@@ -69,7 +71,9 @@ export function RegexPlaygroundTool({ labels }: Props) {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">{labels.patternLabel}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.patternLabel}
+          </label>
           <input
             value={pattern}
             onChange={(event) => setPattern(event.target.value)}
@@ -78,7 +82,9 @@ export function RegexPlaygroundTool({ labels }: Props) {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">{labels.flagsLabel}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.flagsLabel}
+          </label>
           <div className="flex flex-wrap gap-2">
             {FLAG_ORDER.map((flag) => (
               <button
@@ -92,7 +98,10 @@ export function RegexPlaygroundTool({ labels }: Props) {
                     : "border-border bg-muted text-muted-foreground hover:border-foreground/40",
                 )}
               >
-                {flag.toUpperCase()} <span className="text-[11px] font-normal">{labels.flagDescriptions[flag]}</span>
+                {flag.toUpperCase()}{" "}
+                <span className="text-[11px] font-normal">
+                  {labels.flagDescriptions[flag]}
+                </span>
               </button>
             ))}
           </div>
@@ -101,7 +110,9 @@ export function RegexPlaygroundTool({ labels }: Props) {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.sampleLabel}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.sampleLabel}
+        </label>
         <textarea
           value={sample}
           onChange={(event) => setSample(event.target.value)}
@@ -112,14 +123,22 @@ export function RegexPlaygroundTool({ labels }: Props) {
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-foreground">{labels.highlightLabel}</span>
-          {hasError ? <span className="text-xs text-destructive">{labels.error}</span> : null}
+          <span className="text-sm font-medium text-foreground">
+            {labels.highlightLabel}
+          </span>
+          {hasError ? (
+            <span className="text-xs text-destructive">{labels.error}</span>
+          ) : null}
         </div>
         <div className="min-h-20 rounded-lg border bg-muted/40 p-3 font-mono text-sm leading-relaxed">
           {segments.map((segment, index) => (
             <span
               key={`${segment.text}-${index}`}
-              className={segment.match ? "rounded bg-amber-200 px-0.5 text-foreground" : undefined}
+              className={
+                segment.match
+                  ? "rounded bg-amber-200 px-0.5 text-foreground"
+                  : undefined
+              }
             >
               {segment.text || (segment.match ? "\u00a0" : "\u200b")}
             </span>
@@ -129,8 +148,12 @@ export function RegexPlaygroundTool({ labels }: Props) {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-semibold text-foreground">{labels.matchesLabel}</span>
-          <span className="text-xs text-muted-foreground">{matches.length}</span>
+          <span className="text-sm font-semibold text-foreground">
+            {labels.matchesLabel}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {matches.length}
+          </span>
         </div>
         {matches.length === 0 ? (
           <p className="rounded-lg border border-dashed px-3 py-2 text-sm text-muted-foreground">
@@ -139,19 +162,30 @@ export function RegexPlaygroundTool({ labels }: Props) {
         ) : (
           <div className="space-y-3">
             {matches.map((match, idx) => (
-              <div key={`${match.index}-${idx}`} className="rounded-lg border bg-card p-3 shadow-sm">
+              <div
+                key={`${match.index}-${idx}`}
+                className="rounded-lg border bg-card p-3 shadow-sm"
+              >
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <span>
                     {labels.indexLabel} {match.index}
                   </span>
                   <span>#{idx + 1}</span>
                 </div>
-                <pre className="mt-2 whitespace-pre-wrap font-mono text-sm text-foreground">{match.text}</pre>
+                <pre className="mt-2 whitespace-pre-wrap font-mono text-sm text-foreground">
+                  {match.text}
+                </pre>
                 {match.groups.length ? (
                   <div className="mt-3 space-y-1">
                     {match.groups.map((group, groupIndex) => (
-                      <div key={groupIndex} className="text-xs text-muted-foreground">
-                        {labels.groupLabel} {groupIndex + 1}: <span className="font-mono text-foreground">{group ?? ""}</span>
+                      <div
+                        key={groupIndex}
+                        className="text-xs text-muted-foreground"
+                      >
+                        {labels.groupLabel} {groupIndex + 1}:{" "}
+                        <span className="font-mono text-foreground">
+                          {group ?? ""}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -160,7 +194,10 @@ export function RegexPlaygroundTool({ labels }: Props) {
                   <div className="mt-2 space-y-1">
                     {Object.entries(match.named).map(([key, value]) => (
                       <div key={key} className="text-xs text-muted-foreground">
-                        {labels.groupLabel} {key}: <span className="font-mono text-foreground">{value ?? ""}</span>
+                        {labels.groupLabel} {key}:{" "}
+                        <span className="font-mono text-foreground">
+                          {value ?? ""}
+                        </span>
                       </div>
                     ))}
                   </div>

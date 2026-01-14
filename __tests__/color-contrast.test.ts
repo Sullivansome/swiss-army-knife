@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { formatContrastRatio, getContrastRatio, parseHex } from "@/lib/color-contrast";
+import {
+  formatContrastRatio,
+  getContrastRatio,
+  parseHex,
+} from "@/lib/color-contrast";
 
 describe("color contrast helpers", () => {
   it("parses hex colors", () => {

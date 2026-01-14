@@ -25,7 +25,9 @@ export function AdvancedWordCountTool({ labels }: Props) {
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">{labels.input}</label>
+        <label className="text-sm font-medium text-foreground">
+          {labels.input}
+        </label>
         <textarea
           value={text}
           onChange={(event) => setText(event.target.value)}
@@ -36,7 +38,10 @@ export function AdvancedWordCountTool({ labels }: Props) {
 
       <div className="grid gap-3 md:grid-cols-2">
         <Stat label={labels.charsWithSpaces} value={stats.charsWithSpaces} />
-        <Stat label={labels.charsWithoutSpaces} value={stats.charsWithoutSpaces} />
+        <Stat
+          label={labels.charsWithoutSpaces}
+          value={stats.charsWithoutSpaces}
+        />
         <Stat label={labels.words} value={stats.words} />
         <Stat label={labels.sentences} value={stats.sentences} />
         <Stat label={labels.paragraphs} value={stats.paragraphs} />

@@ -11,7 +11,8 @@ describe("lorem ipsum helpers", () => {
 
   it("generates paragraphs with a custom generator", () => {
     const generator = {
-      generateWords: (count: number) => Array.from({ length: count }, (_, i) => `w${i + 1}`).join(" "),
+      generateWords: (count: number) =>
+        Array.from({ length: count }, (_, i) => `w${i + 1}`).join(" "),
     };
     const result = generateLoremIpsum(2, 2, generator);
     expect(result).toBe("w1 w2\n\nw3 w4");

@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
 
-import { formatJsonErrorMessage, formatJsonInput, validateJsonInput } from "@/lib/json-formatter";
+import {
+  formatJsonErrorMessage,
+  formatJsonInput,
+  validateJsonInput,
+} from "@/lib/json-formatter";
 
 describe("json formatter helpers", () => {
   it("formats valid JSON", () => {
-    const result = formatJsonInput("{\"a\":1}", "Error");
+    const result = formatJsonInput('{"a":1}', "Error");
     expect(result.status).toBe("valid");
-    expect(result.formatted).toBe("{\n  \"a\": 1\n}");
+    expect(result.formatted).toBe('{\n  "a": 1\n}');
   });
 
   it("returns empty status for blank input", () => {

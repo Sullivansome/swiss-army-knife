@@ -1,4 +1,4 @@
-import { diffLines, type Change } from "diff";
+import { type Change, diffLines } from "diff";
 
 export type TextStats = {
   characters: number;
@@ -6,7 +6,13 @@ export type TextStats = {
   lines: number;
 };
 
-export type CaseStyle = "upper" | "lower" | "camel" | "snake" | "kebab" | "title";
+export type CaseStyle =
+  | "upper"
+  | "lower"
+  | "camel"
+  | "snake"
+  | "kebab"
+  | "title";
 
 export type DiffResult = Change[];
 

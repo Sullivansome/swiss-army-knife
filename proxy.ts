@@ -15,7 +15,9 @@ export function proxy(request: NextRequest) {
 
   if (toolSlug) {
     const url = request.nextUrl.clone();
-    const hasLocalePrefix = locales.some((locale) => url.pathname.startsWith(`/${locale}/`));
+    const hasLocalePrefix = locales.some((locale) =>
+      url.pathname.startsWith(`/${locale}/`),
+    );
 
     // Preserve query strings while rewriting to the tool path.
     if (!hasLocalePrefix) {

@@ -14,7 +14,11 @@ function extractPosition(message: string) {
   return pos;
 }
 
-export function formatJsonErrorMessage(message: string, input: string, fallback: string) {
+export function formatJsonErrorMessage(
+  message: string,
+  input: string,
+  fallback: string,
+) {
   const pos = extractPosition(message);
   if (pos === null) return fallback;
   const snippet = input.slice(0, pos);
@@ -24,7 +28,10 @@ export function formatJsonErrorMessage(message: string, input: string, fallback:
   return `${fallback} (line ${line}, column ${column})`;
 }
 
-export function formatJsonInput(input: string, fallbackError: string): JsonFormatResult {
+export function formatJsonInput(
+  input: string,
+  fallbackError: string,
+): JsonFormatResult {
   if (!input.trim()) {
     return { status: "empty" };
   }
@@ -33,11 +40,17 @@ export function formatJsonInput(input: string, fallbackError: string): JsonForma
     return { status: "valid", formatted: JSON.stringify(parsed, null, 2) };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    return { status: "invalid", error: formatJsonErrorMessage(message, input, fallbackError) };
+    return {
+      status: "invalid",
+      error: formatJsonErrorMessage(message, input, fallbackError),
+    };
   }
 }
 
-export function validateJsonInput(input: string, fallbackError: string): JsonFormatResult {
+export function validateJsonInput(
+  input: string,
+  fallbackError: string,
+): JsonFormatResult {
   if (!input.trim()) {
     return { status: "empty" };
   }
@@ -46,6 +59,9 @@ export function validateJsonInput(input: string, fallbackError: string): JsonFor
     return { status: "valid" };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    return { status: "invalid", error: formatJsonErrorMessage(message, input, fallbackError) };
+    return {
+      status: "invalid",
+      error: formatJsonErrorMessage(message, input, fallbackError),
+    };
   }
 }

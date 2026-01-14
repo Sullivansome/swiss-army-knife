@@ -3,13 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { buildTimeline, buildTimelineSummary } from "@/lib/timezone-planner";
 import {
   formatDateTimeLocal,
   getAvailableTimezones,
   getTimeZoneLabel,
   parseDateTimeLocal,
 } from "@/lib/timezones";
-import { buildTimeline, buildTimelineSummary } from "@/lib/timezone-planner";
 
 type Labels = {
   meetingTime: string;
@@ -35,7 +35,12 @@ type Row = {
   zone: string;
 };
 
-const DEFAULT_CANDIDATES = ["UTC", "Europe/London", "Asia/Shanghai", "America/New_York"];
+const DEFAULT_CANDIDATES = [
+  "UTC",
+  "Europe/London",
+  "Asia/Shanghai",
+  "America/New_York",
+];
 
 function uniqueId() {
   return Math.random().toString(36).slice(2, 9);
@@ -53,9 +58,13 @@ export function TimezonePlanner({ labels }: Props) {
 
   const [baseZone, setBaseZone] = useState(defaultZone);
   const [baseDate, setBaseDate] = useState(() => new Date());
-  const [inputValue, setInputValue] = useState(() => formatDateTimeLocal(new Date(), defaultZone));
+  const [inputValue, setInputValue] = useState(() =>
+    formatDateTimeLocal(new Date(), defaultZone),
+  );
   const [rows, setRows] = useState<Row[]>(() => {
-    const unique = Array.from(new Set(DEFAULT_CANDIDATES.filter((zone) => zone !== defaultZone)));
+    const unique = Array.from(
+      new Set(DEFAULT_CANDIDATES.filter((zone) => zone !== defaultZone)),
+    );
     return unique.slice(0, 2).map((zone) => ({ id: uniqueId(), zone }));
   });
   const [copied, setCopied] = useState(false);
@@ -82,18 +91,24 @@ export function TimezonePlanner({ labels }: Props) {
 
   const addRow = () => {
     if (!availableForNewRow) return;
-    setRows((current) => [...current, { id: uniqueId(), zone: availableForNewRow }]);
+    setRows((current) => [
+      ...current,
+      { id: uniqueId(), zone: availableForNewRow },
+    ]);
   };
 
   const updateZone = (id: string, zone: string) => {
-    setRows((current) => current.map((row) => (row.id === id ? { ...row, zone } : row)));
+    setRows((current) =>
+      current.map((row) => (row.id === id ? { ...row, zone } : row)),
+    );
   };
 
   const removeRow = (id: string) => {
     setRows((current) => current.filter((row) => row.id !== id));
   };
 
-  const locale = typeof navigator !== "undefined" ? navigator.language : "en-US";
+  const locale =
+    typeof navigator !== "undefined" ? navigator.language : "en-US";
   const participantZones = [
     { id: "base", zone: baseZone, isBase: true },
     ...rows.map((row) => ({ ...row, isBase: false })),
@@ -117,7 +132,9 @@ export function TimezonePlanner({ labels }: Props) {
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">{labels.meetingTime}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.meetingTime}
+          </label>
           <input
             type="datetime-local"
             value={inputValue}
@@ -127,7 +144,9 @@ export function TimezonePlanner({ labels }: Props) {
           <p className="text-xs text-muted-foreground">{labels.timezoneHint}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">{labels.baseTimezone}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.baseTimezone}
+          </label>
           <select
             value={baseZone}
             onChange={(event) => handleBaseZoneChange(event.target.value)}
@@ -144,8 +163,15 @@ export function TimezonePlanner({ labels }: Props) {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-foreground">{labels.participants}</h3>
-          <Button variant="outline" size="sm" onClick={addRow} disabled={!availableForNewRow}>
+          <h3 className="text-sm font-semibold text-foreground">
+            {labels.participants}
+          </h3>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={addRow}
+            disabled={!availableForNewRow}
+          >
             {labels.addTimezone}
           </Button>
         </div>
@@ -154,7 +180,10 @@ export function TimezonePlanner({ labels }: Props) {
             <p className="text-sm text-muted-foreground">{labels.emptyState}</p>
           ) : null}
           {rows.map((row) => (
-            <div key={row.id} className="flex items-center gap-3 rounded-lg border bg-card p-3">
+            <div
+              key={row.id}
+              className="flex items-center gap-3 rounded-lg border bg-card p-3"
+            >
               <select
                 value={row.zone}
                 onChange={(event) => updateZone(row.id, event.target.value)}
@@ -166,7 +195,11 @@ export function TimezonePlanner({ labels }: Props) {
                   </option>
                 ))}
               </select>
-              <Button variant="ghost" size="sm" onClick={() => removeRow(row.id)}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => removeRow(row.id)}
+              >
                 {labels.removeTimezone}
               </Button>
             </div>
@@ -176,8 +209,15 @@ export function TimezonePlanner({ labels }: Props) {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-foreground">{labels.timelineLabel}</h3>
-          <Button variant="outline" size="sm" onClick={handleCopy} disabled={!summary}>
+          <h3 className="text-sm font-semibold text-foreground">
+            {labels.timelineLabel}
+          </h3>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopy}
+            disabled={!summary}
+          >
             {copied ? labels.copied : labels.copySummary}
           </Button>
         </div>
@@ -186,11 +226,18 @@ export function TimezonePlanner({ labels }: Props) {
         ) : (
           <div className="grid gap-3 md:grid-cols-2">
             {timeline.map((entry) => (
-              <div key={entry.id} className="space-y-2 rounded-xl border bg-card p-4 shadow-sm">
+              <div
+                key={entry.id}
+                className="space-y-2 rounded-xl border bg-card p-4 shadow-sm"
+              >
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{entry.label}</p>
-                    <p className="text-xs text-muted-foreground">{entry.formatted}</p>
+                    <p className="text-sm font-semibold text-foreground">
+                      {entry.label}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {entry.formatted}
+                    </p>
                   </div>
                   <span
                     className={`text-xs font-semibold ${

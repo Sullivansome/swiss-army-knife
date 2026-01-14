@@ -9,7 +9,10 @@ function normalizeHost(hostname: string | null) {
   return hostname.split(":")[0].toLowerCase();
 }
 
-export function resolveToolSubdomain(hostname: string | null, options: Options) {
+export function resolveToolSubdomain(
+  hostname: string | null,
+  options: Options,
+) {
   const host = normalizeHost(hostname);
   if (!host || host === "localhost") return null;
 
@@ -25,7 +28,9 @@ export function resolveToolSubdomain(hostname: string | null, options: Options) 
     return null;
   }
 
-  const subdomain = hostParts.slice(0, hostParts.length - baseParts.length).join(".");
+  const subdomain = hostParts
+    .slice(0, hostParts.length - baseParts.length)
+    .join(".");
 
   if (!subdomain || subdomain === options.mainSubdomain) {
     return null;

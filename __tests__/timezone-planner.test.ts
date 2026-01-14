@@ -18,7 +18,15 @@ describe("timezone planner helpers", () => {
 
   it("builds summary text", () => {
     const summary = buildTimelineSummary([
-      { id: "base", zone: "UTC", label: "UTC", formatted: "Jan 1", hour: 12, workFriendly: true, isBase: true },
+      {
+        id: "base",
+        zone: "UTC",
+        label: "UTC",
+        formatted: "Jan 1",
+        hour: 12,
+        workFriendly: true,
+        isBase: true,
+      },
     ]);
     expect(summary).toBe("UTC: Jan 1");
   });

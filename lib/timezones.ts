@@ -142,7 +142,14 @@ type DateFields = {
 };
 
 function zonedTimeToUtc(fields: DateFields, timeZone: string) {
-  const utcGuess = Date.UTC(fields.year, fields.month - 1, fields.day, fields.hour, fields.minute, 0);
+  const utcGuess = Date.UTC(
+    fields.year,
+    fields.month - 1,
+    fields.day,
+    fields.hour,
+    fields.minute,
+    0,
+  );
   const guessDate = new Date(utcGuess);
   const offset = getTimeZoneOffset(guessDate, timeZone);
   return new Date(utcGuess - offset * 60000);
@@ -152,7 +159,9 @@ export function parseDateTimeLocal(value: string, timeZone: string) {
   if (!value) return null;
   if (!value.includes("T")) return null;
   const [datePart, timePart] = value.split("T");
-  const [year, month, day] = datePart.split("-").map((segment) => Number(segment));
+  const [year, month, day] = datePart
+    .split("-")
+    .map((segment) => Number(segment));
   const [hour, minute] = timePart.split(":").map((segment) => Number(segment));
   if ([year, month, day, hour, minute].some((part) => Number.isNaN(part))) {
     return null;
@@ -165,7 +174,11 @@ export function formatDateTimeLocal(date: Date, timeZone: string) {
   return `${parts.year}-${pad(parts.month)}-${pad(parts.day)}T${pad(parts.hour)}:${pad(parts.minute)}`;
 }
 
-export function formatInTimeZone(date: Date, timeZone: string, locale?: string) {
+export function formatInTimeZone(
+  date: Date,
+  timeZone: string,
+  locale?: string,
+) {
   const formatter = new Intl.DateTimeFormat(locale ?? "en-US", {
     timeZone,
     dateStyle: "medium",

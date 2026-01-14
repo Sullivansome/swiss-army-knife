@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_MARKDOWN, MARKDOWN_REHYPE_PLUGINS, MARKDOWN_REMARK_PLUGINS } from "@/lib/markdown";
+import {
+  DEFAULT_MARKDOWN,
+  MARKDOWN_REHYPE_PLUGINS,
+  MARKDOWN_REMARK_PLUGINS,
+} from "@/lib/markdown";
 
 describe("markdown preview config", () => {
   it("defines a sensible default markdown snippet", () => {

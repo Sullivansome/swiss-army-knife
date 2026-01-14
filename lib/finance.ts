@@ -40,7 +40,18 @@ export function calculateFinanceSummary(
   return { points, totalContributions, totalInterest };
 }
 
-const CN_NUMS = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"] as const;
+const CN_NUMS = [
+  "零",
+  "壹",
+  "贰",
+  "叁",
+  "肆",
+  "伍",
+  "陆",
+  "柒",
+  "捌",
+  "玖",
+] as const;
 const CN_INT_RADICE = ["", "拾", "佰", "仟"] as const;
 const CN_INT_UNITS = ["", "万", "亿", "兆"] as const;
 const CN_DEC_UNITS = ["角", "分"] as const;
@@ -48,7 +59,8 @@ const CN_INTEGER = "整";
 const CN_DOLLAR = "元";
 
 export function toChineseUppercase(amountInput: number | string): string {
-  const amount = typeof amountInput === "string" ? Number(amountInput) : amountInput;
+  const amount =
+    typeof amountInput === "string" ? Number(amountInput) : amountInput;
   if (!Number.isFinite(amount)) {
     throw new Error("Invalid amount");
   }
@@ -118,6 +130,9 @@ export function splitExpenses(total: number, people: number, days: number) {
   const safeDays = Math.max(0, Number.isFinite(days) ? days : 0);
   const perPerson = safePeople > 0 ? +(safeTotal / safePeople).toFixed(2) : 0;
   const perDay = safeDays > 0 ? +(safeTotal / safeDays).toFixed(2) : 0;
-  const perPersonPerDay = safePeople > 0 && safeDays > 0 ? +(safeTotal / (safePeople * safeDays)).toFixed(2) : 0;
+  const perPersonPerDay =
+    safePeople > 0 && safeDays > 0
+      ? +(safeTotal / (safePeople * safeDays)).toFixed(2)
+      : 0;
   return { perPerson, perDay, perPersonPerDay };
 }

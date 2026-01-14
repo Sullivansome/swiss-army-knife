@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { bigintBitLength, convertBase, convertFromDecimal, convertToDecimal, padBinary } from "@/lib/base";
+import {
+  bigintBitLength,
+  convertBase,
+  convertFromDecimal,
+  convertToDecimal,
+  padBinary,
+} from "@/lib/base";
 
 describe("base conversion helpers", () => {
   it("converts between bases accurately", () => {

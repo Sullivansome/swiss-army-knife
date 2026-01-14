@@ -1,6 +1,9 @@
 export type BmiCategory = "underweight" | "normal" | "overweight" | "obese";
 
-export function calculateBmi(heightCm: number, weightKg: number): { bmi: number; category: BmiCategory } {
+export function calculateBmi(
+  heightCm: number,
+  weightKg: number,
+): { bmi: number; category: BmiCategory } {
   if (heightCm <= 0 || weightKg <= 0) {
     return { bmi: 0, category: "normal" };
   }

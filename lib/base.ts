@@ -42,7 +42,11 @@ export function convertFromDecimal(value: bigint, base: number): string {
   return isNegative ? `-${result}` : result;
 }
 
-export function convertBase(value: string, fromBase: number, toBase: number): string {
+export function convertBase(
+  value: string,
+  fromBase: number,
+  toBase: number,
+): string {
   const decimal = convertToDecimal(value, fromBase);
   return convertFromDecimal(decimal, toBase);
 }
@@ -56,7 +60,9 @@ export function bigintBitLength(value: bigint): number {
 }
 
 export function padBinary(binaryValue: string, width: number): string {
-  const normalized = binaryValue.startsWith("-") ? binaryValue.slice(1) : binaryValue;
+  const normalized = binaryValue.startsWith("-")
+    ? binaryValue.slice(1)
+    : binaryValue;
   const padded = normalized.padStart(width, "0");
   return binaryValue.startsWith("-") ? `-${padded}` : padded;
 }

@@ -3,8 +3,17 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { getNextRuns, parseCronExpression, type CronField, type CronSegment } from "@/lib/cron";
-import { formatInTimeZone, getAvailableTimezones, getTimeZoneLabel } from "@/lib/timezones";
+import {
+  type CronField,
+  type CronSegment,
+  getNextRuns,
+  parseCronExpression,
+} from "@/lib/cron";
+import {
+  formatInTimeZone,
+  getAvailableTimezones,
+  getTimeZoneLabel,
+} from "@/lib/timezones";
 
 type Labels = {
   expressionLabel: string;
@@ -53,7 +62,11 @@ const FIELD_ORDER: Array<keyof Labels["fields"]> = [
   "dayOfWeek",
 ];
 
-function formatValue(value: number, field: keyof Labels["fields"], labels: Labels) {
+function formatValue(
+  value: number,
+  field: keyof Labels["fields"],
+  labels: Labels,
+) {
   if (field === "month") {
     return labels.months[String(value)] ?? String(value);
   }
@@ -63,22 +76,35 @@ function formatValue(value: number, field: keyof Labels["fields"], labels: Label
   return String(value);
 }
 
-function describeField(field: CronField, key: keyof Labels["fields"], labels: Labels) {
+function describeField(
+  field: CronField,
+  key: keyof Labels["fields"],
+  labels: Labels,
+) {
   const unit = labels.unitNames[key];
   if (field.any) {
     return labels.descriptions.any.replace("{unit}", unit);
   }
-  const segments = field.segments.map((segment) => describeSegment(segment, key, labels));
+  const segments = field.segments.map((segment) =>
+    describeSegment(segment, key, labels),
+  );
   return labels.descriptions.list.replace(
     "{items}",
     segments.filter(Boolean).join(labels.descriptions.separator),
   );
 }
 
-function describeSegment(segment: CronSegment, key: keyof Labels["fields"], labels: Labels) {
+function describeSegment(
+  segment: CronSegment,
+  key: keyof Labels["fields"],
+  labels: Labels,
+) {
   const unit = labels.unitNames[key];
   if (segment.type === "value") {
-    return labels.descriptions.value.replace("{value}", formatValue(segment.value, key, labels));
+    return labels.descriptions.value.replace(
+      "{value}",
+      formatValue(segment.value, key, labels),
+    );
   }
   if (segment.type === "range") {
     const start = formatValue(segment.start, key, labels);
@@ -90,7 +116,9 @@ function describeSegment(segment: CronSegment, key: keyof Labels["fields"], labe
         .replace("{step}", String(segment.step))
         .replace("{unit}", unit);
     }
-    return labels.descriptions.range.replace("{start}", start).replace("{end}", end);
+    return labels.descriptions.range
+      .replace("{start}", start)
+      .replace("{end}", end);
   }
   return "";
 }
@@ -115,12 +143,19 @@ export function CronExplainerTool({ labels }: Props) {
       const nextRuns = getNextRuns(schedule, { count: 5, timeZone: timezone });
       return { schedule, runs: nextRuns, error: null as string | null };
     } catch (error) {
-      return { schedule: null, runs: [], error: error instanceof Error ? error.message : String(error) };
+      return {
+        schedule: null,
+        runs: [],
+        error: error instanceof Error ? error.message : String(error),
+      };
     }
   }, [expression, timezone]);
 
   const summary = result.runs
-    .map((run) => `${getTimeZoneLabel(timezone)}: ${formatInTimeZone(run, timezone)}`)
+    .map(
+      (run) =>
+        `${getTimeZoneLabel(timezone)}: ${formatInTimeZone(run, timezone)}`,
+    )
     .join("\n");
 
   const handleCopy = async () => {
@@ -138,7 +173,9 @@ export function CronExplainerTool({ labels }: Props) {
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">{labels.expressionLabel}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.expressionLabel}
+          </label>
           <input
             value={expression}
             onChange={(event) => setExpression(event.target.value)}
@@ -148,7 +185,9 @@ export function CronExplainerTool({ labels }: Props) {
           <p className="text-xs text-muted-foreground">{labels.helper}</p>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">{labels.timezoneLabel}</label>
+          <label className="text-sm font-medium text-foreground">
+            {labels.timezoneLabel}
+          </label>
           <select
             value={timezone}
             onChange={(event) => setTimezone(event.target.value)}
@@ -172,7 +211,10 @@ export function CronExplainerTool({ labels }: Props) {
       {result.schedule ? (
         <div className="grid gap-3 rounded-xl border bg-card p-4 shadow-sm md:grid-cols-2">
           {FIELD_ORDER.map((fieldKey) => (
-            <div key={fieldKey} className="space-y-1 rounded-lg border bg-background/50 p-3">
+            <div
+              key={fieldKey}
+              className="space-y-1 rounded-lg border bg-background/50 p-3"
+            >
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                 {labels.fields[fieldKey]}
               </p>
@@ -186,8 +228,15 @@ export function CronExplainerTool({ labels }: Props) {
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-foreground">{labels.nextRuns}</h3>
-          <Button variant="outline" size="sm" onClick={handleCopy} disabled={!summary}>
+          <h3 className="text-sm font-semibold text-foreground">
+            {labels.nextRuns}
+          </h3>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopy}
+            disabled={!summary}
+          >
             {copied ? labels.copied : labels.copySchedule}
           </Button>
         </div>
@@ -196,8 +245,12 @@ export function CronExplainerTool({ labels }: Props) {
         ) : (
           <ol className="space-y-2 text-sm text-foreground">
             {result.runs.map((run, index) => (
-              <li key={run.toISOString()} className="rounded-lg border bg-card/60 px-3 py-2">
-                <span className="font-semibold">#{index + 1}</span> {formatInTimeZone(run, timezone)}
+              <li
+                key={run.toISOString()}
+                className="rounded-lg border bg-card/60 px-3 py-2"
+              >
+                <span className="font-semibold">#{index + 1}</span>{" "}
+                {formatInTimeZone(run, timezone)}
               </li>
             ))}
           </ol>

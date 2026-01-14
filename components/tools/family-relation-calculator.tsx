@@ -3,7 +3,12 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { relationSteps, resolveRelation, type RelationResult, type RelationStep } from "@/lib/family-relation";
+import {
+  type RelationResult,
+  type RelationStep,
+  relationSteps,
+  resolveRelation,
+} from "@/lib/family-relation";
 
 export type FamilyRelationLabels = {
   stepPlaceholder: string;
@@ -26,7 +31,9 @@ type Props = {
 
 export function FamilyRelationCalculator({ labels }: Props) {
   const [selectedSteps, setSelectedSteps] = useState<RelationStep[]>([]);
-  const [currentStep, setCurrentStep] = useState<RelationStep>(relationSteps[0]);
+  const [currentStep, setCurrentStep] = useState<RelationStep>(
+    relationSteps[0],
+  );
 
   const resultKey = resolveRelation(selectedSteps);
 
@@ -52,20 +59,28 @@ export function FamilyRelationCalculator({ labels }: Props) {
     setSelectedSteps([]);
   }
 
-  const renderedPath = [labels.selfLabel, ...selectedSteps.map((step) => labels.steps[step])].join(" → ");
+  const renderedPath = [
+    labels.selfLabel,
+    ...selectedSteps.map((step) => labels.steps[step]),
+  ].join(" → ");
 
   return (
     <div className="space-y-5">
       <div className="grid gap-4 md:grid-cols-[2fr,1fr]">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground" htmlFor="relation-step">
+          <label
+            className="text-sm font-medium text-foreground"
+            htmlFor="relation-step"
+          >
             {labels.stepPlaceholder}
           </label>
           <div className="flex gap-2">
             <select
               id="relation-step"
               value={currentStep}
-              onChange={(event) => setCurrentStep(event.target.value as RelationStep)}
+              onChange={(event) =>
+                setCurrentStep(event.target.value as RelationStep)
+              }
               className="flex-1 rounded-lg border bg-background px-3 py-2 text-sm"
             >
               {relationSteps.map((step) => (
@@ -80,24 +95,40 @@ export function FamilyRelationCalculator({ labels }: Props) {
           </div>
         </div>
         <div className="flex items-end gap-2">
-          <Button type="button" variant="outline" disabled={selectedSteps.length === 0} onClick={undoLast} className="flex-1">
+          <Button
+            type="button"
+            variant="outline"
+            disabled={selectedSteps.length === 0}
+            onClick={undoLast}
+            className="flex-1"
+          >
             {labels.undo}
           </Button>
-          <Button type="button" variant="ghost" disabled={selectedSteps.length === 0} onClick={clearSteps} className="flex-1">
+          <Button
+            type="button"
+            variant="ghost"
+            disabled={selectedSteps.length === 0}
+            onClick={clearSteps}
+            className="flex-1"
+          >
             {labels.clear}
           </Button>
         </div>
       </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-semibold text-foreground">{labels.stepsLabel}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.stepsLabel}
+        </p>
         <div className="rounded-xl border bg-muted/30 px-4 py-3 text-sm text-muted-foreground">
           {selectedSteps.length === 0 ? labels.empty : renderedPath}
         </div>
       </div>
 
       <div className="rounded-2xl border bg-card px-5 py-6 shadow-sm">
-        <p className="text-sm font-semibold text-foreground">{labels.resultLabel}</p>
+        <p className="text-sm font-semibold text-foreground">
+          {labels.resultLabel}
+        </p>
         <p className="text-xs text-muted-foreground">{labels.resultHint}</p>
         <p className="mt-2 text-2xl font-semibold text-foreground">{result}</p>
       </div>
