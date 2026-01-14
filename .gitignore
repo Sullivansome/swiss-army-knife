@@ -40,5 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# generated files (rebuilt on each build)
+lib/generated/*
+!lib/generated/.gitkeep
+
 # worktrees
 .worktrees/
