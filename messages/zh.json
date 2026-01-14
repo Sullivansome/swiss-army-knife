@@ -205,7 +205,7 @@
     "social": "社交内容",
     "life": "生活/计算",
     "wasm": "WebAssembly",
-    "数据换算": "数据换算"
+    "conversion": "数据换算"
   },
   "tags": {
     "encode": "编码",

@@ -81,3 +81,5 @@ export function ExifViewerTool({ labels }: Props) {
     </div>
   );
 }
+
+export default ExifViewerTool;

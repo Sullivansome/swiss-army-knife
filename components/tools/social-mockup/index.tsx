@@ -149,3 +149,5 @@ export function SocialMockupTool({ labels }: Props) {
     </div>
   );
 }
+
+export default SocialMockupTool;

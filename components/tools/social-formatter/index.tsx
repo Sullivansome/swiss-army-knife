@@ -113,3 +113,5 @@ export function SocialFormatterTool({ labels }: Props) {
     </div>
   );
 }
+
+export default SocialFormatterTool;

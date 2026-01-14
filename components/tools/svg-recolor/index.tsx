@@ -118,3 +118,5 @@ export function SvgRecolorTool({ labels }: Props) {
     </div>
   );
 }
+
+export default SvgRecolorTool;

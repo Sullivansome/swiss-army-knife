@@ -195,3 +195,5 @@ function ValueCard({ label, value }: ValueCardProps) {
     </div>
   );
 }
+
+export default ComputerBaseConverterTool;

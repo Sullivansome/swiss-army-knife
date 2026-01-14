@@ -172,3 +172,5 @@ function Field({ label, value, onChange }: FieldProps) {
     </div>
   );
 }
+
+export default VideoToGifTool;

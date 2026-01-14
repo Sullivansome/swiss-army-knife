@@ -85,3 +85,5 @@ export function PaletteGeneratorTool({ labels }: Props) {
     </div>
   );
 }
+
+export default PaletteGeneratorTool;

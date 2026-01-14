@@ -95,3 +95,5 @@ export function EmojiCleanerTool({ labels }: Props) {
     </div>
   );
 }
+
+export default EmojiCleanerTool;

@@ -52,3 +52,5 @@ export function MarkdownPreviewTool({ labels }: Props) {
     </div>
   );
 }
+
+export default MarkdownPreviewTool;

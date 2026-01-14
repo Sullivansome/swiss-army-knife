@@ -77,3 +77,5 @@ export function QrGeneratorTool({ labels }: Props) {
     </div>
   );
 }
+
+export default QrGeneratorTool;

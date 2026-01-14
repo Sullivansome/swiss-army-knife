@@ -95,3 +95,5 @@ export function UuidGeneratorTool({ labels }: Props) {
     </div>
   );
 }
+
+export default UuidGeneratorTool;

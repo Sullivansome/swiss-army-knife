@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import type { Dictionary } from "@/lib/dictionaries";
-import { type ToolCategory, tools } from "@/lib/tools";
+import { type ToolCategory } from "@/lib/tool-types";
+import { toolRegistry } from "@/lib/generated/tool-registry";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import {
@@ -37,7 +38,7 @@ const categoryOrder: ToolCategory[] = [
   "design",
   "social",
   "life",
-  "数据换算",
+  "conversion",
   "dev",
   "text",
   "media",
@@ -46,6 +47,8 @@ const categoryOrder: ToolCategory[] = [
   "math",
   "wasm",
 ];
+
+const tools = Object.values(toolRegistry);
 
 export function ToolSearch({
   locale,

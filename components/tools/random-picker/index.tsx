@@ -197,3 +197,5 @@ export function RandomPickerTool({ labels }: Props) {
     </div>
   );
 }
+
+export default RandomPickerTool;

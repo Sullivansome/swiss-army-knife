@@ -210,3 +210,5 @@ async function loadImage(src: string) {
     img.src = src;
   });
 }
+
+export default ImageToPdfTool;

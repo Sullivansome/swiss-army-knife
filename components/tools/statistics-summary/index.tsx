@@ -174,3 +174,5 @@ export function StatisticsSummaryTool({ labels }: Props) {
     </div>
   );
 }
+
+export default StatisticsSummaryTool;

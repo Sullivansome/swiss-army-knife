@@ -167,3 +167,5 @@ function CheckboxField({ label, checked, onChange }: CheckboxProps) {
     </label>
   );
 }
+
+export default PasswordGeneratorTool;

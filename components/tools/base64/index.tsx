@@ -115,3 +115,5 @@ export function Base64Tool({ labels }: Props) {
     </div>
   );
 }
+
+export default Base64Tool;

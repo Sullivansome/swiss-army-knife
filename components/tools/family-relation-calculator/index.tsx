@@ -135,3 +135,5 @@ export function FamilyRelationCalculator({ labels }: Props) {
     </div>
   );
 }
+
+export default FamilyRelationCalculator;

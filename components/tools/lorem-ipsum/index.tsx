@@ -91,3 +91,5 @@ function NumberField({ label, value, min, max, onChange }: NumberFieldProps) {
     </div>
   );
 }
+
+export default LoremIpsumTool;

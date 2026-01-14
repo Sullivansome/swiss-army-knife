@@ -2,7 +2,8 @@ import Link from "next/link";
 
 import { getDictionary } from "@/lib/dictionaries";
 import { assertLocale } from "@/lib/i18n-config";
-import { type ToolCategory, tools } from "@/lib/tools";
+import { type ToolCategory } from "@/lib/tool-types";
+import { toolRegistry } from "@/lib/generated/tool-registry";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -21,7 +22,7 @@ export default async function ToolsPage({ params }: Props) {
     "design",
     "social",
     "life",
-    "数据换算",
+    "conversion",
     "dev",
     "text",
     "media",
@@ -31,6 +32,7 @@ export default async function ToolsPage({ params }: Props) {
     "wasm",
   ];
 
+  const tools = Object.values(toolRegistry);
   const grouped = categoryOrder
     .map((category) => ({
       category,

@@ -112,3 +112,5 @@ export function ColorConverterTool({ labels }: Props) {
     </div>
   );
 }
+
+export default ColorConverterTool;

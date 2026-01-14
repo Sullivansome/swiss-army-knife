@@ -105,3 +105,5 @@ export function HashGeneratorTool({ labels }: Props) {
     </div>
   );
 }
+
+export default HashGeneratorTool;

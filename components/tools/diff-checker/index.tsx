@@ -133,3 +133,5 @@ function DiffLine({ value, added, removed }: DiffLineProps) {
     >{`${prefix}${value}`}</pre>
   );
 }
+
+export default DiffCheckerTool;

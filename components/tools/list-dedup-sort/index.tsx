@@ -120,3 +120,5 @@ export function ListDedupSortTool({ labels }: Props) {
     </div>
   );
 }
+
+export default ListDedupSortTool;

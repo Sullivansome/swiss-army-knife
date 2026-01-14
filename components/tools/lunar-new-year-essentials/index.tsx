@@ -68,3 +68,5 @@ export function LunarNewYearTool({ labels }: { labels: LunarNewYearLabels }) {
     </div>
   );
 }
+
+export default LunarNewYearTool;

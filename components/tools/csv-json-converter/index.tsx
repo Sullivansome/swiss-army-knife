@@ -122,3 +122,5 @@ export function CsvJsonConverterTool({ labels }: Props) {
     </div>
   );
 }
+
+export default CsvJsonConverterTool;

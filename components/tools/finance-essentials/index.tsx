@@ -174,3 +174,5 @@ export function FinanceEssentialsTool({
     </div>
   );
 }
+
+export default FinanceEssentialsTool;

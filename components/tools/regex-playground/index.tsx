@@ -210,3 +210,5 @@ export function RegexPlaygroundTool({ labels }: Props) {
     </div>
   );
 }
+
+export default RegexPlaygroundTool;

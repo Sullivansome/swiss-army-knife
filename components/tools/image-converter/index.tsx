@@ -214,3 +214,5 @@ function dataUrlToBlob(dataUrl: string) {
   }
   return new Blob([bytes], { type: mime });
 }
+
+export default ImageConverterTool;

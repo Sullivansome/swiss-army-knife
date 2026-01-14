@@ -186,3 +186,5 @@ export function OcrTool({ labels }: Props) {
     </div>
   );
 }
+
+export default OcrTool;

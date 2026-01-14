@@ -130,3 +130,5 @@ export function BaseConverterTool({ labels }: { labels: BaseConverterLabels }) {
     </div>
   );
 }
+
+export default BaseConverterTool;

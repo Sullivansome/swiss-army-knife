@@ -264,3 +264,5 @@ export function TimezonePlanner({ labels }: Props) {
     </div>
   );
 }
+
+export default TimezonePlanner;

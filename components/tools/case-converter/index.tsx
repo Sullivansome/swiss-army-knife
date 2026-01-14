@@ -120,3 +120,5 @@ export function CaseConverterTool({ labels }: Props) {
     </div>
   );
 }
+
+export default CaseConverterTool;

@@ -141,3 +141,5 @@ export function JsonFormatterTool({ labels }: Props) {
     </div>
   );
 }
+
+export default JsonFormatterTool;

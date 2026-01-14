@@ -82,3 +82,5 @@ function Stat({ label, value }: StatProps) {
     </div>
   );
 }
+
+export default DateCalculatorTool;

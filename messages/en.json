@@ -205,7 +205,7 @@
     "social": "Social",
     "life": "Life & Math",
     "wasm": "WebAssembly",
-    "数据换算": "Data Conversion"
+    "conversion": "Data Conversion"
   },
   "tags": {
     "encode": "encode",

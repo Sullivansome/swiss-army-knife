@@ -264,3 +264,5 @@ export function JwtInspectorTool({ labels }: Props) {
     </div>
   );
 }
+
+export default JwtInspectorTool;

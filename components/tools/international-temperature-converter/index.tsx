@@ -13,17 +13,39 @@ export type TemperatureConverterLabels = {
   resetLabel: string;
   invalid: string;
   allConversions: string;
+  units?: {
+    celsius?: string;
+    fahrenheit?: string;
+    kelvin?: string;
+    rankine?: string;
+  };
 };
 
 export type TemperatureConverterProps = {
   labels: TemperatureConverterLabels;
-  units: { value: TemperatureUnit; label: string }[];
+  units?: { value: TemperatureUnit; label: string }[];
 };
+
+// Default units if not provided via props
+const DEFAULT_UNITS: { value: TemperatureUnit; label: string }[] = [
+  { value: "celsius", label: "Celsius" },
+  { value: "fahrenheit", label: "Fahrenheit" },
+  { value: "kelvin", label: "Kelvin" },
+  { value: "rankine", label: "Rankine" },
+];
 
 export function TemperatureConverterTool({
   labels,
-  units,
+  units: unitsProp,
 }: TemperatureConverterProps) {
+  // Derive units from labels.units if unitsProp not provided
+  const units = unitsProp ?? (labels.units ? [
+    { value: "celsius" as TemperatureUnit, label: labels.units.celsius ?? "Celsius" },
+    { value: "fahrenheit" as TemperatureUnit, label: labels.units.fahrenheit ?? "Fahrenheit" },
+    { value: "kelvin" as TemperatureUnit, label: labels.units.kelvin ?? "Kelvin" },
+    { value: "rankine" as TemperatureUnit, label: labels.units.rankine ?? "Rankine" },
+  ] : DEFAULT_UNITS);
+
   const [input, setInput] = useState("0");
   const [fromUnit, setFromUnit] = useState<TemperatureUnit>(
     units[0]?.value ?? "celsius",
@@ -179,3 +201,5 @@ export function TemperatureConverterTool({
     </div>
   );
 }
+
+export default TemperatureConverterTool;

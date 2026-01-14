@@ -186,3 +186,5 @@ export function ImageCompressorTool({ labels }: Props) {
     </div>
   );
 }
+
+export default ImageCompressorTool;

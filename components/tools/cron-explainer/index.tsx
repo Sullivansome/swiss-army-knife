@@ -259,3 +259,5 @@ export function CronExplainerTool({ labels }: Props) {
     </div>
   );
 }
+
+export default CronExplainerTool;

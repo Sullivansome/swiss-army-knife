@@ -96,3 +96,5 @@ export function FinanceNumberCaseTool({
     </div>
   );
 }
+
+export default FinanceNumberCaseTool;

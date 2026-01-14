@@ -130,3 +130,5 @@ export function ColorContrastChecker({ labels }: Props) {
     </div>
   );
 }
+
+export default ColorContrastChecker;

@@ -175,3 +175,5 @@ function Stat({ label, value, prefix }: StatProps) {
     </div>
   );
 }
+
+export default FinanceCalculatorTool;
