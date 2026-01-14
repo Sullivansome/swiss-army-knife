@@ -10,7 +10,7 @@ export type ToolCategory =
   | "social"
   | "life"
   | "wasm"
-  | "数据换算";
+  | "conversion";
 
 export type ToolDefinition = {
   slug: string;
@@ -257,49 +257,49 @@ export const tools: ToolDefinition[] = [
     slug: "international-temperature-converter",
     nameKey: "tools.international-temperature-converter.name",
     descriptionKey: "tools.international-temperature-converter.description",
-    category: "数据换算",
+    category: "conversion",
     tags: ["convert"],
   },
   {
     slug: "family-relation-calculator",
     nameKey: "tools.family-relation-calculator.name",
     descriptionKey: "tools.family-relation-calculator.description",
-    category: "数据换算",
+    category: "conversion",
     tags: ["convert"],
   },
   {
     slug: "lunar-new-year-essentials",
     nameKey: "tools.lunar-new-year-essentials.name",
     descriptionKey: "tools.lunar-new-year-essentials.description",
-    category: "数据换算",
+    category: "conversion",
     tags: ["convert"],
   },
   {
     slug: "finance-number-case-converter",
     nameKey: "tools.finance-number-case-converter.name",
     descriptionKey: "tools.finance-number-case-converter.description",
-    category: "数据换算",
+    category: "conversion",
     tags: ["finance", "convert"],
   },
   {
     slug: "finance-essentials",
     nameKey: "tools.finance-essentials.name",
     descriptionKey: "tools.finance-essentials.description",
-    category: "数据换算",
+    category: "conversion",
     tags: ["finance"],
   },
   {
     slug: "base-converter",
     nameKey: "tools.base-converter.name",
     descriptionKey: "tools.base-converter.description",
-    category: "数据换算",
+    category: "conversion",
     tags: ["convert"],
   },
   {
     slug: "computer-base-converter",
     nameKey: "tools.computer-base-converter.name",
     descriptionKey: "tools.computer-base-converter.description",
-    category: "数据换算",
+    category: "conversion",
     tags: ["convert"],
   },
   {
