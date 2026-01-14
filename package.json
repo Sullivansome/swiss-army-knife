@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bun --bun next dev",
-    "build": "bun --bun next build",
+    "dev": "bun run generate && bun --bun next dev",
+    "build": "bun run generate && bun --bun next build",
     "start": "bun --bun next start",
     "lint": "biome check --diagnostic-level=error",
     "lint:fix": "biome check --fix",
     "format": "biome format --write",
     "check": "biome check --fix",
-    "test:unit": "vitest run"
+    "test:unit": "vitest run",
+    "generate": "bun scripts/generate-registry.ts",
+    "tool:create": "bun scripts/create-tool.ts",
+    "tool:validate": "bun scripts/validate-tools.ts"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
