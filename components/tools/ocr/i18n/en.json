@@ -1,0 +1,17 @@
+{
+  "name": "OCR (Tesseract.js)",
+  "description": "Recognize English or Chinese text from an image locally.",
+  "upload": "Upload image",
+  "helper": "Drop a screenshot or scan",
+  "language": "Language",
+  "languages": {
+    "eng": "English",
+    "chi_sim": "Simplified Chinese"
+  },
+  "run": "Run OCR",
+  "result": "Recognized text will appear here...",
+  "copy": "Copy text",
+  "processing": "Recognizing text...",
+  "error": "OCR failed.",
+  "preview": "Preview"
+}

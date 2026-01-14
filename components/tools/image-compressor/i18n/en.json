@@ -1,0 +1,4 @@
+{
+  "name": "Image Compressor",
+  "description": "Compress images via Canvas/Web Workers without uploads."
+}

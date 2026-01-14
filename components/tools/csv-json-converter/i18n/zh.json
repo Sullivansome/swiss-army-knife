@@ -1,0 +1,4 @@
+{
+  "name": "CSV ↔ JSON 转换",
+  "description": "利用 PapaParse 在 CSV 与 JSON 间转换。"
+}

@@ -1,0 +1,4 @@
+{
+  "name": "Cron Explainer",
+  "description": "Parse 5-field cron strings with readable summaries and next runs."
+}

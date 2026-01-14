@@ -1,0 +1,17 @@
+{
+  "name": "本地 OCR（Tesseract.js）",
+  "description": "离线识别英文或中文图片文字。",
+  "upload": "上传图片",
+  "helper": "拖拽截图或扫描文件",
+  "language": "语言",
+  "languages": {
+    "eng": "英文",
+    "chi_sim": "简体中文"
+  },
+  "run": "开始识别",
+  "result": "识别结果将显示在此...",
+  "copy": "复制文本",
+  "processing": "正在识别文字...",
+  "error": "识别失败。",
+  "preview": "图片预览"
+}

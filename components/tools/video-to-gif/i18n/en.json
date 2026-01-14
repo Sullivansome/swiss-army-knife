@@ -1,0 +1,4 @@
+{
+  "name": "Video to GIF (WASM)",
+  "description": "Use ffmpeg.wasm to clip and export GIFs entirely in-browser."
+}

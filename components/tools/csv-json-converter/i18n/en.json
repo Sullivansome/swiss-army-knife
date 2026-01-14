@@ -1,0 +1,4 @@
+{
+  "name": "CSV ↔ JSON Converter",
+  "description": "Flip data between CSV and JSON using PapaParse."
+}

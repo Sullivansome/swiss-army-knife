@@ -1,0 +1,4 @@
+{
+  "name": "UUID Generator",
+  "description": "Create UUID v4 strings with Web Crypto in your browser."
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Base64 Converter",
+  "description": "Encode and decode text locally in your browser.",
+  "encode": "Encode",
+  "decode": "Decode",
+  "placeholder": "Paste text here..."
+}

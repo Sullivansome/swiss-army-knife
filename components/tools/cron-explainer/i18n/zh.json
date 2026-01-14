@@ -1,0 +1,4 @@
+{
+  "name": "Cron 解析器",
+  "description": "逐字段解释 5 段 cron 表达式并预览下次执行。"
+}

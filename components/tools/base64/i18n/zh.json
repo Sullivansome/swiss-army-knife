@@ -1,0 +1,7 @@
+{
+  "name": "Base64 转换器",
+  "description": "在浏览器本地完成文本的 Base64 编码/解码。",
+  "encode": "编码",
+  "decode": "解码",
+  "placeholder": "在此粘贴文本..."
+}

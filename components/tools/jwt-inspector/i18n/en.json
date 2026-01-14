@@ -1,0 +1,4 @@
+{
+  "name": "JWT Inspector",
+  "description": "Decode headers and payloads locally with quick expiration hints."
+}

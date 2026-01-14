@@ -1,0 +1,4 @@
+{
+  "name": "JWT 解码器",
+  "description": "本地解码 Header/Payload，并提示是否过期。"
+}

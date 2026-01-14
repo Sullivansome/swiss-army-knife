@@ -1,0 +1,4 @@
+{
+  "name": "UUID 生成器",
+  "description": "使用 Web Crypto 本地生成 UUID v4。"
+}
