@@ -4,6 +4,7 @@ import { useState } from "react";
 import exifr from "exifr";
 
 import { Button } from "@/components/ui/button";
+import { formatExifDate } from "@/lib/exif";
 
 type Props = {
   labels: {
@@ -26,12 +27,6 @@ type ExifData = {
 export function ExifViewerTool({ labels }: Props) {
   const [data, setData] = useState<ExifData | null>(null);
   const [error, setError] = useState<string>("");
-
-  const formatDate = (value?: string | Date) => {
-    if (!value) return "--";
-    if (value instanceof Date) return value.toISOString();
-    return value;
-  };
 
   const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -66,7 +61,7 @@ export function ExifViewerTool({ labels }: Props) {
           {labels.model}: {data?.Model ?? "--"}
         </Button>
         <Button variant="ghost" disabled>
-          {labels.datetime}: {formatDate(data?.DateTimeOriginal)}
+          {labels.datetime}: {formatExifDate(data?.DateTimeOriginal)}
         </Button>
       </div>
       {error ? <div className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</div> : null}

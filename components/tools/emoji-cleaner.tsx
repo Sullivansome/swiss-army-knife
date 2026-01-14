@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { extractEmojis, removeEmojis } from "@/lib/emoji-cleaner";
 
 export type EmojiCleanerLabels = {
   input: string;
@@ -17,13 +18,11 @@ type Props = {
   labels: EmojiCleanerLabels;
 };
 
-const emojiRegex = /\p{Extended_Pictographic}|\p{Emoji_Presentation}/gu;
-
 export function EmojiCleanerTool({ labels }: Props) {
   const [input, setInput] = useState("");
 
-  const emojis = useMemo(() => input.match(emojiRegex) ?? [], [input]);
-  const cleanText = useMemo(() => input.replace(emojiRegex, ""), [input]);
+  const emojis = useMemo(() => extractEmojis(input), [input]);
+  const cleanText = useMemo(() => removeEmojis(input), [input]);
 
   const copy = async (text: string) => {
     if (!text) return;

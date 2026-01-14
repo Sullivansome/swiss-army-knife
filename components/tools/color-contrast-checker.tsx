@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { formatContrastRatio, getContrastRatio } from "@/lib/color-contrast";
 
 type Labels = {
   textColor: string;
@@ -21,44 +22,6 @@ type Labels = {
 type Props = {
   labels: Labels;
 };
-
-type RGB = { r: number; g: number; b: number };
-
-function parseHex(color: string): RGB | null {
-  const normalized = color.trim().replace("#", "");
-  if (![3, 6].includes(normalized.length)) return null;
-  const full = normalized.length === 3 ? normalized.split("").map((char) => char + char).join("") : normalized;
-  const value = Number.parseInt(full, 16);
-  if (Number.isNaN(value)) return null;
-  return {
-    r: (value >> 16) & 255,
-    g: (value >> 8) & 255,
-    b: value & 255,
-  };
-}
-
-function luminance({ r, g, b }: RGB) {
-  const channel = (component: number) => {
-    const value = component / 255;
-    return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
-  };
-  return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
-}
-
-function getContrastRatio(foreground: string, background: string) {
-  const fg = parseHex(foreground);
-  const bg = parseHex(background);
-  if (!fg || !bg) return null;
-  const lum1 = luminance(fg) + 0.05;
-  const lum2 = luminance(bg) + 0.05;
-  const ratio = lum1 > lum2 ? lum1 / lum2 : lum2 / lum1;
-  return Number.isFinite(ratio) ? ratio : null;
-}
-
-function formatRatio(value: number | null) {
-  if (!value) return "–";
-  return `${value.toFixed(2)}:1`;
-}
 
 export function ColorContrastChecker({ labels }: Props) {
   const [textColor, setTextColor] = useState("#111827");
@@ -103,7 +66,7 @@ export function ColorContrastChecker({ labels }: Props) {
       <div className="flex flex-wrap items-center gap-3">
         <div>
           <p className="text-sm font-semibold text-foreground">{labels.ratioLabel}</p>
-          <p className="text-2xl font-bold tracking-tight text-foreground">{formatRatio(ratio)}</p>
+          <p className="text-2xl font-bold tracking-tight text-foreground">{formatContrastRatio(ratio)}</p>
         </div>
         <Button variant="outline" size="sm" onClick={swapColors}>
           {labels.swap}

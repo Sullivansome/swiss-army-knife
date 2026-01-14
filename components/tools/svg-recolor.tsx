@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { recolorSvgSource } from "@/lib/svg-recolor";
 
 export type SvgRecolorLabels = {
   upload: string;
@@ -38,25 +39,7 @@ export function SvgRecolorTool({ labels }: Props) {
       return;
     }
     try {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(source, "image/svg+xml");
-      doc.querySelectorAll<SVGElement>("*").forEach((node) => {
-        if (node.tagName.toLowerCase() === "svg") {
-          if (!node.hasAttribute("fill") || node.getAttribute("fill") !== "none") {
-            node.setAttribute("fill", color);
-          }
-          return;
-        }
-        if (node.getAttribute("fill") !== "none") {
-          node.setAttribute("fill", color);
-        }
-        if (node.getAttribute("stroke")) {
-          node.setAttribute("stroke", color);
-        }
-      });
-      const serializer = new XMLSerializer();
-      const changed = serializer.serializeToString(doc);
-      setOutput(changed);
+      setOutput(recolorSvgSource(source, color));
       setStatus("");
     } catch (error) {
       console.error("svg", error);

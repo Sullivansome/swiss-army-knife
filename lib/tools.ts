@@ -44,13 +44,6 @@ export const tools: ToolDefinition[] = [
     tags: ["regex", "test"],
   },
   {
-    slug: "word-counter",
-    nameKey: "tools.wordCounter.name",
-    descriptionKey: "tools.wordCounter.description",
-    category: "text",
-    tags: ["count"],
-  },
-  {
     slug: "case-converter",
     nameKey: "tools.caseConverter.name",
     descriptionKey: "tools.caseConverter.description",

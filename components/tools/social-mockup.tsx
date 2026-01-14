@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { getMockupFilename, getMockupTheme, type SocialPlatform } from "@/lib/social-mockup";
 
 export type SocialMockupLabels = {
   platform: string;
@@ -16,14 +17,12 @@ export type SocialMockupLabels = {
   instagram: string;
 };
 
-type Platform = "twitter" | "instagram";
-
 type Props = {
   labels: SocialMockupLabels;
 };
 
 export function SocialMockupTool({ labels }: Props) {
-  const [platform, setPlatform] = useState<Platform>("twitter");
+  const [platform, setPlatform] = useState<SocialPlatform>("twitter");
   const [name, setName] = useState("Jane Doe");
   const [handle, setHandle] = useState("@janedoe");
   const [content, setContent] = useState("Hello world! This is a quick mockup.");
@@ -36,11 +35,11 @@ export function SocialMockupTool({ labels }: Props) {
     setLoading(true);
     try {
       const html2canvas = (await import("html2canvas")).default;
-      const canvas = await html2canvas(previewRef.current, { backgroundColor: '#0f1419' });
+      const canvas = await html2canvas(previewRef.current, { backgroundColor: theme.backgroundColor });
       const url = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = url;
-      link.download = `${platform}-mockup.png`;
+      link.download = getMockupFilename(platform);
       link.click();
     } catch (error) {
       console.error("mockup", error);
@@ -49,10 +48,7 @@ export function SocialMockupTool({ labels }: Props) {
     }
   };
 
-  const isTwitter = platform === "twitter";
-  const avatarClass = isTwitter ? "bg-white/20" : "bg-black/10";
-  const containerClass = isTwitter ? "bg-[#0f1419] text-white" : "bg-white text-black";
-  const subTextClass = isTwitter ? "text-white/60" : "text-black/60";
+  const theme = getMockupTheme(platform);
 
   return (
     <div className="space-y-4">
@@ -114,16 +110,16 @@ export function SocialMockupTool({ labels }: Props) {
         </div>
 
         <div className="rounded-2xl border bg-background p-4">
-          <div ref={previewRef} className={`rounded-xl p-5 shadow-lg ${containerClass}`}>
+          <div ref={previewRef} className={`rounded-xl p-5 shadow-lg ${theme.containerClass}`}>
             <div className="flex items-center gap-3">
-              <div className={`h-10 w-10 rounded-full ${avatarClass}`} />
+              <div className={`h-10 w-10 rounded-full ${theme.avatarClass}`} />
               <div>
                 <p className="font-semibold">{name}</p>
-                <p className={`text-sm ${subTextClass}`}>{handle}</p>
+                <p className={`text-sm ${theme.subTextClass}`}>{handle}</p>
               </div>
             </div>
             <p className="mt-4 whitespace-pre-wrap text-base">{content}</p>
-            <p className={`mt-3 text-sm ${subTextClass}`}>{time}</p>
+            <p className={`mt-3 text-sm ${theme.subTextClass}`}>{time}</p>
           </div>
         </div>
       </div>

@@ -32,10 +32,6 @@
       "name": "Regex 沙箱",
       "description": "本地测试 JS 正则并实时高亮匹配。"
     },
-    "word-counter": {
-      "name": "字数统计",
-      "description": "快速统计字数、字符数与行数。"
-    },
     "case-converter": {
       "name": "大小写转换",
       "description": "在大写、小写、驼峰、蛇形命名间转换。"
@@ -576,14 +572,6 @@
     "encode": "编码",
     "decode": "解码",
     "placeholder": "在此粘贴文本..."
-  },
-  "wordCounter": {
-    "input": "文本",
-    "characters": "字符",
-    "words": "单词",
-    "lines": "行数",
-    "reset": "重置",
-    "placeholder": "粘贴或输入需要统计的文本..."
   },
   "caseConverter": {
     "input": "文本",

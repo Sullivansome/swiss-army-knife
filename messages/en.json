@@ -32,10 +32,6 @@
       "name": "Regex Playground",
       "description": "Test JavaScript regular expressions with inline highlighting."
     },
-    "word-counter": {
-      "name": "Word Counter",
-      "description": "Count words, characters, and lines instantly."
-    },
     "case-converter": {
       "name": "Case Converter",
       "description": "Convert text between upper, lower, camelCase, and snake_case."
@@ -576,14 +572,6 @@
     "encode": "Encode",
     "decode": "Decode",
     "placeholder": "Paste text here..."
-  },
-  "wordCounter": {
-    "input": "Text",
-    "characters": "Characters",
-    "words": "Words",
-    "lines": "Lines",
-    "reset": "Reset",
-    "placeholder": "Paste or type text to count..."
   },
   "caseConverter": {
     "input": "Text",

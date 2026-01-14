@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { decodeBase64 } from "@/lib/base64";
+import { decodeJwtToken, formatDuration, formatJwtJson, template } from "@/lib/jwt";
 
 type Labels = {
   inputLabel: string;
@@ -42,67 +42,15 @@ type Props = {
   labels: Labels;
 };
 
-type DecodeResult =
-  | { status: "idle" }
-  | { status: "error"; message: string }
-  | {
-      status: "ready";
-      header: Record<string, unknown>;
-      payload: Record<string, unknown>;
-      signature: string | null;
-    };
-
-function base64UrlDecode(value: string) {
-  const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
-  const padding = normalized.length % 4 === 0 ? 0 : 4 - (normalized.length % 4);
-  return decodeBase64(normalized + "=".repeat(padding));
-}
-
-function decodeToken(raw: string, labels: Labels): DecodeResult {
-  const token = raw.trim();
-  if (!token) return { status: "idle" };
-  const parts = token.split(".");
-  if (parts.length < 2) {
-    return { status: "error", message: labels.invalidStructure };
-  }
-
-  try {
-    const header = JSON.parse(base64UrlDecode(parts[0]));
-    const payload = JSON.parse(base64UrlDecode(parts[1]));
-    const signature = parts[2] ?? null;
-    return { status: "ready", header, payload, signature };
-  } catch (error) {
-    console.error("jwt decode failed", error);
-    return { status: "error", message: labels.decodeError };
-  }
-}
-
-function formatJson(value: Record<string, unknown>) {
-  return JSON.stringify(value, null, 2);
-}
-
-function formatDuration(ms: number, labels: Labels) {
-  const totalMinutes = Math.max(0, Math.round(ms / 60000));
-  const days = Math.floor(totalMinutes / (24 * 60));
-  const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
-  const minutes = totalMinutes % 60;
-  const parts = [];
-  if (days) parts.push(`${days}${labels.durationUnits.days}`);
-  if (hours) parts.push(`${hours}${labels.durationUnits.hours}`);
-  if (minutes || parts.length === 0) parts.push(`${minutes}${labels.durationUnits.minutes}`);
-  return parts.join(" ");
-}
-
-function template(str: string, params: Record<string, string>) {
-  return str.replace(/\{(\w+)\}/g, (_, key) => params[key] ?? "");
-}
-
 export function JwtInspectorTool({ labels }: Props) {
   const [value, setValue] = useState("");
   const [copiedField, setCopiedField] = useState<"header" | "payload" | null>(null);
   const [timestamp, setTimestamp] = useState(() => Date.now());
 
-  const decoded = useMemo(() => decodeToken(value, labels), [value, labels]);
+  const decoded = useMemo(
+    () => decodeJwtToken(value, labels.invalidStructure, labels.decodeError),
+    [value, labels],
+  );
 
   const statusInfo = useMemo(() => {
     if (decoded.status !== "ready") {
@@ -144,7 +92,7 @@ export function JwtInspectorTool({ labels }: Props) {
 
   const handleCopy = async (data: Record<string, unknown>, target: "header" | "payload") => {
     try {
-      await navigator.clipboard.writeText(formatJson(data));
+      await navigator.clipboard.writeText(formatJwtJson(data));
       setCopiedField(target);
       setTimeout(() => setCopiedField(null), 2000);
     } catch (error) {
@@ -190,7 +138,7 @@ export function JwtInspectorTool({ labels }: Props) {
                 </Button>
               </div>
               <pre className="min-h-32 whitespace-pre-wrap rounded-lg bg-muted/40 p-3 font-mono text-xs text-foreground">
-                {formatJson(section.data)}
+                {formatJwtJson(section.data)}
               </pre>
             </div>
           ))}

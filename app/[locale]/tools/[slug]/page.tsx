@@ -13,7 +13,6 @@ import { MarkdownPreviewTool } from "@/components/tools/markdown-preview";
 import { PasswordGeneratorTool } from "@/components/tools/password-generator";
 import { QrGeneratorTool } from "@/components/tools/qr-generator";
 import { UuidGeneratorTool } from "@/components/tools/uuid-generator";
-import { WordCounterTool } from "@/components/tools/word-counter";
 import { ImageToPdfTool } from "@/components/tools/image-to-pdf";
 import { ListDedupSortTool } from "@/components/tools/list-dedup-sort";
 import { CsvJsonConverterTool } from "@/components/tools/csv-json-converter";
@@ -116,19 +115,6 @@ function renderTool(slug: string, dict: Dictionary) {
             encode: dict.base64.encode,
             decode: dict.base64.decode,
             placeholder: dict.base64.placeholder,
-          }}
-        />
-      );
-    case "word-counter":
-      return (
-        <WordCounterTool
-          labels={{
-            input: dict.wordCounter.input,
-            characters: dict.wordCounter.characters,
-            words: dict.wordCounter.words,
-            lines: dict.wordCounter.lines,
-            reset: dict.wordCounter.reset,
-            placeholder: dict.wordCounter.placeholder,
           }}
         />
       );

@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { computeTargetSizeMB, formatCompressionRatio, formatFileSize } from "@/lib/image-compression";
 
 export type ImageCompressorLabels = {
   upload: string;
@@ -58,7 +59,7 @@ export function ImageCompressorTool({ labels }: Props) {
     setStatus(labels.processing);
     try {
       const imageCompression = (await import("browser-image-compression")).default;
-      const targetSize = Math.max((file.file.size / (1024 * 1024)) * quality, 0.2);
+      const targetSize = computeTargetSizeMB(file.file.size, quality);
       const compressedBlob = await imageCompression(file.file, {
         maxSizeMB: targetSize,
         initialQuality: quality,
@@ -86,7 +87,7 @@ export function ImageCompressorTool({ labels }: Props) {
     link.click();
   };
 
-  const formatSize = (size: number) => `${(size / 1024).toFixed(1)} KB`;
+  const formatSize = (size: number) => formatFileSize(size);
 
   return (
     <div className="space-y-4">
@@ -132,7 +133,7 @@ export function ImageCompressorTool({ labels }: Props) {
               <img src={result.url} alt="compressed" className="rounded-lg border object-cover" />
               <p className="text-xs text-muted-foreground">
                 {formatSize(result.file.size)} •
-                {labels.ratio.replace("{ratio}", `${((result.file.size / file.file.size) * 100).toFixed(1)}%`)}
+                {labels.ratio.replace("{ratio}", formatCompressionRatio(file.file.size, result.file.size))}
               </p>
             </div>
           ) : null}

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import type { FFmpeg } from "@ffmpeg/ffmpeg";
 
 import { Button } from "@/components/ui/button";
+import { buildFfmpegArgs } from "@/lib/video-to-gif";
 
 export type VideoToGifLabels = {
   upload: string;
@@ -69,19 +70,7 @@ export function VideoToGifTool({ labels }: Props) {
       const ffmpeg = ffmpegRef.current!;
       const fetchFile = fetchFileRef.current!;
       await ffmpeg.writeFile("input.mp4", await fetchFile(file));
-      await ffmpeg.exec([
-        "-ss",
-        start,
-        "-t",
-        duration,
-        "-i",
-        "input.mp4",
-        "-vf",
-        `scale=${width}:-1:flags=lanczos`,
-        "-f",
-        "gif",
-        "output.gif",
-      ]);
+      await ffmpeg.exec(buildFfmpegArgs({ start, duration, width }));
       const data = (await ffmpeg.readFile("output.gif")) as Uint8Array;
       const typed = new Uint8Array(data);
       const url = URL.createObjectURL(new Blob([typed.buffer], { type: "image/gif" }));

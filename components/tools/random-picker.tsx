@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { buildGroups, parseEntries, pickWinners } from "@/lib/random-picker";
 
 export type RandomPickerLabels = {
   input: string;
@@ -36,41 +37,18 @@ export function RandomPickerTool({ labels }: Props) {
   const [groups, setGroups] = useState<string[][]>([]);
   const [status, setStatus] = useState<string>("");
 
-  const entries = useMemo(
-    () =>
-      input
-        .split(/\r?\n/)
-        .map((item) => item.trim())
-        .filter(Boolean),
-    [input],
-  );
-
-  const shuffle = (array: string[]) => {
-    const next = [...array];
-    for (let i = next.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [next[i], next[j]] = [next[j], next[i]];
-    }
-    return next;
-  };
+  const entries = useMemo(() => parseEntries(input), [input]);
 
   const run = () => {
     if (!entries.length) {
       setStatus(labels.error);
       return;
     }
-    const randomized = shuffle(entries);
     if (mode === "draw") {
-      const count = Math.min(Math.max(1, winnerCount), randomized.length);
-      setWinners(randomized.slice(0, count));
+      setWinners(pickWinners(entries, winnerCount));
       setGroups([]);
     } else {
-      const size = Math.max(2, groupSize);
-      const buckets: string[][] = [];
-      for (let i = 0; i < randomized.length; i += size) {
-        buckets.push(randomized.slice(i, i + size));
-      }
-      setGroups(buckets);
+      setGroups(buildGroups(entries, groupSize));
       setWinners([]);
     }
     setStatus("");

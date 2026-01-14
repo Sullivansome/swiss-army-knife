@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { formatJsonInput, validateJsonInput } from "@/lib/json-formatter";
 
 type Labels = {
   input: string;
@@ -26,63 +27,38 @@ export function JsonFormatterTool({ labels }: Props) {
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
 
-  const formatError = (message: string) => {
-    const positionMatch = message.match(/position\s+(\d+)/i);
-
-    if (!positionMatch) {
-      return labels.error;
-    }
-
-    const pos = Number(positionMatch[1]);
-    if (!Number.isFinite(pos) || pos < 0) {
-      return labels.error;
-    }
-
-    const snippet = input.slice(0, pos);
-    const lines = snippet.split(/\r\n|\r|\n/);
-    const line = lines.length;
-    const column = lines[lines.length - 1]?.length ?? 0;
-
-    return `${labels.error} (line ${line}, column ${column + 1})`;
-  };
-
   const handleFormat = () => {
-    if (!input.trim()) {
+    const result = formatJsonInput(input, labels.error);
+    if (result.status === "empty") {
       setOutput("");
       setStatus("");
       setError("");
       return;
     }
-
-    try {
-      const parsed = JSON.parse(input);
-      const formatted = JSON.stringify(parsed, null, 2);
-      setOutput(formatted);
+    if (result.status === "valid") {
+      setOutput(result.formatted ?? "");
       setStatus(labels.valid);
       setError("");
-    } catch (err) {
-      console.error("format failed", err);
-      setError(formatError(err instanceof Error ? err.message : String(err)));
-      setStatus("");
+      return;
     }
+    setError(result.error ?? labels.error);
+    setStatus("");
   };
 
   const handleValidate = () => {
-    if (!input.trim()) {
+    const result = validateJsonInput(input, labels.error);
+    if (result.status === "empty") {
       setStatus("");
       setError("");
       return;
     }
-
-    try {
-      JSON.parse(input);
+    if (result.status === "valid") {
       setStatus(labels.valid);
       setError("");
-    } catch (err) {
-      console.error("validate failed", err);
-      setError(formatError(err instanceof Error ? err.message : String(err)));
-      setStatus("");
+      return;
     }
+    setError(result.error ?? labels.error);
+    setStatus("");
   };
 
   const handleClear = () => {

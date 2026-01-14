@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 
 import { Button } from "@/components/ui/button";
+import { normalizeQrSize, QR_DOWNLOAD_NAME } from "@/lib/qr";
 
 type Props = {
   labels: {
@@ -24,7 +25,7 @@ export function QrGeneratorTool({ labels }: Props) {
     if (!canvas) return;
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = "qr-code.png";
+    link.download = QR_DOWNLOAD_NAME;
     link.click();
   };
 
@@ -54,7 +55,7 @@ export function QrGeneratorTool({ labels }: Props) {
           min={100}
           max={500}
           value={size}
-          onChange={(event) => setSize(Number(event.target.value))}
+          onChange={(event) => setSize(normalizeQrSize(Number(event.target.value)))}
           className="w-28 rounded-lg border bg-background px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
         />
         <Button variant="outline" onClick={handleDownload} disabled={!text}>

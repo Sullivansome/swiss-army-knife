@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { generatePalette } from "@/lib/palette";
 
 export type PaletteLabels = {
   palette: string;
@@ -16,7 +17,7 @@ type Props = {
   labels: PaletteLabels;
 };
 
-const initialPalette = () => Array.from({ length: 5 }, () => randomColor());
+const initialPalette = () => generatePalette(5);
 
 export function PaletteGeneratorTool({ labels }: Props) {
   const [colors, setColors] = useState<string[]>(initialPalette);
@@ -70,10 +71,4 @@ export function PaletteGeneratorTool({ labels }: Props) {
       </div>
     </div>
   );
-}
-
-function randomColor() {
-  return `#${Math.floor(Math.random() * 0xffffff)
-    .toString(16)
-    .padStart(6, "0")}`.toUpperCase();
 }

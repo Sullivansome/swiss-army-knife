@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { LoremIpsum } from "lorem-ipsum";
-
 import { Button } from "@/components/ui/button";
+import { generateLoremIpsum } from "@/lib/lorem-ipsum";
 
 type Props = {
   labels: {
@@ -15,28 +14,13 @@ type Props = {
   };
 };
 
-const generator = new LoremIpsum({
-  wordsPerSentence: {
-    min: 4,
-    max: 12,
-  },
-});
-
 export function LoremIpsumTool({ labels }: Props) {
   const [paragraphs, setParagraphs] = useState(3);
   const [words, setWords] = useState(20);
   const [output, setOutput] = useState("");
 
   const handleGenerate = () => {
-    const totalWords = Math.max(1, paragraphs * words);
-    const allWords = generator.generateWords(totalWords).split(" ");
-    const chunks: string[] = [];
-    for (let i = 0; i < paragraphs; i += 1) {
-      const start = i * words;
-      const end = start + words;
-      chunks.push(allWords.slice(start, end).join(" "));
-    }
-    setOutput(chunks.join("\n\n"));
+    setOutput(generateLoremIpsum(paragraphs, words));
   };
 
   const handleCopy = async () => {

@@ -3,14 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-
-const UPCOMING_NEW_YEAR_DATES = [
-  "2025-01-29",
-  "2026-02-17",
-  "2027-02-06",
-  "2028-01-26",
-  "2029-02-13",
-];
+import { getDaysUntil, getNextLunarNewYearDate, pickGreeting } from "@/lib/lunar-new-year";
 
 export type LunarNewYearLabels = {
   countdownTitle: string;
@@ -25,31 +18,12 @@ export type LunarNewYearLabels = {
 export function LunarNewYearTool({ labels }: { labels: LunarNewYearLabels }) {
   const [greeting, setGreeting] = useState(labels.greetings[0] ?? "新年快乐！");
 
-  const nextDate = useMemo(() => {
-    const today = new Date();
-    const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    for (const iso of UPCOMING_NEW_YEAR_DATES) {
-      const candidate = new Date(iso + "T00:00:00");
-      if (candidate >= todayMidnight) {
-        return candidate;
-      }
-    }
-    const fallback = UPCOMING_NEW_YEAR_DATES.at(-1);
-    return fallback ? new Date(fallback + "T00:00:00") : todayMidnight;
-  }, []);
+  const nextDate = useMemo(() => getNextLunarNewYearDate(new Date()), []);
 
-  const daysUntil = useMemo(() => {
-    const today = new Date();
-    const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const end = new Date(nextDate.getFullYear(), nextDate.getMonth(), nextDate.getDate());
-    const diffMs = end.getTime() - start.getTime();
-    return Math.max(0, Math.round(diffMs / 86400000));
-  }, [nextDate]);
+  const daysUntil = useMemo(() => getDaysUntil(new Date(), nextDate), [nextDate]);
 
-  function pickGreeting() {
-    const pool = labels.greetings.length > 0 ? labels.greetings : ["新年快乐！"];
-    const random = pool[Math.floor(Math.random() * pool.length)] ?? pool[0];
-    setGreeting(random);
+  function handlePickGreeting() {
+    setGreeting(pickGreeting(labels.greetings));
   }
 
   return (
@@ -67,7 +41,7 @@ export function LunarNewYearTool({ labels }: { labels: LunarNewYearLabels }) {
       <div className="rounded-2xl border bg-card px-5 py-6 shadow-sm">
         <div className="flex items-center justify-between gap-3">
           <p className="text-sm font-semibold text-foreground">{labels.greetingTitle}</p>
-          <Button type="button" onClick={pickGreeting} variant="outline">
+          <Button type="button" onClick={handlePickGreeting} variant="outline">
             {labels.drawGreeting}
           </Button>
         </div>

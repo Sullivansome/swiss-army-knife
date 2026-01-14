@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import rehypeHighlight from "rehype-highlight";
-import remarkGfm from "remark-gfm";
+import { DEFAULT_MARKDOWN, MARKDOWN_REHYPE_PLUGINS, MARKDOWN_REMARK_PLUGINS } from "@/lib/markdown";
 
 type Props = {
   labels: {
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export function MarkdownPreviewTool({ labels }: Props) {
-  const [value, setValue] = useState("# Markdown\n\n- Write on the left\n- Preview on the right");
+  const [value, setValue] = useState(DEFAULT_MARKDOWN);
 
   return (
     <div className="grid gap-4 lg:grid-cols-2">
@@ -33,7 +32,9 @@ export function MarkdownPreviewTool({ labels }: Props) {
       <div className="space-y-2">
         <div className="text-sm font-medium text-foreground">{labels.preview}</div>
         <div className="prose prose-sm max-w-none rounded-lg border bg-card p-4 dark:prose-invert">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>{value}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[...MARKDOWN_REMARK_PLUGINS]} rehypePlugins={[...MARKDOWN_REHYPE_PLUGINS]}>
+            {value}
+          </ReactMarkdown>
         </div>
       </div>
     </div>

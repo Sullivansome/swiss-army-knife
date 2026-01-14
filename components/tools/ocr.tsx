@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import type { LoggerMessage, Worker } from "tesseract.js";
 
 import { Button } from "@/components/ui/button";
+import { formatOcrProgress, shouldResetWorker } from "@/lib/ocr";
 
 export type OcrLabels = {
   upload: string;
@@ -65,7 +66,7 @@ export function OcrTool({ labels }: Props) {
       const worker = await Tesseract.createWorker(lang, undefined, {
         logger: (message: LoggerMessage) => {
           if (message.status === "recognizing text") {
-            setStatus(`${labels.processing} ${(message.progress * 100).toFixed(0)}%`);
+            setStatus(formatOcrProgress(labels.processing, message.progress));
           }
         },
       });
@@ -79,7 +80,7 @@ export function OcrTool({ labels }: Props) {
       return workerRef.current;
     }
 
-    if (langRef.current !== language) {
+    if (shouldResetWorker(langRef.current, language)) {
       await workerRef.current.terminate();
       workerRef.current = await create(language);
       langRef.current = language;

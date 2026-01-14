@@ -4,6 +4,7 @@
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { fitImageToPage, moveItem, removeItem } from "@/lib/image-to-pdf";
 
 export type ImageToPdfLabels = {
   upload: string;
@@ -60,17 +61,11 @@ export function ImageToPdfTool({ labels }: Props) {
   };
 
   const moveImage = (index: number, direction: number) => {
-    setImages((prev) => {
-      const next = [...prev];
-      const target = index + direction;
-      if (target < 0 || target >= prev.length) return prev;
-      [next[index], next[target]] = [next[target], next[index]];
-      return next;
-    });
+    setImages((prev) => moveItem(prev, index, direction));
   };
 
   const removeImage = (index: number) => {
-    setImages((prev) => prev.filter((_, idx) => idx !== index));
+    setImages((prev) => removeItem(prev, index));
   };
 
   const generatePdf = async () => {
@@ -91,11 +86,12 @@ export function ImageToPdfTool({ labels }: Props) {
           doc.addPage();
         }
         const element = await loadImage(image.dataUrl);
-        const ratio = Math.min(pageWidth / element.width, pageHeight / element.height);
-        const width = element.width * ratio;
-        const height = element.height * ratio;
-        const x = (pageWidth - width) / 2;
-        const y = (pageHeight - height) / 2;
+        const { width, height, x, y } = fitImageToPage(
+          element.width,
+          element.height,
+          pageWidth,
+          pageHeight,
+        );
         const format = image.dataUrl.includes("png") ? "PNG" : "JPEG";
         doc.addImage(image.dataUrl, format, x, y, width, height);
       }

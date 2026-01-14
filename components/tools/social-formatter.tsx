@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { formatSocialText } from "@/lib/social-formatter";
 
 export type SocialFormatterLabels = {
   input: string;
@@ -28,22 +29,13 @@ export function SocialFormatterTool({ labels }: Props) {
   const [output, setOutput] = useState("");
 
   const format = () => {
-    const lines = input
-      .split(/\r?\n/)
-      .map((line) => line.trim())
-      .filter(Boolean)
-      .map((line) => {
-        let next = line;
-        if (emoji.trim()) {
-          next = `${emoji.trim()} ${next}`;
-        }
-        if (useBullets) {
-          next = `• ${next}`;
-        }
-        return next;
-      });
-    const joiner = insertSpacing ? "\n\n" : "\n";
-    setOutput(lines.join(joiner));
+    setOutput(
+      formatSocialText(input, {
+        emoji,
+        useBullets,
+        insertSpacing,
+      }),
+    );
   };
 
   const copy = async () => {

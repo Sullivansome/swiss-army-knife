@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { buildConvertedFilename, getImageMime } from "@/lib/image-converter";
 
 export type ImageConverterLabels = {
   upload: string;
@@ -56,17 +57,23 @@ export function ImageConverterTool({ labels }: Props) {
     setLoading(true);
     setStatus("");
     try {
-      const image = await loadImage(file.url);
+      const image = await decodeImage(file.file, file.url);
       const canvas = document.createElement("canvas");
       canvas.width = image.width;
       canvas.height = image.height;
       const ctx = canvas.getContext("2d");
       if (!ctx) throw new Error("canvas");
+      const mime = getImageMime(format);
+      if (mime === "image/jpeg") {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
       ctx.drawImage(image, 0, 0);
-      const mime = format === "jpg" ? "image/jpeg" : `image/${format}`;
-      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, mime, 0.95));
-      if (!blob) throw new Error("blob");
-      const converted = new File([blob], file.file.name.replace(/\.[^.]+$/, `.${format}`), { type: mime });
+      if ("close" in image) {
+        image.close();
+      }
+      const blob = await canvasToBlob(canvas, mime, 0.95);
+      const converted = new File([blob], buildConvertedFilename(file.file.name, format), { type: mime });
       if (output) URL.revokeObjectURL(output.url);
       setOutput({ file: converted, url: URL.createObjectURL(converted) });
     } catch (error) {
@@ -134,8 +141,41 @@ export function ImageConverterTool({ labels }: Props) {
 async function loadImage(src: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const img = new Image();
+    img.decoding = "async";
     img.onload = () => resolve(img);
-    img.onerror = reject;
+    img.onerror = () => reject(new Error("image-load"));
     img.src = src;
   });
+}
+
+async function decodeImage(file: File, fallbackUrl: string) {
+  if (typeof createImageBitmap === "function") {
+    try {
+      return await createImageBitmap(file);
+    } catch (error) {
+      console.warn("createImageBitmap failed, falling back to Image()", error);
+    }
+  }
+  return loadImage(fallbackUrl);
+}
+
+async function canvasToBlob(canvas: HTMLCanvasElement, mime: string, quality: number) {
+  if (canvas.toBlob) {
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, mime, quality));
+    if (blob) return blob;
+  }
+  const dataUrl = canvas.toDataURL(mime, quality);
+  return dataUrlToBlob(dataUrl);
+}
+
+function dataUrlToBlob(dataUrl: string) {
+  const [header, data] = dataUrl.split(",");
+  const mimeMatch = header?.match(/data:([^;]+)/);
+  const mime = mimeMatch ? mimeMatch[1] : "application/octet-stream";
+  const binary = atob(data);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return new Blob([bytes], { type: mime });
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { parseCsvToJson, parseJsonToCsv } from "@/lib/csv-json";
 
 export type CsvJsonLabels = {
   csvInput: string;
@@ -30,9 +31,8 @@ export function CsvJsonConverterTool({ labels }: Props) {
       return;
     }
     try {
-      const Papa = await import("papaparse");
-      const result = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-      setJsonText(JSON.stringify(result.data, null, 2));
+      const result = parseCsvToJson(csvText);
+      setJsonText(JSON.stringify(result, null, 2));
       setStatus("");
     } catch (error) {
       console.error("csv parse", error);
@@ -46,9 +46,7 @@ export function CsvJsonConverterTool({ labels }: Props) {
       return;
     }
     try {
-      const Papa = await import("papaparse");
-      const json = JSON.parse(jsonText);
-      const csv = Papa.unparse(json);
+      const csv = parseJsonToCsv(jsonText);
       setCsvText(csv);
       setStatus("");
     } catch (error) {

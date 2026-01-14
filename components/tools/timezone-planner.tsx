@@ -5,12 +5,11 @@ import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   formatDateTimeLocal,
-  formatInTimeZone,
   getAvailableTimezones,
-  getDatePartsForZone,
   getTimeZoneLabel,
   parseDateTimeLocal,
 } from "@/lib/timezones";
+import { buildTimeline, buildTimelineSummary } from "@/lib/timezone-planner";
 
 type Labels = {
   meetingTime: string;
@@ -100,24 +99,8 @@ export function TimezonePlanner({ labels }: Props) {
     ...rows.map((row) => ({ ...row, isBase: false })),
   ];
 
-  const timeline = participantZones.map((row) => {
-    const label = getTimeZoneLabel(row.zone);
-    const formatted = formatInTimeZone(baseDate, row.zone, locale);
-    const parts = getDatePartsForZone(baseDate, row.zone);
-    const hour = parts.hour;
-    const workFriendly = hour >= 9 && hour < 18;
-    return {
-      id: row.id,
-      zone: row.zone,
-      label,
-      formatted,
-      hour,
-      workFriendly,
-      isBase: row.isBase,
-    };
-  });
-
-  const summary = timeline.map((entry) => `${entry.label}: ${entry.formatted}`).join("\n");
+  const timeline = buildTimeline(baseDate, participantZones, locale);
+  const summary = buildTimelineSummary(timeline);
 
   const handleCopy = async () => {
     if (!summary) return;
