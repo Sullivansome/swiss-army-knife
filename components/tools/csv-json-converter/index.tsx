@@ -1,8 +1,12 @@
 "use client";
 
+import { ArrowLeft, ArrowRight, Trash2 } from "lucide-react";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { parseCsvToJson, parseJsonToCsv } from "@/lib/csv-json";
 
 export type CsvJsonLabels = {
@@ -55,70 +59,67 @@ export function CsvJsonConverterTool({ labels }: Props) {
     }
   };
 
-  const copy = async (text: string) => {
-    if (!text) return;
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (error) {
-      console.error("copy", error);
-    }
+  const handleClear = () => {
+    setCsvText("");
+    setJsonText("");
+    setStatus("");
   };
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">
-            {labels.csvInput}
-          </label>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => copy(csvText)}
-            disabled={!csvText}
-          >
-            {labels.copyCsv}
+    <div className="flex flex-col">
+      <StudioToolbar>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary" size="sm" onClick={csvToJson}>
+            {labels.convertToJson}
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+          <Button variant="secondary" size="sm" onClick={jsonToCsv}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            {labels.convertToCsv}
           </Button>
         </div>
-        <textarea
-          value={csvText}
-          onChange={(event) => setCsvText(event.target.value)}
-          placeholder={labels.placeholder}
-          className="min-h-48 w-full rounded-lg border bg-background p-3 text-sm shadow-inner"
-        />
-        <Button variant="default" size="sm" onClick={csvToJson}>
-          {labels.convertToJson}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleClear}
+          className="text-destructive hover:text-destructive"
+        >
+          <Trash2 className="mr-2 h-4 w-4" />
+          Clear
         </Button>
-      </div>
+      </StudioToolbar>
 
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">
-            {labels.jsonOutput}
-          </label>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => copy(jsonText)}
-            disabled={!jsonText}
-          >
-            {labels.copyJson}
-          </Button>
+      <ToolStudio layout="split">
+        <StudioPanel
+          title={labels.csvInput}
+          actions={<CopyButton value={csvText} label={labels.copyCsv} />}
+        >
+          <textarea
+            value={csvText}
+            onChange={(event) => setCsvText(event.target.value)}
+            placeholder={labels.placeholder}
+            className="h-[500px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none"
+          />
+        </StudioPanel>
+
+        <StudioPanel
+          title={labels.jsonOutput}
+          actions={<CopyButton value={jsonText} label={labels.copyJson} />}
+        >
+          <textarea
+            value={jsonText}
+            onChange={(event) => setJsonText(event.target.value)}
+            placeholder={labels.placeholder}
+            className="h-[500px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none"
+          />
+        </StudioPanel>
+      </ToolStudio>
+
+      {status && (
+        <div className="mt-4 rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {status}
         </div>
-        <textarea
-          value={jsonText}
-          onChange={(event) => setJsonText(event.target.value)}
-          placeholder={labels.placeholder}
-          className="min-h-48 w-full rounded-lg border bg-background p-3 text-sm shadow-inner"
-        />
-        <Button variant="default" size="sm" onClick={jsonToCsv}>
-          {labels.convertToCsv}
-        </Button>
-      </div>
-
-      {status ? (
-        <p className="md:col-span-2 text-sm text-destructive">{status}</p>
-      ) : null}
+      )}
     </div>
   );
 }

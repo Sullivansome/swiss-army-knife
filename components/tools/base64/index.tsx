@@ -1,7 +1,12 @@
 "use client";
 
+import { ArrowRightLeft, FileCode, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { decodeBase64, encodeBase64 } from "@/lib/base64";
 
 type Labels = {
@@ -23,20 +28,15 @@ export function Base64Tool({ labels }: Props) {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
+  const [mode, setMode] = useState<"encode" | "decode">("encode");
 
-  const handleEncode = () => {
+  const handleAction = () => {
     try {
-      setOutput(encodeBase64(input));
-      setError("");
-    } catch (err) {
-      console.error(err);
-      setError(labels.error);
-    }
-  };
-
-  const handleDecode = () => {
-    try {
-      setOutput(decodeBase64(input));
+      if (mode === "encode") {
+        setOutput(encodeBase64(input));
+      } else {
+        setOutput(decodeBase64(input));
+      }
       setError("");
     } catch (err) {
       console.error(err);
@@ -50,68 +50,98 @@ export function Base64Tool({ labels }: Props) {
     setError("");
   };
 
-  const handleCopy = async () => {
-    if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-    } catch (err) {
-      console.error("copy failed", err);
-    }
+  const toggleMode = () => {
+    setMode(mode === "encode" ? "decode" : "encode");
+    setInput(output);
+    setOutput("");
+    setError("");
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">
-            {labels.input}
-          </label>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleClear}>
-              {labels.clear}
-            </Button>
-            <Button variant="default" size="sm" onClick={handleEncode}>
-              {labels.encode}
-            </Button>
-            <Button variant="default" size="sm" onClick={handleDecode}>
-              {labels.decode}
-            </Button>
-          </div>
-        </div>
-        <textarea
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder={labels.placeholder}
-          className="min-h-40 w-full rounded-lg border bg-background p-3 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">
-            {labels.output}
-          </label>
+    <div className="flex flex-col">
+      <StudioToolbar>
+        <div className="flex items-center gap-2">
           <Button
-            variant="outline"
+            variant={mode === "encode" ? "secondary" : "ghost"}
             size="sm"
-            onClick={handleCopy}
-            disabled={!output}
+            onClick={() => setMode("encode")}
           >
-            {labels.copy}
+            {labels.encode}
+          </Button>
+          <Button
+            variant={mode === "decode" ? "secondary" : "ghost"}
+            size="sm"
+            onClick={() => setMode("decode")}
+          >
+            {labels.decode}
           </Button>
         </div>
-        <textarea
-          value={output}
-          readOnly
-          className="min-h-32 w-full cursor-text rounded-lg border bg-muted/50 p-3 text-sm shadow-inner"
-        />
-      </div>
-
-      {error ? (
-        <div className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-          {error}
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleMode}
+            title="Swap Input/Output"
+          >
+            <ArrowRightLeft className="h-4 w-4 mr-2" />
+            Swap
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleClear}
+            className="text-destructive hover:text-destructive"
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            {labels.clear}
+          </Button>
         </div>
-      ) : null}
+      </StudioToolbar>
+
+      <ToolStudio>
+        <StudioPanel
+          title={labels.input}
+          actions={
+            <div className="flex gap-2">
+              <CopyButton value={input} size="icon-sm" variant="ghost" />
+            </div>
+          }
+        >
+          <textarea
+            value={input}
+            onChange={(event) => {
+              setInput(event.target.value);
+            }}
+            placeholder={labels.placeholder}
+            className="h-[300px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none"
+          />
+        </StudioPanel>
+
+        <StudioPanel
+          title={labels.output}
+          actions={<CopyButton value={output} label={labels.copy} />}
+          className={error ? "border-destructive/50 bg-destructive/5" : ""}
+        >
+          {error ? (
+            <div className="h-[300px] p-4 text-sm text-destructive font-mono">
+              {error}
+            </div>
+          ) : (
+            <textarea
+              value={output}
+              readOnly
+              className="h-[300px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none text-muted-foreground"
+            />
+          )}
+        </StudioPanel>
+      </ToolStudio>
+
+      <div className="mt-6 flex justify-center">
+        <Button size="lg" onClick={handleAction} className="px-8">
+          {mode === "encode" ? labels.encode : labels.decode}
+          <FileCode className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,12 @@
 "use client";
 
+import { ArrowRightLeft, GitCompare, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { buildDiff, type DiffResult } from "@/lib/text";
 
 type Props = {
@@ -34,103 +38,130 @@ export function DiffCheckerTool({ labels }: Props) {
     setDiff(buildDiff(left, right));
   };
 
+  const handleClear = () => {
+    setLeft("");
+    setRight("");
+    setDiff([]);
+  };
+
+  const handleSwap = () => {
+    setLeft(right);
+    setRight(left);
+    setDiff([]);
+  };
+
   return (
-    <div className="space-y-4">
-      <div className="grid gap-4 lg:grid-cols-2">
-        <TextPanel
-          label={labels.left}
-          value={left}
-          placeholder={labels.placeholderLeft}
-          onChange={(value) => setLeft(value)}
-        />
-        <TextPanel
-          label={labels.right}
-          value={right}
-          placeholder={labels.placeholderRight}
-          onChange={(value) => setRight(value)}
-        />
-      </div>
-
-      <div className="flex items-center justify-between rounded-lg border bg-muted/50 px-3 py-2 text-sm">
-        <div className="flex flex-wrap gap-3 text-muted-foreground">
-          <span className="font-medium text-foreground">{labels.summary}</span>
-          <span>
-            {labels.added}: {summary.added}
-          </span>
-          <span>
-            {labels.removed}: {summary.removed}
-          </span>
+    <div className="flex flex-col">
+      <StudioToolbar>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="default"
+            size="sm"
+            onClick={handleCompare}
+            disabled={!left && !right}
+          >
+            <GitCompare className="mr-2 h-4 w-4" />
+            {labels.button}
+          </Button>
         </div>
-        <Button
-          variant="default"
-          size="sm"
-          onClick={handleCompare}
-          disabled={!left && !right}
-        >
-          {labels.button}
-        </Button>
-      </div>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={handleSwap}>
+            <ArrowRightLeft className="mr-2 h-4 w-4" />
+            Swap
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleClear}
+            className="text-destructive hover:text-destructive"
+          >
+            <Trash2 className="mr-2 h-4 w-4" />
+            Clear
+          </Button>
+        </div>
+      </StudioToolbar>
 
-      <div className="overflow-hidden rounded-lg border">
-        {diff.length === 0 ? (
-          <div className="px-4 py-3 text-sm text-muted-foreground">
-            {labels.noDiff}
-          </div>
-        ) : (
-          <div className="max-h-[500px] overflow-auto text-sm font-mono">
-            {diff.map((part, index) => (
-              <DiffLine
-                key={index}
-                value={part.value}
-                added={part.added}
-                removed={part.removed}
-              />
-            ))}
-          </div>
+      <div className="space-y-6">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <StudioPanel
+            title={labels.left}
+            actions={<CopyButton value={left} size="icon-sm" variant="ghost" />}
+          >
+            <textarea
+              value={left}
+              onChange={(event) => setLeft(event.target.value)}
+              placeholder={labels.placeholderLeft}
+              className="h-[300px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none"
+            />
+          </StudioPanel>
+
+          <StudioPanel
+            title={labels.right}
+            actions={
+              <CopyButton value={right} size="icon-sm" variant="ghost" />
+            }
+          >
+            <textarea
+              value={right}
+              onChange={(event) => setRight(event.target.value)}
+              placeholder={labels.placeholderRight}
+              className="h-[300px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none"
+            />
+          </StudioPanel>
+        </div>
+
+        {(diff.length > 0 || (left && right)) && (
+          <StudioPanel
+            title={
+              <div className="flex items-center gap-4">
+                <span>Result</span>
+                {diff.length > 0 && (
+                  <div className="flex gap-3 text-xs normal-case">
+                    <span className="text-emerald-500 font-medium">
+                      +{summary.added} {labels.added}
+                    </span>
+                    <span className="text-rose-500 font-medium">
+                      -{summary.removed} {labels.removed}
+                    </span>
+                  </div>
+                )}
+              </div>
+            }
+            className="min-h-[200px]"
+          >
+            {diff.length === 0 ? (
+              <div className="flex h-full items-center justify-center text-muted-foreground text-sm">
+                {left && right
+                  ? "Click Compare to see differences"
+                  : labels.noDiff}
+              </div>
+            ) : (
+              <div className="max-h-[500px] overflow-auto rounded-md border bg-muted/20 font-mono text-sm">
+                {diff.map((part, index) => (
+                  <div
+                    key={index}
+                    className={`flex px-4 py-1 ${
+                      part.added
+                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                        : part.removed
+                          ? "bg-rose-500/10 text-rose-600 dark:text-rose-400"
+                          : "text-foreground"
+                    }`}
+                  >
+                    <span className="mr-4 select-none opacity-50 w-4 text-center">
+                      {part.added ? "+" : part.removed ? "-" : " "}
+                    </span>
+                    <span className="whitespace-pre-wrap break-all">
+                      {part.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </StudioPanel>
         )}
       </div>
     </div>
-  );
-}
-
-type TextPanelProps = {
-  label: string;
-  value: string;
-  placeholder: string;
-  onChange: (value: string) => void;
-};
-
-function TextPanel({ label, value, placeholder, onChange }: TextPanelProps) {
-  return (
-    <div className="space-y-2">
-      <label className="text-sm font-medium text-foreground">{label}</label>
-      <textarea
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder={placeholder}
-        className="min-h-40 w-full rounded-lg border bg-background p-3 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
-      />
-    </div>
-  );
-}
-
-type DiffLineProps = {
-  value: string;
-  added?: boolean;
-  removed?: boolean;
-};
-
-function DiffLine({ value, added, removed }: DiffLineProps) {
-  const bg = added
-    ? "bg-emerald-50 text-emerald-900"
-    : removed
-      ? "bg-rose-50 text-rose-900"
-      : "bg-card";
-  const prefix = added ? "+ " : removed ? "- " : "  ";
-  return (
-    <pre
-      className={`whitespace-pre-wrap px-4 py-2 ${bg}`}
-    >{`${prefix}${value}`}</pre>
   );
 }
 

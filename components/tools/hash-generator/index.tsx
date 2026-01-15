@@ -1,9 +1,14 @@
 "use client";
 
+import { Play, Trash2 } from "lucide-react";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { computeHash, type HashAlgorithm } from "@/lib/hash";
+import { cn } from "@/lib/utils";
 
 type Props = {
   labels: {
@@ -31,9 +36,9 @@ export function HashGeneratorTool({ labels }: Props) {
     setOutput(result);
   };
 
-  const handleCopy = async () => {
-    if (!output) return;
-    await navigator.clipboard.writeText(output);
+  const handleClear = () => {
+    setInput("");
+    setOutput("");
   };
 
   const labelMap: Record<HashAlgorithm, string> = {
@@ -43,65 +48,82 @@ export function HashGeneratorTool({ labels }: Props) {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <label
-          className="text-sm font-medium text-foreground"
-          htmlFor="hash-input"
-        >
-          {labels.input}
-        </label>
-        <textarea
-          id="hash-input"
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder={labels.placeholder}
-          className="min-h-32 w-full rounded-lg border bg-background p-3 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
-        />
-      </div>
-
-      <div className="flex flex-wrap items-center gap-3">
-        <span className="text-sm font-medium text-foreground">
-          {labels.algo}
-        </span>
-        <div className="flex flex-wrap gap-2">
-          {algorithms.map((algo) => (
-            <button
-              key={algo}
-              type="button"
-              onClick={() => setAlgorithm(algo)}
-              className={`rounded-full border px-3 py-1 text-xs font-medium ${
-                algorithm === algo
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-muted-foreground/40 text-foreground"
-              }`}
-            >
-              {labelMap[algo]}
-            </button>
-          ))}
+    <div className="flex flex-col">
+      <StudioToolbar className="h-auto flex-wrap gap-4 py-3">
+        <div className="flex items-center gap-3 overflow-x-auto pb-1 sm:pb-0">
+          <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
+            {labels.algo}
+          </span>
+          <div className="flex gap-1">
+            {algorithms.map((algo) => (
+              <button
+                key={algo}
+                type="button"
+                onClick={() => setAlgorithm(algo)}
+                className={cn(
+                  "rounded-md border px-3 py-1.5 text-xs font-medium transition-all hover:bg-muted",
+                  algorithm === algo
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-transparent bg-muted/50 text-muted-foreground",
+                )}
+              >
+                {labelMap[algo]}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="flex gap-2">
-        <Button variant="default" onClick={handleCompute} disabled={!input}>
-          {labels.compute}
-        </Button>
-        <Button variant="outline" onClick={handleCopy} disabled={!output}>
-          {labels.copy}
-        </Button>
-      </div>
+        <div className="flex-1" />
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">
-          {labels.hash}
-        </label>
-        <textarea
-          value={output}
-          readOnly
-          placeholder={labels.placeholder}
-          className="min-h-24 w-full cursor-text rounded-lg border bg-muted/50 p-3 text-sm shadow-inner"
-        />
-      </div>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="default"
+            size="sm"
+            onClick={handleCompute}
+            disabled={!input}
+          >
+            <Play className="mr-2 h-4 w-4" />
+            {labels.compute}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleClear}
+            className="text-destructive hover:text-destructive"
+          >
+            <Trash2 className="mr-2 h-4 w-4" />
+            Clear
+          </Button>
+        </div>
+      </StudioToolbar>
+
+      <ToolStudio layout="vertical">
+        <StudioPanel
+          title={labels.input}
+          actions={<CopyButton value={input} size="icon-sm" variant="ghost" />}
+        >
+          <textarea
+            id="hash-input"
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder={labels.placeholder}
+            className="h-[200px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none"
+          />
+        </StudioPanel>
+
+        <StudioPanel
+          title={labels.hash}
+          actions={<CopyButton value={output} label={labels.copy} />}
+          className="bg-muted/10 border-muted"
+        >
+          <textarea
+            value={output}
+            readOnly
+            placeholder={labels.placeholder}
+            className="h-[150px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none text-muted-foreground"
+          />
+        </StudioPanel>
+      </ToolStudio>
     </div>
   );
 }

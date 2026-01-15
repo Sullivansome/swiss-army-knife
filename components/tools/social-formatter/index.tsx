@@ -1,8 +1,12 @@
 "use client";
 
+import { ArrowRight, List, Smile, Text } from "lucide-react";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { formatSocialText } from "@/lib/social-formatter";
 
 export type SocialFormatterLabels = {
@@ -38,78 +42,74 @@ export function SocialFormatterTool({ labels }: Props) {
     );
   };
 
-  const copy = async () => {
-    if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-    } catch (error) {
-      console.error("copy", error);
-    }
-  };
-
   return (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">
-          {labels.input}
-        </label>
-        <textarea
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder={labels.placeholder}
-          className="min-h-48 w-full rounded-lg border bg-background p-3 text-sm shadow-inner"
-        />
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-3">
-        <label className="inline-flex items-center gap-2 text-sm text-foreground">
-          <input
-            type="checkbox"
-            checked={insertSpacing}
-            onChange={(event) => setInsertSpacing(event.target.checked)}
-          />
-          {labels.spacing}
-        </label>
-        <label className="inline-flex items-center gap-2 text-sm text-foreground">
-          <input
-            type="checkbox"
-            checked={useBullets}
-            onChange={(event) => setUseBullets(event.target.checked)}
-          />
-          {labels.bullets}
-        </label>
-        <div className="space-y-1">
-          <label className="text-sm font-medium text-foreground">
-            {labels.emoji}
+    <div className="flex flex-col">
+      <StudioToolbar className="h-auto flex-wrap gap-4 py-3">
+        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+          <label className="inline-flex items-center gap-2 cursor-pointer hover:text-foreground transition-colors">
+            <input
+              type="checkbox"
+              checked={insertSpacing}
+              onChange={(event) => setInsertSpacing(event.target.checked)}
+              className="rounded border-muted-foreground/40 text-primary focus:ring-primary"
+            />
+            <Text className="h-4 w-4" />
+            {labels.spacing}
           </label>
-          <input
-            value={emoji}
-            onChange={(event) => setEmoji(event.target.value)}
-            placeholder={labels.emojiPlaceholder}
-            className="w-full rounded-lg border bg-background px-3 py-2 text-sm"
-          />
+          <label className="inline-flex items-center gap-2 cursor-pointer hover:text-foreground transition-colors">
+            <input
+              type="checkbox"
+              checked={useBullets}
+              onChange={(event) => setUseBullets(event.target.checked)}
+              className="rounded border-muted-foreground/40 text-primary focus:ring-primary"
+            />
+            <List className="h-4 w-4" />
+            {labels.bullets}
+          </label>
+          <div className="flex items-center gap-2">
+            <Smile className="h-4 w-4" />
+            <span className="whitespace-nowrap">{labels.emoji}</span>
+            <input
+              value={emoji}
+              onChange={(event) => setEmoji(event.target.value)}
+              placeholder={labels.emojiPlaceholder}
+              className="w-12 rounded-md border bg-background px-2 py-1 text-center text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
         </div>
-      </div>
 
-      <div className="flex gap-2">
-        <Button variant="outline" size="sm" onClick={copy} disabled={!output}>
-          {labels.copy}
-        </Button>
-        <Button size="sm" onClick={format}>
+        <div className="flex-1" />
+
+        <Button variant="default" size="sm" onClick={format}>
           {labels.format}
+          <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
-      </div>
+      </StudioToolbar>
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">
-          {labels.output}
-        </label>
-        <textarea
-          value={output}
-          readOnly
-          className="min-h-40 w-full rounded-lg border bg-muted/50 p-3 text-sm shadow-inner"
-        />
-      </div>
+      <ToolStudio layout="split">
+        <StudioPanel
+          title={labels.input}
+          actions={<CopyButton value={input} size="icon-sm" variant="ghost" />}
+        >
+          <textarea
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder={labels.placeholder}
+            className="h-[400px] w-full resize-none rounded-md bg-transparent p-4 text-sm focus:outline-none"
+          />
+        </StudioPanel>
+
+        <StudioPanel
+          title={labels.output}
+          actions={<CopyButton value={output} label={labels.copy} />}
+        >
+          <textarea
+            value={output}
+            readOnly
+            className="h-[400px] w-full resize-none rounded-md bg-transparent p-4 text-sm focus:outline-none text-muted-foreground"
+          />
+        </StudioPanel>
+      </ToolStudio>
     </div>
   );
 }

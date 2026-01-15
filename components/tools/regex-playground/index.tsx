@@ -1,8 +1,11 @@
 "use client";
 
+import { AlertCircle, CheckCircle2, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { analyzeRegexMatches } from "@/lib/regex-playground";
 import { cn } from "@/lib/utils";
 
@@ -61,152 +64,150 @@ export function RegexPlaygroundTool({ labels }: Props) {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-        <span>{labels.helper}</span>
-        <Button variant="ghost" size="sm" onClick={clearAll}>
+    <div className="flex flex-col">
+      <StudioToolbar>
+        <div className="flex-1" />
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={clearAll}
+          className="text-destructive hover:text-destructive"
+        >
+          <Trash2 className="mr-2 h-4 w-4" />
           {labels.clear}
         </Button>
-      </div>
+      </StudioToolbar>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">
-            {labels.patternLabel}
-          </label>
-          <input
-            value={pattern}
-            onChange={(event) => setPattern(event.target.value)}
-            placeholder={labels.patternPlaceholder}
-            className="w-full rounded-lg border bg-background px-3 py-2 text-sm font-mono shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
-          />
+      <ToolStudio layout="vertical">
+        <div className="grid gap-6 lg:grid-cols-[1fr_200px]">
+          <StudioPanel title={labels.patternLabel} className="h-full">
+            <input
+              value={pattern}
+              onChange={(event) => setPattern(event.target.value)}
+              placeholder={labels.patternPlaceholder}
+              className="w-full rounded-md bg-transparent p-2 font-mono text-lg font-medium focus:outline-none"
+            />
+          </StudioPanel>
+
+          <StudioPanel title={labels.flagsLabel} className="h-full">
+            <div className="flex flex-wrap gap-2">
+              {FLAG_ORDER.map((flag) => (
+                <button
+                  key={flag}
+                  type="button"
+                  onClick={() => toggleFlag(flag)}
+                  title={labels.flagDescriptions[flag]}
+                  className={cn(
+                    "rounded px-2 py-1 text-xs font-mono font-medium transition-colors border",
+                    selectedFlags.includes(flag)
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-transparent bg-muted/50 text-muted-foreground hover:bg-muted",
+                  )}
+                >
+                  {flag}
+                </button>
+              ))}
+            </div>
+          </StudioPanel>
         </div>
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">
-            {labels.flagsLabel}
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {FLAG_ORDER.map((flag) => (
-              <button
-                key={flag}
-                type="button"
-                onClick={() => toggleFlag(flag)}
-                className={cn(
-                  "rounded-full border px-3 py-1 text-xs font-semibold transition",
-                  selectedFlags.includes(flag)
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-muted text-muted-foreground hover:border-foreground/40",
-                )}
-              >
-                {flag.toUpperCase()}{" "}
-                <span className="text-[11px] font-normal">
-                  {labels.flagDescriptions[flag]}
+
+        <StudioPanel title={labels.sampleLabel}>
+          <textarea
+            value={sample}
+            onChange={(event) => setSample(event.target.value)}
+            placeholder={labels.samplePlaceholder}
+            className="h-[150px] w-full resize-none rounded-md bg-transparent p-4 text-sm focus:outline-none"
+          />
+        </StudioPanel>
+
+        <StudioPanel
+          title={
+            <div className="flex items-center gap-4">
+              <span>{labels.highlightLabel}</span>
+              {hasError ? (
+                <span className="flex items-center gap-1 text-xs text-destructive normal-case">
+                  <AlertCircle className="h-3 w-3" />
+                  {labels.error}
                 </span>
-              </button>
+              ) : (
+                <span className="flex items-center gap-1 text-xs text-muted-foreground normal-case">
+                  <CheckCircle2 className="h-3 w-3" />
+                  {matches.length} {labels.matchesLabel}
+                </span>
+              )}
+            </div>
+          }
+          className={hasError ? "border-destructive/50" : ""}
+        >
+          <div className="min-h-[100px] whitespace-pre-wrap rounded-md bg-muted/20 p-4 font-mono text-sm leading-relaxed">
+            {segments.map((segment, index) => (
+              <span
+                key={`${segment.text}-${index}`}
+                className={
+                  segment.match
+                    ? "rounded bg-amber-200 px-0.5 text-amber-950 dark:bg-amber-500/30 dark:text-amber-100"
+                    : undefined
+                }
+              >
+                {segment.text || (segment.match ? "\u00a0" : "\u200b")}
+              </span>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground">{labels.flagsHint}</p>
-        </div>
-      </div>
+        </StudioPanel>
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">
-          {labels.sampleLabel}
-        </label>
-        <textarea
-          value={sample}
-          onChange={(event) => setSample(event.target.value)}
-          placeholder={labels.samplePlaceholder}
-          className="min-h-40 w-full rounded-lg border bg-background p-3 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
-        />
-      </div>
+        {matches.length > 0 && (
+          <div className="space-y-4">
+            <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider px-1">
+              Detailed Matches
+            </h3>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {matches.map((match, idx) => (
+                <div
+                  key={`${match.index}-${idx}`}
+                  className="rounded-lg border bg-card p-4 shadow-sm"
+                >
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                    <span className="font-mono">Index {match.index}</span>
+                    <span className="font-medium bg-muted px-1.5 py-0.5 rounded">
+                      #{idx + 1}
+                    </span>
+                  </div>
+                  <div className="mb-3 rounded bg-muted/30 p-2 font-mono text-sm break-all">
+                    {match.text}
+                  </div>
 
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-foreground">
-            {labels.highlightLabel}
-          </span>
-          {hasError ? (
-            <span className="text-xs text-destructive">{labels.error}</span>
-          ) : null}
-        </div>
-        <div className="min-h-20 rounded-lg border bg-muted/40 p-3 font-mono text-sm leading-relaxed">
-          {segments.map((segment, index) => (
-            <span
-              key={`${segment.text}-${index}`}
-              className={
-                segment.match
-                  ? "rounded bg-amber-200 px-0.5 text-foreground"
-                  : undefined
-              }
-            >
-              {segment.text || (segment.match ? "\u00a0" : "\u200b")}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-semibold text-foreground">
-            {labels.matchesLabel}
-          </span>
-          <span className="text-xs text-muted-foreground">
-            {matches.length}
-          </span>
-        </div>
-        {matches.length === 0 ? (
-          <p className="rounded-lg border border-dashed px-3 py-2 text-sm text-muted-foreground">
-            {labels.noMatches}
-          </p>
-        ) : (
-          <div className="space-y-3">
-            {matches.map((match, idx) => (
-              <div
-                key={`${match.index}-${idx}`}
-                className="rounded-lg border bg-card p-3 shadow-sm"
-              >
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>
-                    {labels.indexLabel} {match.index}
-                  </span>
-                  <span>#{idx + 1}</span>
+                  {(match.groups.length > 0 ||
+                    (match.named && Object.keys(match.named).length > 0)) && (
+                    <div className="space-y-2 border-t pt-2">
+                      {match.groups.map((group, groupIndex) => (
+                        <div
+                          key={groupIndex}
+                          className="flex justify-between text-xs"
+                        >
+                          <span className="text-muted-foreground">
+                            Group {groupIndex + 1}
+                          </span>
+                          <span className="font-mono">{group}</span>
+                        </div>
+                      ))}
+                      {match.named &&
+                        Object.entries(match.named).map(([key, value]) => (
+                          <div
+                            key={key}
+                            className="flex justify-between text-xs"
+                          >
+                            <span className="text-muted-foreground">{key}</span>
+                            <span className="font-mono">{value}</span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
                 </div>
-                <pre className="mt-2 whitespace-pre-wrap font-mono text-sm text-foreground">
-                  {match.text}
-                </pre>
-                {match.groups.length ? (
-                  <div className="mt-3 space-y-1">
-                    {match.groups.map((group, groupIndex) => (
-                      <div
-                        key={groupIndex}
-                        className="text-xs text-muted-foreground"
-                      >
-                        {labels.groupLabel} {groupIndex + 1}:{" "}
-                        <span className="font-mono text-foreground">
-                          {group ?? ""}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-                {match.named && Object.keys(match.named).length ? (
-                  <div className="mt-2 space-y-1">
-                    {Object.entries(match.named).map(([key, value]) => (
-                      <div key={key} className="text-xs text-muted-foreground">
-                        {labels.groupLabel} {key}:{" "}
-                        <span className="font-mono text-foreground">
-                          {value ?? ""}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
-      </div>
+      </ToolStudio>
     </div>
   );
 }

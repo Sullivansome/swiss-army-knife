@@ -1,8 +1,15 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
-
+import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
+import { WidgetStat } from "@/components/ui/widget-card";
 import { computeAdvancedWordStats } from "@/lib/advanced-word-count";
+
 export type AdvancedWordCountLabels = {
   input: string;
   placeholder: string;
@@ -23,43 +30,66 @@ export function AdvancedWordCountTool({ labels }: Props) {
   const stats = useMemo(() => computeAdvancedWordStats(text), [text]);
 
   return (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">
-          {labels.input}
-        </label>
-        <textarea
-          value={text}
-          onChange={(event) => setText(event.target.value)}
-          placeholder={labels.placeholder}
-          className="min-h-48 w-full rounded-lg border bg-background p-3 text-sm shadow-inner"
-        />
-      </div>
+    <div className="flex flex-col">
+      <StudioToolbar>
+        <div className="flex-1" />
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setText("")}
+          className="text-destructive hover:text-destructive"
+        >
+          <Trash2 className="mr-2 h-4 w-4" />
+          Clear
+        </Button>
+      </StudioToolbar>
 
-      <div className="grid gap-3 md:grid-cols-2">
-        <Stat label={labels.charsWithSpaces} value={stats.charsWithSpaces} />
-        <Stat
-          label={labels.charsWithoutSpaces}
-          value={stats.charsWithoutSpaces}
-        />
-        <Stat label={labels.words} value={stats.words} />
-        <Stat label={labels.sentences} value={stats.sentences} />
-        <Stat label={labels.paragraphs} value={stats.paragraphs} />
-      </div>
-    </div>
-  );
-}
+      <ToolStudio layout="split">
+        <StudioPanel
+          title={labels.input}
+          actions={<CopyButton value={text} size="icon-sm" variant="ghost" />}
+        >
+          <textarea
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+            placeholder={labels.placeholder}
+            className="h-[500px] w-full resize-none rounded-md bg-transparent p-4 text-sm leading-relaxed focus:outline-none"
+          />
+        </StudioPanel>
 
-type StatProps = {
-  label: string;
-  value: number;
-};
-
-function Stat({ label, value }: StatProps) {
-  return (
-    <div className="rounded-xl border bg-card p-4 text-center">
-      <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="mt-2 text-2xl font-semibold text-foreground">{value}</p>
+        <div className="space-y-4">
+          <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider px-1">
+            Statistics
+          </h3>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <WidgetStat
+              label={labels.words}
+              value={stats.words}
+              className="bg-card"
+            />
+            <WidgetStat
+              label={labels.sentences}
+              value={stats.sentences}
+              className="bg-card"
+            />
+            <WidgetStat
+              label={labels.charsWithSpaces}
+              value={stats.charsWithSpaces}
+              className="bg-card"
+            />
+            <WidgetStat
+              label={labels.charsWithoutSpaces}
+              value={stats.charsWithoutSpaces}
+              className="bg-card"
+            />
+            <WidgetStat
+              label={labels.paragraphs}
+              value={stats.paragraphs}
+              className="bg-card sm:col-span-2"
+            />
+          </div>
+        </div>
+      </ToolStudio>
     </div>
   );
 }

@@ -1,8 +1,10 @@
 "use client";
 
+import { List, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { WidgetCard } from "@/components/ui/widget-card";
 import { generateUuids } from "@/lib/uuid";
 
 type Labels = {
@@ -18,7 +20,7 @@ type Props = {
   labels: Labels;
 };
 
-const MAX_COUNT = 20;
+const MAX_COUNT = 50;
 
 export function UuidGeneratorTool({ labels }: Props) {
   const [count, setCount] = useState(1);
@@ -37,61 +39,63 @@ export function UuidGeneratorTool({ labels }: Props) {
     setValues(generateUuids(count));
   };
 
-  const handleCopy = async () => {
-    if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-    } catch (err) {
-      console.error("copy failed", err);
-    }
-  };
-
   return (
-    <div className="space-y-4">
-      <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
-        <div className="space-y-2">
-          <label
-            className="text-sm font-medium text-foreground"
-            htmlFor="uuid-count"
+    <div className="mx-auto max-w-2xl space-y-6">
+      <WidgetCard>
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="flex-1 space-y-2">
+            <label
+              htmlFor="uuid-count"
+              className="text-sm font-medium text-foreground"
+            >
+              {labels.count}
+            </label>
+            <input
+              id="uuid-count"
+              type="number"
+              min={1}
+              max={MAX_COUNT}
+              value={count}
+              onChange={(e) => setCount(Number(e.target.value))}
+              className="w-full rounded-lg border bg-background px-4 py-2.5 text-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p className="text-xs text-muted-foreground">
+              {labels.countHelper}
+            </p>
+          </div>
+
+          <Button
+            size="lg"
+            onClick={handleGenerate}
+            className="w-full md:w-auto"
           >
-            {labels.count}
-          </label>
-          <input
-            id="uuid-count"
-            type="number"
-            min={1}
-            max={MAX_COUNT}
-            value={count}
-            onChange={(event) => setCount(Number(event.target.value))}
-            className="w-full rounded-lg border bg-background px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
-          />
-          <p className="text-xs text-muted-foreground">{labels.countHelper}</p>
-        </div>
-        <div className="flex gap-2 md:justify-end">
-          <Button variant="default" onClick={handleGenerate}>
+            <RefreshCw className="mr-2 h-4 w-4" />
             {labels.generate}
           </Button>
-          <Button variant="outline" onClick={handleCopy} disabled={!output}>
-            {labels.copy}
-          </Button>
         </div>
-      </div>
+      </WidgetCard>
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">UUID</label>
-        <textarea
-          value={output}
-          readOnly
-          placeholder={labels.placeholder}
-          className="min-h-40 w-full cursor-text rounded-lg border bg-muted/50 p-3 text-sm font-mono shadow-inner"
-        />
-      </div>
+      {values.length > 0 && (
+        <WidgetCard className="bg-muted/30">
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+              <List className="h-4 w-4" />
+              {values.length} UUIDs Generated
+            </div>
+            <CopyButton value={output} label={labels.copy} />
+          </div>
 
-      {error ? (
-        <div className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+          <div className="relative rounded-lg border bg-card p-4 font-mono text-sm shadow-sm">
+            <pre className="whitespace-pre-wrap break-all">{output}</pre>
+          </div>
+        </WidgetCard>
+      )}
+
+      {error && (
+        <div className="rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           {error}
         </div>
-      ) : null}
+      )}
     </div>
   );
 }

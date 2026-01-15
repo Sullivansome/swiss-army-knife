@@ -1,9 +1,22 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import {
+  ArrowDown,
+  ArrowUp,
+  Download,
+  File as FileIcon,
+  FileImage,
+  GripVertical,
+  Loader2,
+  Trash2,
+  X,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { FileDropzone } from "@/components/ui/file-dropzone";
+import { WidgetCard } from "@/components/ui/widget-card";
 import { fitImageToPage, moveItem, removeItem } from "@/lib/image-to-pdf";
 
 export type ImageToPdfLabels = {
@@ -47,18 +60,14 @@ export function ImageToPdfTool({ labels }: Props) {
 
   const hasImages = images.length > 0;
 
-  const handleFiles = async (files: FileList | null) => {
-    if (!files?.length) return;
-    const entries = await Promise.all(
-      Array.from(files).map(async (file) => ({
-        id:
-          crypto.randomUUID?.() ??
-          `${file.name}-${Date.now()}-${Math.random()}`,
-        name: file.name,
-        dataUrl: await readAsDataUrl(file),
-      })),
-    );
-    setImages((prev) => [...prev, ...entries]);
+  const handleFileSelect = async (file: File) => {
+    const entry = {
+      id:
+        crypto.randomUUID?.() ?? `${file.name}-${Date.now()}-${Math.random()}`,
+      name: file.name,
+      dataUrl: await readAsDataUrl(file),
+    };
+    setImages((prev) => [...prev, entry]);
     setStatus("");
   };
 
@@ -111,93 +120,133 @@ export function ImageToPdfTool({ labels }: Props) {
   const previews = useMemo(() => images, [images]);
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-3">
-        <label className="inline-flex cursor-pointer flex-col gap-1 text-sm font-medium text-foreground">
-          {labels.upload}
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={(event) => handleFiles(event.target.files)}
-            className="hidden"
-          />
-          <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">
-            {labels.helper}
-          </span>
-        </label>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setImages([])}
-          disabled={!hasImages}
-        >
-          {labels.clear}
-        </Button>
-        <Button
-          size="sm"
-          onClick={generatePdf}
-          disabled={!hasImages || loading}
-        >
-          {loading ? labels.processing : labels.generate}
-        </Button>
-      </div>
+    <div className="space-y-8">
+      <div className="grid gap-8 lg:grid-cols-[1fr_1.5fr]">
+        <div className="space-y-6">
+          <WidgetCard title="Add Images" className="h-full">
+            <FileDropzone
+              accept="image/*"
+              label={labels.upload}
+              helperText={labels.helper}
+              onFileSelect={handleFileSelect}
+              className="h-48"
+            />
 
-      {hasImages ? (
-        <div className="space-y-3">
-          <p className="text-sm text-muted-foreground">{labels.reorder}</p>
-          <ul className="space-y-3">
-            {previews.map((image, index) => (
-              <li
-                key={image.id}
-                className="flex items-center gap-3 rounded-lg border p-3"
+            <div className="mt-6">
+              <Button
+                size="lg"
+                onClick={generatePdf}
+                disabled={!hasImages || loading}
+                className="w-full"
               >
-                <img
-                  src={image.dataUrl}
-                  alt={image.name}
-                  className="h-16 w-16 rounded object-cover"
-                />
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-foreground">
-                    {image.name}
-                  </p>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => moveImage(index, -1)}
-                    disabled={index === 0}
-                  >
-                    {labels.moveUp}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => moveImage(index, 1)}
-                    disabled={index === previews.length - 1}
-                  >
-                    {labels.moveDown}
-                  </Button>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => removeImage(index)}
-                >
-                  {labels.remove}
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p className="text-sm text-muted-foreground">{labels.empty}</p>
-      )}
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {labels.processing}
+                  </>
+                ) : (
+                  <>
+                    <FileIcon className="mr-2 h-4 w-4" />
+                    {labels.generate}
+                  </>
+                )}
+              </Button>
 
-      {status ? (
-        <p className="text-sm text-muted-foreground">{status}</p>
-      ) : null}
+              {hasImages && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setImages([])}
+                  className="w-full mt-2"
+                >
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  {labels.clear}
+                </Button>
+              )}
+            </div>
+          </WidgetCard>
+        </div>
+
+        <div className="space-y-6">
+          <WidgetCard
+            title={`Selected Images (${images.length})`}
+            description={labels.reorder}
+            className="min-h-[500px]"
+          >
+            {hasImages ? (
+              <ul className="space-y-3">
+                {previews.map((image, index) => (
+                  <li
+                    key={image.id}
+                    className="group flex items-center gap-4 rounded-xl border bg-card p-3 shadow-sm transition-all hover:border-primary/50 hover:shadow-md"
+                  >
+                    <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted/20 border">
+                      <img
+                        src={image.dataUrl}
+                        alt={image.name}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <p
+                        className="truncate text-sm font-medium text-foreground"
+                        title={image.name}
+                      >
+                        {image.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Page {index + 1}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={() => moveImage(index, -1)}
+                        disabled={index === 0}
+                        title={labels.moveUp}
+                      >
+                        <ArrowUp className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={() => moveImage(index, 1)}
+                        disabled={index === previews.length - 1}
+                        title={labels.moveDown}
+                      >
+                        <ArrowDown className="h-4 w-4" />
+                      </Button>
+                      <div className="w-px h-4 bg-border mx-1" />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={() => removeImage(index)}
+                        title={labels.remove}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="flex h-[300px] flex-col items-center justify-center text-center text-muted-foreground border-2 border-dashed border-muted rounded-xl bg-muted/5">
+                <FileImage className="h-12 w-12 opacity-20 mb-3" />
+                <p className="font-medium">{labels.empty}</p>
+                <p className="text-sm opacity-60">
+                  Upload images to get started
+                </p>
+              </div>
+            )}
+          </WidgetCard>
+        </div>
+      </div>
     </div>
   );
 }

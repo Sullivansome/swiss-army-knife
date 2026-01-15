@@ -1,7 +1,8 @@
 "use client";
 
+import { Binary, Calculator } from "lucide-react";
 import { useMemo, useState } from "react";
-
+import { WidgetCard } from "@/components/ui/widget-card";
 import { convertBase, convertToDecimal } from "@/lib/base";
 
 export type BaseConverterLabels = {
@@ -58,74 +59,87 @@ export function BaseConverterTool({ labels }: { labels: BaseConverterLabels }) {
   }, [value, inputBase]);
 
   return (
-    <div className="space-y-4">
-      <div className="grid gap-4 md:grid-cols-[2fr,1fr]">
-        <div className="space-y-2">
-          <label
-            className="text-sm font-medium text-foreground"
-            htmlFor="base-value"
-          >
-            {labels.inputLabel}
-          </label>
-          <input
-            id="base-value"
-            type="text"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            className="w-full rounded-lg border bg-background px-3 py-2 text-sm font-mono"
-          />
-        </div>
-        <div className="space-y-2">
-          <label
-            className="text-sm font-medium text-foreground"
-            htmlFor="base-select"
-          >
-            {labels.baseLabel}
-          </label>
-          <select
-            id="base-select"
-            value={inputBase}
-            onChange={(event) => setInputBase(Number(event.target.value))}
-            className="w-full rounded-lg border bg-background px-3 py-2 text-sm"
-          >
-            <option value={2}>{labels.bases.binary}</option>
-            <option value={8}>{labels.bases.octal}</option>
-            <option value={10}>{labels.bases.decimal}</option>
-            <option value={16}>{labels.bases.hex}</option>
-          </select>
-        </div>
-      </div>
-
-      {conversion.error ? (
-        <p className="rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-2 text-sm text-destructive">
-          {conversion.error}
-        </p>
-      ) : null}
-
-      <div className="rounded-2xl border bg-card px-5 py-6 shadow-sm">
-        <p className="text-sm font-semibold text-foreground">
-          {labels.resultsLabel}
-        </p>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          {conversion.outputs.map((entry) => (
-            <div
-              key={entry.base}
-              className="rounded-xl border bg-background px-4 py-3"
-            >
-              <p className="text-xs font-medium text-muted-foreground">
-                {labels.bases[entry.key]}
-              </p>
-              <p className="mt-1 font-mono text-lg text-foreground">
-                {entry.display}
-              </p>
+    <div className="mx-auto max-w-4xl space-y-8">
+      <div className="grid gap-8 lg:grid-cols-2">
+        <WidgetCard title="Input" className="h-full">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label
+                htmlFor="base-select"
+                className="text-sm font-medium text-foreground"
+              >
+                {labels.baseLabel}
+              </label>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {OPTIONS.map((opt) => (
+                  <button
+                    key={opt.base}
+                    onClick={() => setInputBase(opt.base)}
+                    className={`rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                      inputBase === opt.base
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border bg-background text-muted-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {labels.bases[opt.key]} ({opt.base})
+                  </button>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-        {decimalValue ? (
-          <p className="mt-3 text-xs text-muted-foreground">
-            {labels.bases.decimal}: {decimalValue}
-          </p>
-        ) : null}
+
+            <div className="space-y-2">
+              <label
+                htmlFor="base-value"
+                className="text-sm font-medium text-foreground"
+              >
+                {labels.inputLabel}
+              </label>
+              <textarea
+                id="base-value"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                className="h-32 w-full resize-none rounded-xl border bg-background p-4 text-lg font-mono shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                placeholder="Enter value..."
+              />
+            </div>
+
+            {conversion.error && (
+              <p className="text-sm font-medium text-destructive animate-in fade-in slide-in-from-top-2">
+                {conversion.error}
+              </p>
+            )}
+          </div>
+        </WidgetCard>
+
+        <WidgetCard title={labels.resultsLabel} className="h-full bg-muted/30">
+          <div className="grid gap-4">
+            {conversion.outputs.map((entry) => (
+              <div
+                key={entry.base}
+                className={`relative overflow-hidden rounded-xl border bg-card p-4 shadow-sm transition-all ${
+                  entry.base === inputBase
+                    ? "ring-2 ring-primary/20 border-primary/50"
+                    : ""
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                    {labels.bases[entry.key]}{" "}
+                    <span className="opacity-50">Base {entry.base}</span>
+                  </span>
+                  {entry.base === inputBase && (
+                    <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                      SOURCE
+                    </span>
+                  )}
+                </div>
+                <p className="font-mono text-xl font-medium tracking-tight break-all">
+                  {entry.display}
+                </p>
+              </div>
+            ))}
+          </div>
+        </WidgetCard>
       </div>
     </div>
   );

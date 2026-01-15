@@ -1,7 +1,12 @@
 "use client";
 
+import { FileText, RefreshCw, Type } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { generateLoremIpsum } from "@/lib/lorem-ipsum";
 
 type Props = {
@@ -23,44 +28,48 @@ export function LoremIpsumTool({ labels }: Props) {
     setOutput(generateLoremIpsum(paragraphs, words));
   };
 
-  const handleCopy = async () => {
-    if (!output) return;
-    await navigator.clipboard.writeText(output);
-  };
-
   return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <NumberField
-          label={labels.paragraphs}
-          value={paragraphs}
-          min={1}
-          max={20}
-          onChange={setParagraphs}
-        />
-        <NumberField
-          label={labels.words}
-          value={words}
-          min={4}
-          max={120}
-          onChange={setWords}
-        />
-        <div className="md:col-span-2 flex items-end justify-end gap-2">
-          <Button variant="default" onClick={handleGenerate}>
-            {labels.generate}
-          </Button>
-          <Button variant="outline" onClick={handleCopy} disabled={!output}>
-            {labels.copy}
-          </Button>
+    <div className="flex flex-col">
+      <StudioToolbar>
+        <div className="flex items-center gap-4">
+          <NumberField
+            label={labels.paragraphs}
+            value={paragraphs}
+            min={1}
+            max={20}
+            onChange={setParagraphs}
+            icon={<FileText className="h-4 w-4" />}
+          />
+          <div className="w-px h-6 bg-border" />
+          <NumberField
+            label={labels.words}
+            value={words}
+            min={4}
+            max={120}
+            onChange={setWords}
+            icon={<Type className="h-4 w-4" />}
+          />
         </div>
-      </div>
 
-      <textarea
-        value={output}
-        readOnly
-        placeholder={labels.placeholder}
-        className="min-h-40 w-full cursor-text rounded-lg border bg-muted/50 p-3 text-sm shadow-inner"
-      />
+        <div className="flex-1" />
+
+        <Button variant="default" size="sm" onClick={handleGenerate}>
+          <RefreshCw className="mr-2 h-4 w-4" />
+          {labels.generate}
+        </Button>
+      </StudioToolbar>
+
+      <StudioPanel
+        title="Generated Text"
+        actions={<CopyButton value={output} label={labels.copy} />}
+      >
+        <textarea
+          value={output}
+          readOnly
+          placeholder={labels.placeholder}
+          className="h-[400px] w-full resize-none rounded-md bg-transparent p-4 text-sm leading-relaxed focus:outline-none text-muted-foreground"
+        />
+      </StudioPanel>
     </div>
   );
 }
@@ -71,22 +80,30 @@ type NumberFieldProps = {
   min: number;
   max: number;
   onChange: (value: number) => void;
+  icon?: React.ReactNode;
 };
 
-function NumberField({ label, value, min, max, onChange }: NumberFieldProps) {
+function NumberField({
+  label,
+  value,
+  min,
+  max,
+  onChange,
+  icon,
+}: NumberFieldProps) {
   return (
-    <div className="space-y-2">
-      <label className="text-sm font-medium text-foreground" htmlFor={label}>
+    <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+        {icon}
         {label}
-      </label>
+      </div>
       <input
-        id={label}
         type="number"
         min={min}
         max={max}
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
-        className="w-full rounded-lg border bg-background px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
+        className="w-16 rounded-md border bg-background px-2 py-1 text-sm text-center font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
       />
     </div>
   );

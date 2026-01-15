@@ -1,9 +1,20 @@
 "use client";
 
+import {
+  ArrowDownAZ,
+  ArrowUpAZ,
+  CaseSensitive,
+  List as ListIcon,
+  Trash2,
+} from "lucide-react";
 import { useMemo, useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { processList, type SortMode } from "@/lib/list-utils";
+import { cn } from "@/lib/utils";
 
 export type ListToolLabels = {
   input: string;
@@ -32,91 +43,86 @@ export function ListDedupSortTool({ labels }: Props) {
     [input, caseSensitive, sortMode],
   );
 
-  const handleCopy = async () => {
-    if (!processed) return;
-    try {
-      await navigator.clipboard.writeText(processed);
-    } catch (error) {
-      console.error("copy error", error);
-    }
-  };
-
   const setSort = (mode: SortMode) => setSortMode(mode);
 
   return (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">
-          {labels.input}
-        </label>
-        <textarea
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder={labels.placeholder}
-          className="min-h-48 w-full rounded-lg border bg-background p-3 text-sm shadow-inner"
-        />
-      </div>
-
-      <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-        <label className="inline-flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={caseSensitive}
-            onChange={(event) => setCaseSensitive(event.target.checked)}
-          />
-          {labels.caseSensitive}
-        </label>
-        <div className="inline-flex flex-wrap items-center gap-2">
-          <span>{labels.sortLabel}</span>
+    <div className="flex flex-col">
+      <StudioToolbar className="h-auto flex-wrap gap-4 py-3">
+        <div className="flex items-center gap-2">
           <Button
-            variant={sortMode === "none" ? "default" : "outline"}
+            variant={sortMode === "none" ? "secondary" : "ghost"}
             size="sm"
             onClick={() => setSort("none")}
           >
+            <ListIcon className="mr-2 h-4 w-4" />
             {labels.original}
           </Button>
           <Button
-            variant={sortMode === "asc" ? "default" : "outline"}
+            variant={sortMode === "asc" ? "secondary" : "ghost"}
             size="sm"
             onClick={() => setSort("asc")}
           >
+            <ArrowDownAZ className="mr-2 h-4 w-4" />
             {labels.sortAsc}
           </Button>
           <Button
-            variant={sortMode === "desc" ? "default" : "outline"}
+            variant={sortMode === "desc" ? "secondary" : "ghost"}
             size="sm"
             onClick={() => setSort("desc")}
           >
+            <ArrowUpAZ className="mr-2 h-4 w-4" />
             {labels.sortDesc}
           </Button>
         </div>
-      </div>
 
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">
-            {labels.result}
-          </label>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={() => setInput("")}>
-              {labels.clear}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleCopy}
-              disabled={!processed}
-            >
-              {labels.copy}
-            </Button>
-          </div>
-        </div>
-        <textarea
-          value={processed}
-          readOnly
-          className="min-h-40 w-full rounded-lg border bg-muted/50 p-3 text-sm shadow-inner"
-        />
-      </div>
+        <div className="w-px h-6 bg-border mx-2 hidden sm:block" />
+
+        <Button
+          variant={caseSensitive ? "secondary" : "ghost"}
+          size="sm"
+          onClick={() => setCaseSensitive(!caseSensitive)}
+        >
+          <CaseSensitive className="mr-2 h-4 w-4" />
+          {labels.caseSensitive}
+        </Button>
+
+        <div className="flex-1" />
+
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setInput("")}
+          className="text-destructive hover:text-destructive"
+        >
+          <Trash2 className="mr-2 h-4 w-4" />
+          {labels.clear}
+        </Button>
+      </StudioToolbar>
+
+      <ToolStudio layout="split">
+        <StudioPanel
+          title={labels.input}
+          actions={<CopyButton value={input} size="icon-sm" variant="ghost" />}
+        >
+          <textarea
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder={labels.placeholder}
+            className="h-[500px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none"
+          />
+        </StudioPanel>
+
+        <StudioPanel
+          title={labels.result}
+          actions={<CopyButton value={processed} label={labels.copy} />}
+        >
+          <textarea
+            value={processed}
+            readOnly
+            className="h-[500px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none text-muted-foreground"
+          />
+        </StudioPanel>
+      </ToolStudio>
     </div>
   );
 }

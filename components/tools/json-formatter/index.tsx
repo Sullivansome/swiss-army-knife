@@ -1,8 +1,12 @@
 "use client";
 
+import { Braces, CheckCircle2, Trash2 } from "lucide-react";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { formatJsonInput, validateJsonInput } from "@/lib/json-formatter";
 
 type Labels = {
@@ -68,76 +72,77 @@ export function JsonFormatterTool({ labels }: Props) {
     setError("");
   };
 
-  const handleCopy = async () => {
-    if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      setStatus(labels.valid);
-    } catch (err) {
-      console.error("copy failed", err);
-    }
-  };
-
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <label className="text-sm font-medium text-foreground">
-            {labels.input}
-          </label>
-          <div className="flex flex-wrap gap-2">
-            <Button variant="outline" size="sm" onClick={handleClear}>
-              {labels.clear}
-            </Button>
-            <Button variant="secondary" size="sm" onClick={handleValidate}>
-              {labels.validate}
-            </Button>
-            <Button variant="default" size="sm" onClick={handleFormat}>
-              {labels.format}
-            </Button>
-          </div>
-        </div>
-        <textarea
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder={labels.placeholder}
-          className="min-h-48 w-full rounded-lg border bg-background p-3 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-foreground">
-            {labels.output}
-          </label>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopy}
-            disabled={!output}
-          >
-            {labels.copy}
+    <div className="flex flex-col">
+      <StudioToolbar>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary" size="sm" onClick={handleFormat}>
+            <Braces className="mr-2 h-4 w-4" />
+            {labels.format}
+          </Button>
+          <Button variant="ghost" size="sm" onClick={handleValidate}>
+            <CheckCircle2 className="mr-2 h-4 w-4" />
+            {labels.validate}
           </Button>
         </div>
-        <textarea
-          value={output}
-          readOnly
-          placeholder={labels.placeholder}
-          className="min-h-48 w-full cursor-text rounded-lg border bg-muted/50 p-3 text-sm font-mono shadow-inner"
-        />
-      </div>
-
-      {status ? (
-        <div className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-200">
-          {status}
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleClear}
+            className="text-destructive hover:text-destructive"
+          >
+            <Trash2 className="mr-2 h-4 w-4" />
+            {labels.clear}
+          </Button>
         </div>
-      ) : null}
+      </StudioToolbar>
 
-      {error ? (
-        <div className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-          {error}
-        </div>
-      ) : null}
+      <ToolStudio>
+        <StudioPanel
+          title={labels.input}
+          actions={<CopyButton value={input} size="icon-sm" variant="ghost" />}
+        >
+          <textarea
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder={labels.placeholder}
+            className="h-[400px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none"
+            spellCheck={false}
+          />
+        </StudioPanel>
+
+        <StudioPanel
+          title={labels.output}
+          actions={<CopyButton value={output} label={labels.copy} />}
+          className={
+            error
+              ? "border-destructive/50 bg-destructive/5"
+              : status
+                ? "border-emerald-500/50 bg-emerald-500/5"
+                : ""
+          }
+        >
+          {error ? (
+            <div className="h-[400px] p-4 text-sm text-destructive font-mono whitespace-pre-wrap">
+              {error}
+            </div>
+          ) : (
+            <textarea
+              value={output}
+              readOnly
+              placeholder={labels.placeholder}
+              className="h-[400px] w-full resize-none rounded-md bg-transparent p-4 font-mono text-sm focus:outline-none text-muted-foreground"
+              spellCheck={false}
+            />
+          )}
+          {status && !error && !output && (
+            <div className="absolute inset-0 flex items-center justify-center text-emerald-600 font-medium">
+              {status}
+            </div>
+          )}
+        </StudioPanel>
+      </ToolStudio>
     </div>
   );
 }

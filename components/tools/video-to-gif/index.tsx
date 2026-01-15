@@ -3,9 +3,12 @@
 /* eslint-disable @next/next/no-img-element */
 
 import type { FFmpeg } from "@ffmpeg/ffmpeg";
+import { Download, Film, Loader2, PlayCircle, Settings2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { FileDropzone } from "@/components/ui/file-dropzone";
+import { WidgetCard } from "@/components/ui/widget-card";
 import { buildFfmpegArgs } from "@/lib/video-to-gif";
 
 export type VideoToGifLabels = {
@@ -42,13 +45,6 @@ export function VideoToGifTool({ labels }: Props) {
       if (output) URL.revokeObjectURL(output);
     };
   }, [output]);
-
-  const handleFile = (files: FileList | null) => {
-    const next = files?.[0];
-    if (!next) return;
-    setFile(next);
-    setOutput("");
-  };
 
   const ensureFfmpeg = async () => {
     if (ffmpegRef.current && fetchFileRef.current) return;
@@ -101,53 +97,111 @@ export function VideoToGifTool({ labels }: Props) {
   };
 
   return (
-    <div className="space-y-4">
-      <label className="flex cursor-pointer flex-col gap-2 text-sm font-medium text-foreground">
-        {labels.upload}
-        <input
-          type="file"
-          accept="video/*"
-          className="hidden"
-          onChange={(event) => handleFile(event.target.files)}
-        />
-        <span className="rounded-lg border px-4 py-2 text-center text-sm text-muted-foreground">
-          {labels.helper}
-        </span>
-      </label>
+    <div className="space-y-8">
+      <div className="grid gap-8 lg:grid-cols-2">
+        <div className="space-y-6">
+          <WidgetCard title="Source Video" className="h-full">
+            <FileDropzone
+              accept="video/*"
+              label={labels.upload}
+              helperText={labels.helper}
+              onFileSelect={(f) => {
+                setFile(f);
+                setOutput("");
+              }}
+              file={file}
+              onClear={() => {
+                setFile(null);
+                setOutput("");
+              }}
+              className="h-64"
+            />
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <Field label={labels.start} value={start} onChange={setStart} />
-        <Field
-          label={labels.duration}
-          value={duration}
-          onChange={setDuration}
-        />
-        <Field label={labels.width} value={width} onChange={setWidth} />
-      </div>
+            <div className="mt-6 space-y-4">
+              <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                <Settings2 className="h-4 w-4" />
+                <span>Conversion Settings</span>
+              </div>
 
-      <div className="flex gap-2">
-        <Button size="sm" onClick={convert} disabled={!file || loading}>
-          {loading ? labels.processing : labels.convert}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={download}
-          disabled={!output}
-        >
-          {labels.download}
-        </Button>
-      </div>
+              <div className="grid grid-cols-3 gap-4">
+                <Field
+                  label={labels.start}
+                  value={start}
+                  onChange={setStart}
+                  suffix="sec"
+                />
+                <Field
+                  label={labels.duration}
+                  value={duration}
+                  onChange={setDuration}
+                  suffix="sec"
+                />
+                <Field
+                  label={labels.width}
+                  value={width}
+                  onChange={setWidth}
+                  suffix="px"
+                />
+              </div>
 
-      {status ? (
-        <p className="text-sm text-muted-foreground">{status}</p>
-      ) : null}
-
-      {output ? (
-        <div className="rounded-xl border bg-muted/30 p-4 text-center">
-          <img src={output} alt="gif" className="mx-auto max-h-80" />
+              <Button
+                size="lg"
+                onClick={convert}
+                disabled={!file || loading}
+                className="w-full"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {labels.processing}
+                  </>
+                ) : (
+                  <>
+                    <Film className="mr-2 h-4 w-4" />
+                    {labels.convert}
+                  </>
+                )}
+              </Button>
+            </div>
+          </WidgetCard>
         </div>
-      ) : null}
+
+        <div className="space-y-6">
+          <WidgetCard
+            title="Output GIF"
+            className="flex h-full flex-col justify-between"
+          >
+            <div className="flex flex-1 items-center justify-center rounded-xl border-2 border-dashed border-muted bg-muted/20 p-8">
+              {output ? (
+                <img
+                  src={output}
+                  alt="gif"
+                  className="max-h-[300px] rounded-lg shadow-sm"
+                />
+              ) : (
+                <div className="text-center text-muted-foreground">
+                  <PlayCircle className="mx-auto mb-2 h-12 w-12 opacity-20" />
+                  <p className="text-sm">Processed GIF will appear here</p>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-6">
+              {status && !output && (
+                <p className="text-center text-sm text-muted-foreground animate-pulse">
+                  {status}
+                </p>
+              )}
+              {output && (
+                <Button onClick={download} variant="default" className="w-full">
+                  <Download className="mr-2 h-4 w-4" />
+                  {labels.download}
+                </Button>
+              )}
+            </div>
+          </WidgetCard>
+        </div>
+      </div>
     </div>
   );
 }
@@ -156,19 +210,29 @@ type FieldProps = {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  suffix?: string;
 };
 
-function Field({ label, value, onChange }: FieldProps) {
+function Field({ label, value, onChange, suffix }: FieldProps) {
   return (
-    <div className="space-y-1">
-      <label className="text-sm font-medium text-foreground">{label}</label>
-      <input
-        type="number"
-        min={0}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="w-full rounded-lg border bg-background px-3 py-2 text-sm"
-      />
+    <div className="space-y-1.5">
+      <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+        {label}
+      </label>
+      <div className="relative">
+        <input
+          type="number"
+          min={0}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          className="w-full rounded-lg border bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+        />
+        {suffix && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground pointer-events-none">
+            {suffix}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

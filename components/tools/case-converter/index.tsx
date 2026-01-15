@@ -1,8 +1,12 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
+import { StudioPanel } from "@/components/ui/studio/studio-panel";
+import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
+import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { type CaseStyle, convertCase } from "@/lib/text";
 
 type Props = {
@@ -38,11 +42,6 @@ export function CaseConverterTool({ labels }: Props) {
     setOutput(convertCase(text, style));
   };
 
-  const handleCopy = async () => {
-    if (!output) return;
-    await navigator.clipboard.writeText(output);
-  };
-
   const handleReset = () => {
     setText("");
     setOutput("");
@@ -58,65 +57,57 @@ export function CaseConverterTool({ labels }: Props) {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <label
-          className="text-sm font-medium text-foreground"
-          htmlFor="case-input"
-        >
-          {labels.input}
-        </label>
+    <div className="flex flex-col">
+      <StudioToolbar className="flex-wrap h-auto py-3">
+        <div className="flex flex-wrap gap-2 flex-1">
+          {order.map((style) => (
+            <Button
+              key={style}
+              variant="secondary"
+              size="sm"
+              onClick={() => handleConvert(style)}
+              disabled={!text}
+            >
+              {labelMap[style]}
+            </Button>
+          ))}
+        </div>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           onClick={handleReset}
-          disabled={!text && !output}
+          className="text-destructive hover:text-destructive shrink-0"
         >
+          <Trash2 className="mr-2 h-4 w-4" />
           {labels.reset}
         </Button>
-      </div>
-      <textarea
-        id="case-input"
-        value={text}
-        onChange={(event) => setText(event.target.value)}
-        placeholder={labels.placeholder}
-        className="min-h-36 w-full rounded-lg border bg-background p-3 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-ring"
-      />
+      </StudioToolbar>
 
-      <div className="flex flex-wrap gap-2">
-        {order.map((style) => (
-          <Button
-            key={style}
-            variant="outline"
-            size="sm"
-            onClick={() => handleConvert(style)}
-            disabled={!text}
-          >
-            {labelMap[style]}
-          </Button>
-        ))}
-      </div>
+      <ToolStudio layout="split">
+        <StudioPanel
+          title={labels.input}
+          actions={<CopyButton value={text} size="icon-sm" variant="ghost" />}
+        >
+          <textarea
+            id="case-input"
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+            placeholder={labels.placeholder}
+            className="h-[400px] w-full resize-none rounded-md bg-transparent p-4 text-sm focus:outline-none"
+          />
+        </StudioPanel>
 
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-foreground">
-            {labels.output}
-          </span>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopy}
-            disabled={!output}
-          >
-            {labels.copy}
-          </Button>
-        </div>
-        <textarea
-          value={output}
-          readOnly
-          className="min-h-32 w-full cursor-text rounded-lg border bg-muted/50 p-3 text-sm shadow-inner"
-        />
-      </div>
+        <StudioPanel
+          title={labels.output}
+          actions={<CopyButton value={output} label={labels.copy} />}
+        >
+          <textarea
+            value={output}
+            readOnly
+            className="h-[400px] w-full resize-none rounded-md bg-transparent p-4 text-sm focus:outline-none text-muted-foreground"
+          />
+        </StudioPanel>
+      </ToolStudio>
     </div>
   );
 }
