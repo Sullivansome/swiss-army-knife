@@ -1,0 +1,21 @@
+{
+  "name": "LaTeX to Image",
+  "description": "Convert LaTeX math equations to PNG/SVG images with live preview.",
+  "input": "LaTeX Input",
+  "preview": "Preview",
+  "placeholder": "Enter LaTeX equation, e.g. \\frac{a}{b}",
+  "examples": "Examples",
+  "textColor": "Text",
+  "bgColor": "Background",
+  "scale": "Scale",
+  "copy": "Copy",
+  "copySuccess": "Copied!",
+  "downloadPng": "PNG",
+  "downloadSvg": "SVG",
+  "history": "History",
+  "clearHistory": "Clear history",
+  "error": "Invalid LaTeX",
+  "darkMode": "Toggle dark preview",
+  "emptyPreview": "Enter a LaTeX equation to preview",
+  "transparent": "Transparent"
+}

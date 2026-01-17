@@ -1,0 +1,21 @@
+{
+  "name": "LaTeX 转图片",
+  "description": "将 LaTeX 数学公式转换为 PNG/SVG 图片，支持实时预览。",
+  "input": "LaTeX 输入",
+  "preview": "预览",
+  "placeholder": "输入 LaTeX 公式，例如 \\frac{a}{b}",
+  "examples": "示例",
+  "textColor": "文字",
+  "bgColor": "背景",
+  "scale": "缩放",
+  "copy": "复制",
+  "copySuccess": "已复制!",
+  "downloadPng": "PNG",
+  "downloadSvg": "SVG",
+  "history": "历史",
+  "clearHistory": "清空历史",
+  "error": "无效的 LaTeX",
+  "darkMode": "切换深色预览",
+  "emptyPreview": "输入 LaTeX 公式以预览",
+  "transparent": "透明"
+}
