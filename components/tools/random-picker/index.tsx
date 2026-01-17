@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { buildGroups, parseEntries, pickWinners } from "@/lib/random-picker";
@@ -39,7 +39,7 @@ export function RandomPickerTool({ labels }: Props) {
 
   const entries = useMemo(() => parseEntries(input), [input]);
 
-  const run = () => {
+  const run = useCallback(() => {
     if (!entries.length) {
       setStatus(labels.error);
       return;
@@ -52,22 +52,22 @@ export function RandomPickerTool({ labels }: Props) {
       setWinners([]);
     }
     setStatus("");
-  };
+  }, [entries, mode, winnerCount, groupSize, labels.error]);
 
-  const copyResult = async (text: string) => {
+  const copyResult = useCallback(async (text: string) => {
     if (!text) return;
     try {
       await navigator.clipboard.writeText(text);
     } catch (error) {
       console.error("copy", error);
     }
-  };
+  }, []);
 
-  const clear = () => {
+  const clear = useCallback(() => {
     setInput("");
     setWinners([]);
     setGroups([]);
-  };
+  }, []);
 
   return (
     <div className="space-y-4">
@@ -137,7 +137,7 @@ export function RandomPickerTool({ labels }: Props) {
 
       {status ? <p className="text-sm text-destructive">{status}</p> : null}
 
-      {winners.length ? (
+      {winners.length > 0 ? (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-foreground">
@@ -159,7 +159,7 @@ export function RandomPickerTool({ labels }: Props) {
         </div>
       ) : null}
 
-      {groups.length ? (
+      {groups.length > 0 ? (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-foreground">

@@ -7,7 +7,7 @@ let toolLoaders: Record<string, () => Promise<ToolModule>> = {};
 
 export function setRegistry(
   registry: Record<string, ToolMeta>,
-  loaders: Record<string, () => Promise<ToolModule>>
+  loaders: Record<string, () => Promise<ToolModule>>,
 ) {
   toolRegistry = registry;
   toolLoaders = loaders;

@@ -228,11 +228,11 @@ export function ImageCompressorTool({ labels }: Props) {
               )}
             </div>
 
-            {status && !result && (
+            {status && !result ? (
               <p className="mt-4 text-center text-sm text-muted-foreground animate-pulse">
                 {status}
               </p>
-            )}
+            ) : null}
           </WidgetCard>
         </div>
       </div>

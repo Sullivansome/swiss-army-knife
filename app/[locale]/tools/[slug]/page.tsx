@@ -1,14 +1,17 @@
 // app/[locale]/tools/[slug]/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-
-import { ToolShell } from "@/components/tool-shell";
 import { ToolJsonLd } from "@/components/tool-json-ld";
+import { ToolShell } from "@/components/tool-shell";
 import { getDictionary } from "@/lib/dictionaries";
 import { clientEnv } from "@/lib/env";
-import { assertLocale, locales } from "@/lib/i18n-config";
-import { toolRegistry, toolLoaders, toolSlugs } from "@/lib/generated/tool-registry";
 import { getToolLabels } from "@/lib/generated/tool-i18n";
+import {
+  toolLoaders,
+  toolRegistry,
+  toolSlugs,
+} from "@/lib/generated/tool-registry";
+import { assertLocale, locales } from "@/lib/i18n-config";
 import type { ToolLabels } from "@/lib/tool-types";
 
 type Props = {
@@ -17,7 +20,7 @@ type Props = {
 
 export async function generateStaticParams() {
   return toolSlugs.flatMap((slug) =>
-    locales.map((locale) => ({ slug, locale }))
+    locales.map((locale) => ({ slug, locale })),
   );
 }
 
@@ -62,7 +65,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // Helper to get tool-specific labels from the old dictionary
-function getToolSpecificLabels(dict: Record<string, unknown>, slug: string): Record<string, unknown> {
+function getToolSpecificLabels(
+  dict: Record<string, unknown>,
+  slug: string,
+): Record<string, unknown> {
   // Manual mappings for tools with non-standard dictionary keys
   const manualMappings: Record<string, string> = {
     "finance-essentials": "financeToolkit",
@@ -81,11 +87,17 @@ function getToolSpecificLabels(dict: Record<string, unknown>, slug: string): Rec
 
   // Also try common variations - some tools use abbreviated keys
   // e.g., "family-relation-calculator" -> "familyRelation"
-  const shortKey = camelKey.replace(/Calculator$|Tool$|Generator$|Converter$|Checker$|Viewer$|Inspector$|Explainer$|Compressor$|Preview$|Picker$|Formatter$|Cleaner$|Summary$|Planner$|Essentials$/i, "");
+  const shortKey = camelKey.replace(
+    /Calculator$|Tool$|Generator$|Converter$|Checker$|Viewer$|Inspector$|Explainer$|Compressor$|Preview$|Picker$|Formatter$|Cleaner$|Summary$|Planner$|Essentials$/i,
+    "",
+  );
 
   // For "international-temperature-converter" -> try "temperatureConverter"
   const parts = slug.split("-");
-  const lastTwoParts = parts.slice(-2).join("-").replace(/-./g, (x) => x[1].toUpperCase());
+  const lastTwoParts = parts
+    .slice(-2)
+    .join("-")
+    .replace(/-./g, (x) => x[1].toUpperCase());
 
   // Try various keys in the dictionary
   const candidates = [
@@ -130,7 +142,10 @@ export default async function ToolPage({ params }: Props) {
   }
 
   // Merge new labels with old dictionary labels for backward compatibility
-  const toolSpecificLabels = getToolSpecificLabels(dict as Record<string, unknown>, slug);
+  const toolSpecificLabels = getToolSpecificLabels(
+    dict as Record<string, unknown>,
+    slug,
+  );
   const labels = {
     ...newLabels,
     ...toolSpecificLabels,

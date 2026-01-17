@@ -39,12 +39,28 @@ export function TemperatureConverterTool({
   units: unitsProp,
 }: TemperatureConverterProps) {
   // Derive units from labels.units if unitsProp not provided
-  const units = unitsProp ?? (labels.units ? [
-    { value: "celsius" as TemperatureUnit, label: labels.units.celsius ?? "Celsius" },
-    { value: "fahrenheit" as TemperatureUnit, label: labels.units.fahrenheit ?? "Fahrenheit" },
-    { value: "kelvin" as TemperatureUnit, label: labels.units.kelvin ?? "Kelvin" },
-    { value: "rankine" as TemperatureUnit, label: labels.units.rankine ?? "Rankine" },
-  ] : DEFAULT_UNITS);
+  const units =
+    unitsProp ??
+    (labels.units
+      ? [
+          {
+            value: "celsius" as TemperatureUnit,
+            label: labels.units.celsius ?? "Celsius",
+          },
+          {
+            value: "fahrenheit" as TemperatureUnit,
+            label: labels.units.fahrenheit ?? "Fahrenheit",
+          },
+          {
+            value: "kelvin" as TemperatureUnit,
+            label: labels.units.kelvin ?? "Kelvin",
+          },
+          {
+            value: "rankine" as TemperatureUnit,
+            label: labels.units.rankine ?? "Rankine",
+          },
+        ]
+      : DEFAULT_UNITS);
 
   const [input, setInput] = useState("0");
   const [fromUnit, setFromUnit] = useState<TemperatureUnit>(

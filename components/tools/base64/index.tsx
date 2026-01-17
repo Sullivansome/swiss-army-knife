@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRightLeft, FileCode, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CopyButton } from "@/components/ui/copy-button";
 import { StudioPanel } from "@/components/ui/studio/studio-panel";
@@ -30,7 +30,7 @@ export function Base64Tool({ labels }: Props) {
   const [error, setError] = useState("");
   const [mode, setMode] = useState<"encode" | "decode">("encode");
 
-  const handleAction = () => {
+  const handleAction = useCallback(() => {
     try {
       if (mode === "encode") {
         setOutput(encodeBase64(input));
@@ -42,20 +42,20 @@ export function Base64Tool({ labels }: Props) {
       console.error(err);
       setError(labels.error);
     }
-  };
+  }, [input, mode, labels.error]);
 
-  const handleClear = () => {
+  const handleClear = useCallback(() => {
     setInput("");
     setOutput("");
     setError("");
-  };
+  }, []);
 
-  const toggleMode = () => {
-    setMode(mode === "encode" ? "decode" : "encode");
+  const toggleMode = useCallback(() => {
+    setMode((prevMode) => (prevMode === "encode" ? "decode" : "encode"));
     setInput(output);
     setOutput("");
     setError("");
-  };
+  }, [output]);
 
   return (
     <div className="flex flex-col">

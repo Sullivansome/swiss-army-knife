@@ -2,9 +2,9 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 import { serverEnv } from "./lib/env";
+import { toolSlugs } from "./lib/generated/tool-registry";
 import { defaultLocale, locales } from "./lib/i18n-config";
 import { resolveToolSubdomain } from "./lib/subdomain";
-import { toolSlugs } from "./lib/generated/tool-registry";
 
 export function proxy(request: NextRequest) {
   const toolSlug = resolveToolSubdomain(request.headers.get("host"), {

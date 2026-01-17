@@ -129,7 +129,10 @@ export const toolRegistry: Record<string, ToolMeta> = ${JSON.stringify(tools, nu
 // Dynamic loaders for each tool - returns the module with default export
 export const toolLoaders = {
 ${Object.keys(tools)
-  .map((slug) => `  "${slug}": () => import("../../components/tools/${slug}/index"),`)
+  .map(
+    (slug) =>
+      `  "${slug}": () => import("../../components/tools/${slug}/index"),`,
+  )
   .join("\n")}
 } as const;
 
@@ -138,7 +141,7 @@ export const toolSlugs = Object.keys(toolRegistry);
 
   fs.writeFileSync(
     path.join(GENERATED_DIR, "tool-registry.ts"),
-    registryContent
+    registryContent,
   );
 
   // Generate tool-i18n.ts

@@ -2,11 +2,17 @@
 
 import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  startTransition,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import type { Dictionary } from "@/lib/dictionaries";
-import { type ToolCategory } from "@/lib/tool-types";
 import { toolRegistry } from "@/lib/generated/tool-registry";
+import type { ToolCategory } from "@/lib/tool-types";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import {
@@ -161,17 +167,26 @@ export function ToolSearch({
       .filter((group) => group.items.length > 0);
   }, [grouped, normalizedQuery, scoreTool]);
 
-  const handleOpenChange = (nextOpen: boolean) => {
+  const handleOpenChange = useCallback((nextOpen: boolean) => {
     setOpen(nextOpen);
     if (!nextOpen) {
       setSearchValue("");
     }
-  };
+  }, []);
 
-  const handleSelect = (slug: string) => {
-    handleOpenChange(false);
-    router.push(`/${locale}/tools/${slug}`);
-  };
+  const handleSelect = useCallback(
+    (slug: string) => {
+      handleOpenChange(false);
+      router.push(`/${locale}/tools/${slug}`);
+    },
+    [handleOpenChange, locale, router],
+  );
+
+  const handleSearchChange = useCallback((value: string) => {
+    startTransition(() => {
+      setSearchValue(value);
+    });
+  }, []);
 
   return (
     <div className={cn("w-full", className)}>
@@ -200,7 +215,7 @@ export function ToolSearch({
       >
         <CommandInput
           value={searchValue}
-          onValueChange={setSearchValue}
+          onValueChange={handleSearchChange}
           placeholder={layout.searchPlaceholder}
         />
         <CommandList>

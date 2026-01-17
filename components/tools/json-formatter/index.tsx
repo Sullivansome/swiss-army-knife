@@ -136,11 +136,11 @@ export function JsonFormatterTool({ labels }: Props) {
               spellCheck={false}
             />
           )}
-          {status && !error && !output && (
+          {status && !error && !output ? (
             <div className="absolute inset-0 flex items-center justify-center text-emerald-600 font-medium">
               {status}
             </div>
-          )}
+          ) : null}
         </StudioPanel>
       </ToolStudio>
     </div>

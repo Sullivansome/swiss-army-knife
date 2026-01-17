@@ -1,33 +1,21 @@
 "use client";
 
-import {
-  CategoryScale,
-  Chart,
-  Legend,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Tooltip,
-} from "chart.js";
 import { Calendar, DollarSign, PiggyBank, TrendingUp } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
-import { Line } from "react-chartjs-2";
 import { WidgetCard, WidgetStat } from "@/components/ui/widget-card";
 
 import { calculateFinanceSummary } from "@/lib/finance";
 
-let chartRegistered = false;
-if (!chartRegistered) {
-  Chart.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Tooltip,
-    Legend,
-  );
-  chartRegistered = true;
-}
+const FinanceChart = dynamic(
+  () => import("./finance-chart").then((mod) => mod.FinanceChart),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[400px] w-full animate-pulse rounded-lg bg-muted" />
+    ),
+  },
+);
 
 export type FinanceCalculatorLabels = {
   principal: string;
@@ -53,30 +41,6 @@ export function FinanceCalculatorTool({ labels }: Props) {
     () => calculateFinanceSummary(principal, monthly, rate, years),
     [principal, monthly, rate, years],
   );
-
-  const data = useMemo(() => {
-    return {
-      labels: summary.points.map((point) => `${point.year}`),
-      datasets: [
-        {
-          label: labels.totalContributions,
-          data: summary.points.map((point) => point.contributed),
-          borderColor: "#0ea5e9",
-          backgroundColor: "rgba(14,165,233,0.15)",
-          tension: 0.3,
-          fill: true,
-        },
-        {
-          label: labels.chartTitle,
-          data: summary.points.map((point) => point.balance),
-          borderColor: "#22c55e",
-          backgroundColor: "rgba(34,197,94,0.1)",
-          tension: 0.3,
-          fill: true,
-        },
-      ],
-    };
-  }, [summary.points, labels.totalContributions, labels.chartTitle]);
 
   return (
     <div className="space-y-8">
@@ -141,46 +105,11 @@ export function FinanceCalculatorTool({ labels }: Props) {
       </div>
 
       <WidgetCard className="p-4 sm:p-8">
-        <div className="h-[400px] w-full">
-          <Line
-            data={data}
-            options={{
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: "top",
-                  align: "end",
-                  labels: { boxWidth: 10, usePointStyle: true },
-                },
-                tooltip: {
-                  mode: "index",
-                  intersect: false,
-                  backgroundColor: "rgba(0,0,0,0.8)",
-                  padding: 12,
-                  cornerRadius: 8,
-                },
-              },
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  grid: { color: "rgba(0,0,0,0.05)" },
-                  ticks: {
-                    callback: (value) => `$${Number(value).toLocaleString()}`,
-                  },
-                },
-                x: {
-                  grid: { display: false },
-                },
-              },
-              interaction: {
-                mode: "nearest",
-                axis: "x",
-                intersect: false,
-              },
-            }}
-          />
-        </div>
+        <FinanceChart
+          points={summary.points}
+          contributionsLabel={labels.totalContributions}
+          balanceLabel={labels.chartTitle}
+        />
       </WidgetCard>
     </div>
   );
@@ -220,11 +149,11 @@ function Field({
           onChange={(event) => onChange(Number(event.target.value))}
           className="w-full rounded-lg border bg-background px-3 py-2 text-lg font-medium shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
-        {suffix && (
+        {suffix ? (
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground pointer-events-none">
             {suffix}
           </span>
-        )}
+        ) : null}
       </div>
     </div>
   );

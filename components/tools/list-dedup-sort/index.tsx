@@ -7,14 +7,13 @@ import {
   List as ListIcon,
   Trash2,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CopyButton } from "@/components/ui/copy-button";
 import { StudioPanel } from "@/components/ui/studio/studio-panel";
 import { StudioToolbar } from "@/components/ui/studio/studio-toolbar";
 import { ToolStudio } from "@/components/ui/studio/tool-studio";
 import { processList, type SortMode } from "@/lib/list-utils";
-import { cn } from "@/lib/utils";
 
 export type ListToolLabels = {
   input: string;
@@ -43,7 +42,14 @@ export function ListDedupSortTool({ labels }: Props) {
     [input, caseSensitive, sortMode],
   );
 
-  const setSort = (mode: SortMode) => setSortMode(mode);
+  const setSort = useCallback((mode: SortMode) => setSortMode(mode), []);
+
+  const handleClear = useCallback(() => setInput(""), []);
+
+  const toggleCaseSensitive = useCallback(
+    () => setCaseSensitive((prev) => !prev),
+    [],
+  );
 
   return (
     <div className="flex flex-col">
@@ -80,7 +86,7 @@ export function ListDedupSortTool({ labels }: Props) {
         <Button
           variant={caseSensitive ? "secondary" : "ghost"}
           size="sm"
-          onClick={() => setCaseSensitive(!caseSensitive)}
+          onClick={toggleCaseSensitive}
         >
           <CaseSensitive className="mr-2 h-4 w-4" />
           {labels.caseSensitive}
@@ -91,7 +97,7 @@ export function ListDedupSortTool({ labels }: Props) {
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => setInput("")}
+          onClick={handleClear}
           className="text-destructive hover:text-destructive"
         >
           <Trash2 className="mr-2 h-4 w-4" />

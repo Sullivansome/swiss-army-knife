@@ -187,17 +187,17 @@ export function VideoToGifTool({ labels }: Props) {
             </div>
 
             <div className="mt-6">
-              {status && !output && (
+              {status && !output ? (
                 <p className="text-center text-sm text-muted-foreground animate-pulse">
                   {status}
                 </p>
-              )}
-              {output && (
+              ) : null}
+              {output ? (
                 <Button onClick={download} variant="default" className="w-full">
                   <Download className="mr-2 h-4 w-4" />
                   {labels.download}
                 </Button>
-              )}
+              ) : null}
             </div>
           </WidgetCard>
         </div>
@@ -227,11 +227,11 @@ function Field({ label, value, onChange, suffix }: FieldProps) {
           onChange={(event) => onChange(event.target.value)}
           className="w-full rounded-lg border bg-background px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
         />
-        {suffix && (
+        {suffix ? (
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground pointer-events-none">
             {suffix}
           </span>
-        )}
+        ) : null}
       </div>
     </div>
   );

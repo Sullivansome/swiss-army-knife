@@ -8,7 +8,7 @@
 - **Gen Registry**: `bun run generate` (Run after adding new tools)
 
 ## Architecture
-- **Framework**: Next.js 15 (App Router) + Bun + TailwindCSS
+- **Framework**: Next.js 16 (App Router) + Bun + TailwindCSS
 - **Structure**:
   - `app/[locale]/tools/[slug]`: Page routes (Server Components)
   - `components/tools/[slug]/index.tsx`: Tool logic (Client Components)

@@ -39,6 +39,14 @@ export function PasswordGeneratorTool({ labels }: Props) {
       useSymbols: symbols,
     });
     setPassword(pass);
+
+    // Auto-copy to clipboard
+    try {
+      await navigator.clipboard.writeText(pass);
+      toast.success("Password copied to clipboard");
+    } catch {
+      // Clipboard API may fail in some contexts, silently ignore
+    }
   };
 
   return (

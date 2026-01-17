@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 import { getDictionary } from "@/lib/dictionaries";
-import { assertLocale } from "@/lib/i18n-config";
-import { type ToolCategory } from "@/lib/tool-types";
 import { toolRegistry } from "@/lib/generated/tool-registry";
+import { assertLocale } from "@/lib/i18n-config";
+import type { ToolCategory } from "@/lib/tool-types";
 
 type Props = {
   params: Promise<{ locale: string }>;

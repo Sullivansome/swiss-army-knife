@@ -1,7 +1,7 @@
 // app/sitemap.ts
 import { clientEnv } from "@/lib/env";
-import { locales } from "@/lib/i18n-config";
 import { toolRegistry } from "@/lib/generated/tool-registry";
+import { locales } from "@/lib/i18n-config";
 
 export default function sitemap() {
   const base = clientEnv.NEXT_PUBLIC_BASE_URL.replace(/\/$/, "");
@@ -30,7 +30,7 @@ export default function sitemap() {
         lastmod: now,
         changefreq: "monthly" as const,
         priority: 0.8,
-      }))
+      })),
     ),
   ];
 }

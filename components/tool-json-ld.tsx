@@ -1,6 +1,6 @@
 // components/tool-json-ld.tsx
 import { clientEnv } from "@/lib/env";
-import type { ToolMeta, ToolLabels } from "@/lib/tool-types";
+import type { ToolLabels, ToolMeta } from "@/lib/tool-types";
 
 type Props = {
   tool: ToolMeta;

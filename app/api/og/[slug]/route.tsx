@@ -20,55 +20,53 @@ export async function GET(req: Request, { params }: Props) {
   }
 
   return new ImageResponse(
-    (
-      <div
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#0a0a0a",
+        color: "#fafafa",
+        padding: 60,
+        fontFamily: "system-ui, sans-serif",
+      }}
+    >
+      <h1
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "#0a0a0a",
-          color: "#fafafa",
-          padding: 60,
-          fontFamily: "system-ui, sans-serif",
+          fontSize: 64,
+          fontWeight: 700,
+          marginBottom: 20,
+          textAlign: "center",
         }}
       >
-        <h1
-          style={{
-            fontSize: 64,
-            fontWeight: 700,
-            marginBottom: 20,
-            textAlign: "center",
-          }}
-        >
-          {labels.name as string}
-        </h1>
-        <p
-          style={{
-            fontSize: 32,
-            opacity: 0.8,
-            textAlign: "center",
-            maxWidth: "80%",
-          }}
-        >
-          {labels.description as string}
-        </p>
-        <span
-          style={{
-            fontSize: 24,
-            marginTop: 40,
-            opacity: 0.6,
-          }}
-        >
-          Tool Center
-        </span>
-      </div>
-    ),
+        {labels.name as string}
+      </h1>
+      <p
+        style={{
+          fontSize: 32,
+          opacity: 0.8,
+          textAlign: "center",
+          maxWidth: "80%",
+        }}
+      >
+        {labels.description as string}
+      </p>
+      <span
+        style={{
+          fontSize: 24,
+          marginTop: 40,
+          opacity: 0.6,
+        }}
+      >
+        Tool Center
+      </span>
+    </div>,
     {
       width: 1200,
       height: 630,
-    }
+    },
   );
 }

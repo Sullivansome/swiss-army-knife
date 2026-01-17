@@ -53,7 +53,9 @@ function validateTool(folder: string): ValidationResult | null {
   if (!slugMatch) {
     result.errors.push("meta.ts missing slug");
   } else if (slugMatch[1] !== folder) {
-    result.errors.push(`meta.ts slug "${slugMatch[1]}" doesn't match folder "${folder}"`);
+    result.errors.push(
+      `meta.ts slug "${slugMatch[1]}" doesn't match folder "${folder}"`,
+    );
   }
 
   const categoryMatch = metaContent.match(/category:\s*["']([^"']+)["']/);

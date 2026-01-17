@@ -1,4 +1,4 @@
-import { toolSlugs, toolRegistry } from "@/lib/generated/tool-registry";
+import { toolRegistry, toolSlugs } from "@/lib/generated/tool-registry";
 
 describe("tools catalog", () => {
   const conversionTools = [

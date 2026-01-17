@@ -86,19 +86,26 @@ export function FileDropzone({
     );
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      inputRef.current?.click();
+    }
+  };
+
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-    <div
+    <button
+      type="button"
       onClick={() => inputRef.current?.click()}
+      onKeyDown={handleKeyDown}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        "cursor-pointer rounded-xl border-2 border-dashed border-muted-foreground/25 bg-muted/5 p-10 transition-all hover:border-primary/50 hover:bg-muted/10",
+        "w-full cursor-pointer rounded-xl border-2 border-dashed border-muted-foreground/25 bg-muted/5 p-10 transition-all hover:border-primary/50 hover:bg-muted/10",
         isDragging && "border-primary bg-primary/5 ring-4 ring-primary/10",
         className,
       )}
-      {...props}
     >
       <input
         ref={inputRef}
@@ -116,6 +123,6 @@ export function FileDropzone({
           <p className="text-sm text-muted-foreground">{helperText}</p>
         </div>
       </div>
-    </div>
+    </button>
   );
 }

@@ -12,7 +12,9 @@ function createTool(slug: string): void {
 
   // Validate slug format
   if (!/^[a-z0-9-]+$/.test(slug)) {
-    console.error("Error: Slug must be lowercase alphanumeric with hyphens only");
+    console.error(
+      "Error: Slug must be lowercase alphanumeric with hyphens only",
+    );
     process.exit(1);
   }
 
@@ -71,7 +73,7 @@ export default function ${toPascalCase(slug)}Tool({ labels }: Props) {
   };
   fs.writeFileSync(
     path.join(i18nDir, "en.json"),
-    JSON.stringify(enContent, null, 2)
+    JSON.stringify(enContent, null, 2),
   );
 
   // Create i18n/zh.json
@@ -81,7 +83,7 @@ export default function ${toPascalCase(slug)}Tool({ labels }: Props) {
   };
   fs.writeFileSync(
     path.join(i18nDir, "zh.json"),
-    JSON.stringify(zhContent, null, 2)
+    JSON.stringify(zhContent, null, 2),
   );
 
   console.log(`Created tool scaffold at: ${toolDir}`);
