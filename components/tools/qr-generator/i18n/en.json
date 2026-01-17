@@ -1,4 +1,64 @@
 {
   "name": "QR Code Generator",
-  "description": "Create QR codes locally from text or URLs."
+  "description": "Create QR codes locally from text, URLs, WiFi, Email, SMS, or Phone.",
+  "input": "Content",
+  "size": "Preview Size",
+  "download": "Download QR Code",
+  "placeholder": "Enter URL or text...",
+  "contentType": {
+    "label": "Content Type",
+    "url": "URL",
+    "text": "Text",
+    "wifi": "WiFi",
+    "email": "Email",
+    "sms": "SMS",
+    "phone": "Phone"
+  },
+  "wifi": {
+    "ssid": "Network Name",
+    "ssidPlaceholder": "MyWiFi",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "encryption": "Security",
+    "wpa": "WPA/WPA2",
+    "wep": "WEP",
+    "none": "None",
+    "hidden": "Hidden Network"
+  },
+  "email": {
+    "address": "Email Address",
+    "addressPlaceholder": "hello@example.com",
+    "subject": "Subject (optional)",
+    "body": "Message (optional)"
+  },
+  "sms": {
+    "phone": "Phone Number",
+    "phonePlaceholder": "+1 234 567 8900",
+    "message": "Message (optional)"
+  },
+  "phone": {
+    "number": "Phone Number",
+    "placeholder": "+1 234 567 8900"
+  },
+  "url": {
+    "placeholder": "https://example.com"
+  },
+  "text": {
+    "placeholder": "Enter any text..."
+  },
+  "export": {
+    "format": "Format",
+    "size": "Size",
+    "downloading": "Downloading..."
+  },
+  "contrast": {
+    "warning": "Low contrast may affect scanning"
+  },
+  "validation": {
+    "enterValidUrl": "Please enter a valid URL",
+    "enterValidEmail": "Please enter a valid email address",
+    "enterValidPhone": "Please enter a valid phone number",
+    "ssidRequired": "Network name is required",
+    "passwordRequired": "Password is required for secured networks"
+  }
 }

@@ -1,4 +1,64 @@
 {
   "name": "二维码生成器",
-  "description": "在本地生成文本或链接的二维码。"
+  "description": "在本地生成文本、链接、WiFi、邮件、短信或电话的二维码。",
+  "input": "内容",
+  "size": "预览尺寸",
+  "download": "下载二维码",
+  "placeholder": "输入链接或文本...",
+  "contentType": {
+    "label": "内容类型",
+    "url": "链接",
+    "text": "文本",
+    "wifi": "WiFi",
+    "email": "邮件",
+    "sms": "短信",
+    "phone": "电话"
+  },
+  "wifi": {
+    "ssid": "网络名称",
+    "ssidPlaceholder": "我的WiFi",
+    "password": "密码",
+    "passwordPlaceholder": "输入密码",
+    "encryption": "安全类型",
+    "wpa": "WPA/WPA2",
+    "wep": "WEP",
+    "none": "无",
+    "hidden": "隐藏网络"
+  },
+  "email": {
+    "address": "邮箱地址",
+    "addressPlaceholder": "hello@example.com",
+    "subject": "主题（可选）",
+    "body": "正文（可选）"
+  },
+  "sms": {
+    "phone": "电话号码",
+    "phonePlaceholder": "+86 123 4567 8900",
+    "message": "短信内容（可选）"
+  },
+  "phone": {
+    "number": "电话号码",
+    "placeholder": "+86 123 4567 8900"
+  },
+  "url": {
+    "placeholder": "https://example.com"
+  },
+  "text": {
+    "placeholder": "输入任意文本..."
+  },
+  "export": {
+    "format": "格式",
+    "size": "尺寸",
+    "downloading": "下载中..."
+  },
+  "contrast": {
+    "warning": "对比度过低可能影响扫码"
+  },
+  "validation": {
+    "enterValidUrl": "请输入有效的链接",
+    "enterValidEmail": "请输入有效的邮箱地址",
+    "enterValidPhone": "请输入有效的电话号码",
+    "ssidRequired": "请输入网络名称",
+    "passwordRequired": "加密网络需要输入密码"
+  }
 }
