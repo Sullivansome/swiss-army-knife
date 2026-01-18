@@ -4,7 +4,25 @@ import * as path from "path";
 
 const TOOLS_DIR = path.join(process.cwd(), "components/tools");
 const GENERATED_DIR = path.join(process.cwd(), "lib/generated");
+const TOOLS_CONFIG_PATH = path.join(process.cwd(), "tools.config.json");
 const LOCALES = ["en", "zh"];
+
+type ToolConfig = { enabled?: boolean };
+type ToolsConfig = { tools?: Record<string, ToolConfig> };
+
+function loadToolsConfig(): ToolsConfig {
+  if (!fs.existsSync(TOOLS_CONFIG_PATH)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(TOOLS_CONFIG_PATH, "utf-8"));
+  } catch {
+    console.warn("Warning: invalid tools.config.json; ignoring");
+    return {};
+  }
+}
+
+function isToolEnabled(slug: string, config: ToolsConfig): boolean {
+  return config.tools?.[slug]?.enabled !== false;
+}
 
 type ToolMeta = {
   slug: string;
@@ -90,6 +108,7 @@ function loadToolTranslations(folder: string): ToolTranslations {
 }
 
 function generateRegistry(): void {
+  const config = loadToolsConfig();
   const folders = getToolFolders();
   const tools: Record<string, ToolMeta> = {};
   const allTranslations: Record<string, Record<string, unknown>> = {};
@@ -103,6 +122,12 @@ function generateRegistry(): void {
     // Check if this is a new-style plugin (has meta.ts)
     const meta = loadToolMeta(folder);
     if (!meta) continue;
+
+    // Skip disabled tools
+    if (!isToolEnabled(meta.slug, config)) {
+      console.log(`⏭️  Skipping disabled tool: ${meta.slug}`);
+      continue;
+    }
 
     tools[meta.slug] = meta;
 

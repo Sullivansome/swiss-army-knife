@@ -18,6 +18,8 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return toolSlugs.flatMap((slug) =>
     locales.map((locale) => ({ slug, locale })),
