@@ -1,4 +1,36 @@
 {
-  "name": "随机抽奖/分组",
-  "description": "抽取中奖名单或随机分组。"
+  "name": "随机抽选",
+  "description": "转动轮盘随机抽取中奖者、数字或快速做决定。",
+  "modes": {
+    "names": "名单",
+    "numbers": "数字",
+    "quick": "快速"
+  },
+  "names": {
+    "input": "输入名单（每行一个）",
+    "placeholder": "张三\n李四\n王五\n赵六"
+  },
+  "numbers": {
+    "start": "起始",
+    "end": "结束",
+    "pickCount": "抽取数量"
+  },
+  "quick": {
+    "yesno": "是 / 否",
+    "coin": "抛硬币",
+    "d6": "骰子 (d6)",
+    "d20": "骰子 (d20)"
+  },
+  "wheel": {
+    "spin": "开始",
+    "spinning": "抽选中...",
+    "noEntries": "添加选项以开始"
+  },
+  "results": {
+    "title": "历史记录",
+    "clear": "清空",
+    "empty": "暂无结果",
+    "copy": "复制"
+  },
+  "fairness": "使用加密安全的随机算法，确保公平抽选。"
 }

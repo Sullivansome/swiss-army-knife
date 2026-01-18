@@ -1,4 +1,36 @@
 {
-  "name": "Random Picker & Groups",
-  "description": "Draw winners or split names into random teams."
+  "name": "Random Picker",
+  "description": "Spin the wheel to pick random winners, numbers, or make quick decisions.",
+  "modes": {
+    "names": "Names",
+    "numbers": "Numbers",
+    "quick": "Quick"
+  },
+  "names": {
+    "input": "Enter names (one per line)",
+    "placeholder": "Alice\nBob\nCharlie\nDiana"
+  },
+  "numbers": {
+    "start": "Start",
+    "end": "End",
+    "pickCount": "Pick count"
+  },
+  "quick": {
+    "yesno": "Yes / No",
+    "coin": "Coin Flip",
+    "d6": "Dice (d6)",
+    "d20": "Dice (d20)"
+  },
+  "wheel": {
+    "spin": "Spin",
+    "spinning": "Spinning...",
+    "noEntries": "Add entries to spin"
+  },
+  "results": {
+    "title": "History",
+    "clear": "Clear",
+    "empty": "No results yet",
+    "copy": "Copy"
+  },
+  "fairness": "Uses cryptographically secure randomness for fair picks."
 }
