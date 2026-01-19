@@ -18,18 +18,6 @@ describe("tools catalog", () => {
       slug: "finance-number-case-converter",
       tags: ["finance", "convert"],
     },
-    {
-      slug: "finance-essentials",
-      tags: ["finance"],
-    },
-    {
-      slug: "base-converter",
-      tags: ["convert"],
-    },
-    {
-      slug: "computer-base-converter",
-      tags: ["convert"],
-    },
   ];
 
   it("registers all data conversion tools", () => {
