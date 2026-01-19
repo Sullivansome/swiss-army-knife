@@ -5,7 +5,7 @@
 - **Build**: `bun run build`
 - **Lint**: `bun run lint`
 - **Test**: `bun run test:unit`
-- **Gen Registry**: `bun run generate` (Run after adding new tools)
+- **Gen Registry**: `bun run generate` (Run after adding/disabling tools)
 
 ## Architecture
 - **Framework**: Next.js 16 (App Router) + Bun + TailwindCSS
@@ -14,6 +14,27 @@
   - `components/tools/[slug]/index.tsx`: Tool logic (Client Components)
   - `lib/`: Business logic (pure functions) & I18n dictionaries
   - `components/ui/`: Shared UI (Shadcn + Studio/Widget primitives)
+
+## Tool Plugin System
+
+### Adding a Tool
+1. Create `components/tools/{slug}/` with `meta.ts`, `index.tsx`, `i18n/{en,zh}.json`
+2. Run `bun run generate` to update registry
+
+### Disabling Tools
+Edit `tools.config.json` at repo root:
+```json
+{
+  "tools": {
+    "ocr": { "enabled": false },
+    "video-to-gif": { "enabled": false }
+  }
+}
+```
+Run `bun run generate`. Disabled tools are excluded from listings, routing, and bundle.
+
+### Re-enabling Tools
+Remove the entry from `tools.config.json` and run `bun run generate`.
 
 ## Tool Design System
 **MUST** use one of 3 layouts for consistency:

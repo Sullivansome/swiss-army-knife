@@ -1,3 +1,17 @@
 {
-  "tools": {}
+  "tools": {
+    "csv-json-converter": { "enabled": false },
+    "list-dedup-sort": { "enabled": false },
+    "advanced-word-count": { "enabled": false },
+    "social-formatter": { "enabled": false },
+    "finance-calculator": { "enabled": false },
+    "base-converter": { "enabled": false },
+    "computer-base-converter": { "enabled": false },
+    "finance-essentials": { "enabled": false },
+    "regex-playground": { "enabled": false },
+    "base64": { "enabled": false },
+    "case-converter": { "enabled": false },
+    "diff-checker": { "enabled": false },
+    "jwt-inspector": { "enabled": false }
+  }
 }
