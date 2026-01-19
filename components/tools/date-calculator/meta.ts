@@ -6,6 +6,11 @@ export const meta: ToolMeta = {
   tags: ["date", "time"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "date calculator",
+      "days between dates",
+      "add days to date",
+      "date difference calculator",
+    ],
   },
 };

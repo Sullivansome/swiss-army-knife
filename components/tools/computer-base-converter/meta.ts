@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["convert"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "binary converter",
+      "hex to decimal",
+      "binary to hex",
+      "computer number converter",
+      "programming base converter",
+    ],
   },
 };

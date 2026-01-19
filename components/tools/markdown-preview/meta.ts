@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["markdown", "preview"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "markdown preview",
+      "markdown editor",
+      "markdown viewer",
+      "preview markdown online",
+      "markdown renderer",
+    ],
   },
 };

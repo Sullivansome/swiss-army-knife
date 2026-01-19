@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["exif", "metadata"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "EXIF viewer",
+      "image metadata viewer",
+      "photo metadata",
+      "EXIF data reader",
+      "image information",
+    ],
   },
 };

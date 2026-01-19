@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["social", "image"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "social media mockup",
+      "tweet generator",
+      "fake tweet maker",
+      "social post mockup",
+      "Instagram post generator",
+    ],
   },
 };

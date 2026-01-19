@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["pdf", "image"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "image to PDF",
+      "convert images to PDF",
+      "JPG to PDF",
+      "PNG to PDF",
+      "photo to PDF converter",
+    ],
   },
 };

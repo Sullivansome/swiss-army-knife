@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["uuid", "random", "generate"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "UUID generator",
+      "GUID generator",
+      "random UUID",
+      "generate UUID online",
+      "unique identifier generator",
+    ],
   },
 };

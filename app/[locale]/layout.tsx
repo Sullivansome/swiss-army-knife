@@ -12,8 +12,23 @@ import { assertLocale, locales } from "@/lib/i18n-config";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Tool Center",
-  description: "Browser-first utilities for developers and creators.",
+  title: {
+    default: "Tool Center - Free Online Tools",
+    template: "%s | Tool Center",
+  },
+  description:
+    "Free online tools for everyday tasks - QR code generator, random picker, image compressor, and more. No signup required, works offline.",
+  keywords: [
+    "free online tools",
+    "QR code generator",
+    "random picker",
+    "image compressor",
+    "unit converter",
+    "online utilities",
+  ],
+  verification: {
+    google: "iYqwGCbeg7R6VHI2MVyjSvfkhy-PPK3i9rTn45CjzvE",
+  },
 };
 
 type Props = {

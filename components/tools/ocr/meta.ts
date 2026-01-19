@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["ocr", "text"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "OCR online",
+      "image to text",
+      "extract text from image",
+      "optical character recognition",
+      "photo to text",
+    ],
   },
 };

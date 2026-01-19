@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["encode", "decode"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "base64 encoder",
+      "base64 decoder",
+      "encode base64 online",
+      "decode base64",
+      "base64 converter",
+    ],
   },
 };

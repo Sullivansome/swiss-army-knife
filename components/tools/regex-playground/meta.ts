@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["regex", "test"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "regex tester",
+      "regex playground",
+      "regular expression tester",
+      "regex validator",
+      "test regex online",
+    ],
   },
 };

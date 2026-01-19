@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["finance"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "finance tools",
+      "financial calculator",
+      "money calculator",
+      "investment calculator",
+      "finance essentials",
+    ],
   },
 };

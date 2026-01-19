@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["finance", "convert"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "number to words converter",
+      "check amount converter",
+      "currency to words",
+      "number spelling",
+      "financial number converter",
+    ],
   },
 };

@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["random", "password"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "password generator",
+      "strong password",
+      "random password",
+      "secure password generator",
+      "create password",
+    ],
   },
 };

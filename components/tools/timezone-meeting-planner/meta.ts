@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["timezone", "schedule"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "timezone meeting planner",
+      "world clock meeting scheduler",
+      "time zone converter",
+      "global meeting time finder",
+      "schedule across timezones",
+    ],
   },
 };

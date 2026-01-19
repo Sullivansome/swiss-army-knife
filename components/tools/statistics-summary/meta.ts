@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["stats", "analysis"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "statistics calculator",
+      "mean median mode calculator",
+      "statistical analysis",
+      "data summary tool",
+      "standard deviation calculator",
+    ],
   },
 };

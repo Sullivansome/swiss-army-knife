@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["convert"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "lunar new year",
+      "Chinese new year tools",
+      "red envelope calculator",
+      "zodiac calculator",
+      "spring festival",
+    ],
   },
 };

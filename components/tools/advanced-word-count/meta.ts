@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["count", "text"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "word counter",
+      "character counter",
+      "text counter",
+      "word count online",
+      "character count tool",
+    ],
   },
 };

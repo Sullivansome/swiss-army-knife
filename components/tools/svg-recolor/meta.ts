@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["svg", "color"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "SVG color changer",
+      "recolor SVG",
+      "SVG editor online",
+      "change SVG colors",
+      "SVG color tool",
+    ],
   },
 };

@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["color", "generate"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "color palette generator",
+      "color scheme generator",
+      "palette creator",
+      "color combination tool",
+      "design palette maker",
+    ],
   },
 };

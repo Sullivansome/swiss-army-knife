@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["jwt", "token", "decode"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "JWT decoder",
+      "JWT inspector",
+      "decode JWT token",
+      "JSON web token decoder",
+      "JWT parser",
+    ],
   },
 };

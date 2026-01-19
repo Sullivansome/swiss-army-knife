@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["compare"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "diff checker",
+      "text compare",
+      "compare two texts",
+      "find differences",
+      "text diff online",
+    ],
   },
 };

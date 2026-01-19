@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["text", "format"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "social media text formatter",
+      "bold text generator",
+      "italic text for social",
+      "Unicode text formatter",
+      "fancy text generator",
+    ],
   },
 };

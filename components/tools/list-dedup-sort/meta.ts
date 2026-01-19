@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["list", "sort"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "remove duplicates from list",
+      "sort list online",
+      "deduplicate list",
+      "list sorter",
+      "unique list generator",
+    ],
   },
 };

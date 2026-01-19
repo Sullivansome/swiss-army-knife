@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["convert"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "family relation calculator",
+      "cousin calculator",
+      "relationship calculator",
+      "family tree calculator",
+      "kinship calculator",
+    ],
   },
 };

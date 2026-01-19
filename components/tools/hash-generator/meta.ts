@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["hash", "md5", "sha"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "hash generator",
+      "MD5 hash",
+      "SHA256 hash",
+      "generate hash online",
+      "checksum generator",
+    ],
   },
 };

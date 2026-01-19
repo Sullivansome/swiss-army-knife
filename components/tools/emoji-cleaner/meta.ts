@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["emoji", "clean"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "emoji remover",
+      "remove emojis from text",
+      "emoji cleaner",
+      "strip emojis",
+      "clean text emojis",
+    ],
   },
 };

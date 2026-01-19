@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["cron", "schedule"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "cron expression explainer",
+      "cron parser",
+      "cron schedule generator",
+      "crontab generator",
+      "cron syntax",
+    ],
   },
 };

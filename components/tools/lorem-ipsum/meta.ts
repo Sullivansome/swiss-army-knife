@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["generate"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "lorem ipsum generator",
+      "dummy text generator",
+      "placeholder text",
+      "random text generator",
+      "filler text",
+    ],
   },
 };

@@ -6,6 +6,13 @@ export const meta: ToolMeta = {
   tags: ["image", "convert"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "image converter",
+      "convert image format",
+      "PNG to JPG",
+      "JPG to PNG",
+      "image format converter",
+      "WebP converter",
+    ],
   },
 };

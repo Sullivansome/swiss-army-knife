@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["csv", "json", "convert"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "CSV to JSON converter",
+      "JSON to CSV converter",
+      "convert CSV online",
+      "CSV parser",
+      "data format converter",
+    ],
   },
 };

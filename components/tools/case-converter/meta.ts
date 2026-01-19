@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["format"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "case converter",
+      "uppercase converter",
+      "lowercase converter",
+      "title case converter",
+      "text case changer",
+    ],
   },
 };

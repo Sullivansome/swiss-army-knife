@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["image", "compress"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "compress image online",
+      "reduce image size",
+      "image compressor free",
+      "shrink photo",
+      "optimize image",
+    ],
   },
 };

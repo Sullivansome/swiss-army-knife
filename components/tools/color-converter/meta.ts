@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["color", "convert"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "color converter",
+      "hex to RGB",
+      "RGB to hex",
+      "color code converter",
+      "color picker",
+    ],
   },
 };

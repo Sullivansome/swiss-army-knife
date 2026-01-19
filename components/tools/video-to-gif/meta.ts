@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["video", "gif"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "video to GIF converter",
+      "convert video to GIF",
+      "GIF maker",
+      "MP4 to GIF",
+      "create GIF from video",
+    ],
   },
 };

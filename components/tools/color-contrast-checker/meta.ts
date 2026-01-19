@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["color", "contrast", "wcag"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "color contrast checker",
+      "WCAG contrast checker",
+      "accessibility contrast",
+      "color accessibility",
+      "contrast ratio calculator",
+    ],
   },
 };

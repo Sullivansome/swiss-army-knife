@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["json", "format", "validate"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "JSON formatter",
+      "JSON beautifier",
+      "format JSON online",
+      "JSON validator",
+      "pretty print JSON",
+    ],
   },
 };

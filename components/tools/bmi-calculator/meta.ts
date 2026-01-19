@@ -6,6 +6,12 @@ export const meta: ToolMeta = {
   tags: ["health"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "BMI calculator",
+      "body mass index",
+      "calculate BMI",
+      "weight calculator",
+      "health calculator",
+    ],
   },
 };

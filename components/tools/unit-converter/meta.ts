@@ -6,6 +6,13 @@ export const meta: ToolMeta = {
   tags: ["convert"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "unit converter",
+      "measurement converter",
+      "metric converter",
+      "length converter",
+      "weight converter",
+      "volume converter",
+    ],
   },
 };
