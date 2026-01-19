@@ -1,21 +1,21 @@
 import {
-  encodeWifi,
-  encodeEmail,
-  encodeSms,
-  encodePhone,
-  getQrData,
   canDownload,
-  validateUrl,
+  defaultEmailData,
+  defaultPhoneData,
+  defaultSmsData,
+  defaultTextData,
+  defaultUrlData,
+  defaultWifiData,
+  encodeEmail,
+  encodePhone,
+  encodeSms,
+  encodeWifi,
+  getQrData,
   validateEmail,
   validatePhone,
-  validateWifi,
   validateText,
-  defaultUrlData,
-  defaultTextData,
-  defaultWifiData,
-  defaultEmailData,
-  defaultSmsData,
-  defaultPhoneData,
+  validateUrl,
+  validateWifi,
 } from "@/lib/qr-content";
 
 describe("QR Content Encoders", () => {
@@ -82,7 +82,7 @@ describe("QR Content Encoders", () => {
         body: "How are you?",
       });
       expect(result).toBe(
-        "mailto:test@example.com?subject=Hello&body=How+are+you%3F"
+        "mailto:test@example.com?subject=Hello&body=How+are+you%3F",
       );
     });
   });
@@ -119,7 +119,7 @@ describe("getQrData", () => {
       defaultWifiData,
       defaultEmailData,
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe("https://test.com");
   });
@@ -132,7 +132,7 @@ describe("getQrData", () => {
       defaultWifiData,
       defaultEmailData,
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe("https://example.com");
   });
@@ -145,7 +145,7 @@ describe("getQrData", () => {
       defaultWifiData,
       defaultEmailData,
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe("Custom text");
   });
@@ -158,7 +158,7 @@ describe("getQrData", () => {
       { ssid: "Test", password: "pass", encryption: "WPA", hidden: false },
       defaultEmailData,
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe("WIFI:T:WPA;S:Test;P:pass;;");
   });
@@ -173,7 +173,7 @@ describe("canDownload", () => {
       defaultWifiData,
       defaultEmailData,
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe(true);
   });
@@ -186,7 +186,7 @@ describe("canDownload", () => {
       defaultWifiData,
       defaultEmailData,
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe(false);
   });
@@ -199,7 +199,7 @@ describe("canDownload", () => {
       { ssid: "Network", password: "", encryption: "nopass", hidden: false },
       defaultEmailData,
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe(true);
   });
@@ -212,7 +212,7 @@ describe("canDownload", () => {
       { ssid: "", password: "", encryption: "WPA", hidden: false },
       defaultEmailData,
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe(false);
   });
@@ -225,7 +225,7 @@ describe("canDownload", () => {
       defaultWifiData,
       { address: "test@example.com" },
       defaultSmsData,
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe(true);
   });
@@ -238,7 +238,7 @@ describe("canDownload", () => {
       defaultWifiData,
       defaultEmailData,
       { phone: "+1234567890" },
-      defaultPhoneData
+      defaultPhoneData,
     );
     expect(result).toBe(true);
   });
@@ -312,7 +312,7 @@ describe("Validation Functions", () => {
           password: "pass123",
           encryption: "WPA",
           hidden: false,
-        })
+        }),
       ).toEqual({ valid: true });
     });
 
@@ -323,7 +323,7 @@ describe("Validation Functions", () => {
           password: "pass123",
           encryption: "WPA",
           hidden: false,
-        })
+        }),
       ).toEqual({ valid: false, message: "ssidRequired" });
     });
 
@@ -334,7 +334,7 @@ describe("Validation Functions", () => {
           password: "",
           encryption: "WPA",
           hidden: false,
-        })
+        }),
       ).toEqual({ valid: false, message: "passwordRequired" });
     });
 
@@ -345,7 +345,7 @@ describe("Validation Functions", () => {
           password: "",
           encryption: "nopass",
           hidden: false,
-        })
+        }),
       ).toEqual({ valid: true });
     });
   });

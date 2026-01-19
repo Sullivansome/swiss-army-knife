@@ -1,9 +1,9 @@
 import {
-  normalizeQrSize,
+  EXPORT_FORMATS,
   getContrastRatio,
   MIN_CONTRAST_RATIO,
+  normalizeQrSize,
   PNG_SIZES,
-  EXPORT_FORMATS,
 } from "@/lib/qr";
 
 describe("QR Utilities", () => {

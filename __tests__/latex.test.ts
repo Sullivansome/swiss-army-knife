@@ -1,11 +1,11 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  renderLatex,
+  clearHistory,
   DEFAULT_LATEX,
   LATEX_EXAMPLES,
   loadHistory,
+  renderLatex,
   saveToHistory,
-  clearHistory,
 } from "@/lib/latex";
 
 describe("renderLatex", () => {
@@ -49,7 +49,9 @@ describe("renderLatex", () => {
   });
 
   it("renders matrices correctly", () => {
-    const result = renderLatex("\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}");
+    const result = renderLatex(
+      "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}",
+    );
     expect(result.success).toBe(true);
   });
 

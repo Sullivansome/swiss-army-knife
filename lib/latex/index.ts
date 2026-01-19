@@ -1,5 +1,5 @@
-import katex from "katex";
 import { toPng, toSvg } from "html-to-image";
+import katex from "katex";
 
 // Example equations for users to try
 export const LATEX_EXAMPLES = [
@@ -57,7 +57,7 @@ export type RenderResult =
  */
 export function renderLatex(
   latex: string,
-  options?: { displayMode?: boolean; color?: string }
+  options?: { displayMode?: boolean; color?: string },
 ): RenderResult {
   if (!latex.trim()) {
     return { success: false, error: "Empty input" };
@@ -86,7 +86,7 @@ export function renderLatex(
 export async function downloadPng(
   element: HTMLElement,
   scale: number = 2,
-  filename: string = "equation.png"
+  filename: string = "equation.png",
 ): Promise<void> {
   const dataUrl = await toPng(element, {
     pixelRatio: scale,
@@ -104,7 +104,7 @@ export async function downloadPng(
  */
 export async function downloadSvg(
   element: HTMLElement,
-  filename: string = "equation.svg"
+  filename: string = "equation.svg",
 ): Promise<void> {
   const dataUrl = await toSvg(element, {
     backgroundColor: undefined, // Transparent
@@ -121,7 +121,7 @@ export async function downloadSvg(
  */
 export async function copyToClipboard(
   element: HTMLElement,
-  scale: number = 2
+  scale: number = 2,
 ): Promise<boolean> {
   try {
     const dataUrl = await toPng(element, {

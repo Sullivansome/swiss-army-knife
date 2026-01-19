@@ -303,8 +303,10 @@ export function LatexToImageTool({ labels }: Props) {
 
       {/* Click outside to close dropdowns */}
       {showHistory && (
-        <div
-          className="fixed inset-0 z-40"
+        <button
+          type="button"
+          aria-label="Close history"
+          className="fixed inset-0 z-40 cursor-default bg-transparent border-none"
           onClick={() => {
             setShowHistory(false);
           }}

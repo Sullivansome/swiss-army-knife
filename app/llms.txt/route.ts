@@ -1,10 +1,20 @@
-import { toolRegistry } from "@/lib/generated/tool-registry";
 import { getToolLabels } from "@/lib/generated/tool-i18n";
+import { toolRegistry } from "@/lib/generated/tool-registry";
 import type { ToolCategory } from "@/lib/tool-types";
 
 const CATEGORY_ORDER: ToolCategory[] = [
-  "productivity", "life", "media", "design", "social",
-  "conversion", "text", "dev", "security", "time", "math", "wasm",
+  "productivity",
+  "life",
+  "media",
+  "design",
+  "social",
+  "conversion",
+  "text",
+  "dev",
+  "security",
+  "time",
+  "math",
+  "wasm",
 ];
 
 const CATEGORY_NAMES: Record<ToolCategory, string> = {
@@ -26,13 +36,11 @@ export async function GET() {
   const tools = Object.values(toolRegistry);
   const baseUrl = "https://tool.brighteng.org";
 
-  const grouped = CATEGORY_ORDER
-    .map((cat) => ({
-      category: cat,
-      name: CATEGORY_NAMES[cat],
-      tools: tools.filter((t) => t.category === cat),
-    }))
-    .filter((g) => g.tools.length > 0);
+  const grouped = CATEGORY_ORDER.map((cat) => ({
+    category: cat,
+    name: CATEGORY_NAMES[cat],
+    tools: tools.filter((t) => t.category === cat),
+  })).filter((g) => g.tools.length > 0);
 
   const toolSections = grouped
     .map((g) => {
