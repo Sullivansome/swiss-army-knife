@@ -26,11 +26,20 @@
     "spinning": "Spinning...",
     "noEntries": "Add entries to spin"
   },
+  "dice": {
+    "roll": "Roll",
+    "rolling": "Rolling..."
+  },
+  "coin": {
+    "flip": "Flip",
+    "flipping": "Flipping...",
+    "heads": "Heads",
+    "tails": "Tails"
+  },
   "results": {
     "title": "History",
     "clear": "Clear",
     "empty": "No results yet",
     "copy": "Copy"
-  },
-  "fairness": "Uses cryptographically secure randomness for fair picks."
+  }
 }

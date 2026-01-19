@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useReducer } from "react";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -9,12 +10,14 @@ import {
   generateNumberRange,
   loadState,
   parseEntries,
-  pickOne,
   type SpinResult,
   saveState,
 } from "@/lib/random-picker";
 
 import { Wheel } from "./wheel";
+
+const DiceRoller = dynamic(() => import("./dice-roller"), { ssr: false });
+const CoinFlip = dynamic(() => import("./coin-flip"), { ssr: false });
 
 export type RandomPickerLabels = {
   modes: {
@@ -42,13 +45,22 @@ export type RandomPickerLabels = {
     spinning: string;
     noEntries: string;
   };
+  dice: {
+    roll: string;
+    rolling: string;
+  };
+  coin: {
+    flip: string;
+    flipping: string;
+    heads: string;
+    tails: string;
+  };
   results: {
     title: string;
     clear: string;
     empty: string;
     copy: string;
   };
-  fairness: string;
 };
 
 type Mode = "names" | "numbers" | "quick";
@@ -119,8 +131,10 @@ interface Props {
 
 export function RandomPickerTool({ labels }: Props) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const saved = loadState();
     if (saved) {
       dispatch({
@@ -149,6 +163,13 @@ export function RandomPickerTool({ labels }: Props) {
       case "numbers":
         return generateNumberRange(state.numberStart, state.numberEnd);
       case "quick":
+        if (
+          state.quickPreset === "d6" ||
+          state.quickPreset === "d20" ||
+          state.quickPreset === "coin"
+        ) {
+          return [];
+        }
         return createPresetEntries(state.quickPreset);
       default:
         return [];
@@ -161,10 +182,39 @@ export function RandomPickerTool({ labels }: Props) {
     state.quickPreset,
   ]);
 
+  const isDiceMode =
+    state.mode === "quick" &&
+    (state.quickPreset === "d6" || state.quickPreset === "d20");
+
+  const isCoinMode = state.mode === "quick" && state.quickPreset === "coin";
+
   const handleSpinComplete = useCallback((winner: Entry) => {
     dispatch({
       type: "ADD_RESULT",
       result: { at: Date.now(), entry: winner },
+    });
+  }, []);
+
+  const handleDiceComplete = useCallback((result: number) => {
+    dispatch({
+      type: "ADD_RESULT",
+      result: {
+        at: Date.now(),
+        entry: { id: `dice-${Date.now()}`, label: String(result) },
+      },
+    });
+  }, []);
+
+  const handleCoinComplete = useCallback((result: "heads" | "tails") => {
+    dispatch({
+      type: "ADD_RESULT",
+      result: {
+        at: Date.now(),
+        entry: {
+          id: `coin-${Date.now()}`,
+          label: result === "heads" ? "Heads" : "Tails",
+        },
+      },
     });
   }, []);
 
@@ -178,9 +228,23 @@ export function RandomPickerTool({ labels }: Props) {
   }, [state.history]);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <div className="space-y-4">
-        <div className="flex gap-1 rounded-lg bg-muted p-1">
+    <div
+      className={`grid gap-6 transition-all duration-500 ease-in-out ${
+        (isDiceMode || isCoinMode) && mounted
+          ? "mx-auto max-w-2xl"
+          : "lg:grid-cols-2"
+      }`}
+    >
+      <div
+        className={`space-y-4 ${(isDiceMode || isCoinMode) && mounted ? "text-center" : ""}`}
+      >
+        <div
+          className={`flex gap-1 rounded-lg bg-muted p-1 ${
+            (isDiceMode || isCoinMode) && mounted
+              ? "mx-auto inline-flex w-auto"
+              : ""
+          }`}
+        >
           {(["names", "numbers", "quick"] as const).map((mode) => (
             <button
               key={mode}
@@ -250,7 +314,11 @@ export function RandomPickerTool({ labels }: Props) {
         )}
 
         {state.mode === "quick" && (
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div
+            className={`grid grid-cols-2 gap-2 sm:grid-cols-4 ${
+              (isDiceMode || isCoinMode) && mounted ? "mx-auto max-w-md" : ""
+            }`}
+          >
             {(["yesno", "coin", "d6", "d20"] as const).map((preset) => (
               <button
                 key={preset}
@@ -269,11 +337,21 @@ export function RandomPickerTool({ labels }: Props) {
       </div>
 
       <div className="flex flex-col items-center gap-6">
-        <Wheel
-          entries={entries}
-          onSpinComplete={handleSpinComplete}
-          labels={labels.wheel}
-        />
+        {isDiceMode && mounted ? (
+          <DiceRoller
+            diceType={state.quickPreset as "d6" | "d20"}
+            onRollComplete={handleDiceComplete}
+            labels={labels.dice}
+          />
+        ) : isCoinMode && mounted ? (
+          <CoinFlip onFlipComplete={handleCoinComplete} labels={labels.coin} />
+        ) : (
+          <Wheel
+            entries={entries}
+            onSpinComplete={handleSpinComplete}
+            labels={labels.wheel}
+          />
+        )}
 
         <div className="w-full space-y-2">
           <div className="flex items-center justify-between">

@@ -16,6 +16,7 @@
     "tool:validate": "bun scripts/validate-tools.ts"
   },
   "dependencies": {
+    "@3d-dice/dice-box": "^1.1.4",
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
     "@hello-pangea/dnd": "^18.0.1",
@@ -51,6 +52,7 @@
     "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1",
     "sonner": "^2.0.7",
+    "spin-wheel": "^5.0.2",
     "tailwind-merge": "^3.4.0",
     "tesseract.js": "^6.0.1",
     "zod": "^3.25.76"

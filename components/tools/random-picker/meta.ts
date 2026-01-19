@@ -6,6 +6,13 @@ export const meta: ToolMeta = {
   tags: ["random", "team"],
   icon: "Wrench", // TODO: Update icon
   seo: {
-    keywords: [], // TODO: Add SEO keywords
+    keywords: [
+      "random picker",
+      "random name picker",
+      "wheel spinner",
+      "random selector",
+      "decision wheel",
+      "spin the wheel",
+    ],
   },
 };

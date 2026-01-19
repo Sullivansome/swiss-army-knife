@@ -26,11 +26,20 @@
     "spinning": "抽选中...",
     "noEntries": "添加选项以开始"
   },
+  "dice": {
+    "roll": "掷骰子",
+    "rolling": "掷骰中..."
+  },
+  "coin": {
+    "flip": "抛硬币",
+    "flipping": "抛掷中...",
+    "heads": "正面",
+    "tails": "反面"
+  },
   "results": {
     "title": "历史记录",
     "clear": "清空",
     "empty": "暂无结果",
     "copy": "复制"
-  },
-  "fairness": "使用加密安全的随机算法，确保公平抽选。"
+  }
 }
